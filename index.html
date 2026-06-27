@@ -25,9 +25,6 @@
       --gold-dark: #b88a35;
       --gold-soft: rgba(215, 181, 109, 0.13);
       --green: #7ee2a8;
-      --shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-      --shadow-soft: 0 18px 46px rgba(0, 0, 0, 0.28);
-      --shadow-hover: 0 26px 64px rgba(0, 0, 0, 0.38);
       --radius: 24px;
       --max: 1180px;
     }
@@ -45,8 +42,8 @@
     body {
       font-family: "Inter", Arial, sans-serif;
       background:
-        radial-gradient(circle at 20% 10%, rgba(215, 181, 109, 0.12), transparent 32%),
-        radial-gradient(circle at 80% 18%, rgba(126, 226, 168, 0.055), transparent 30%),
+        radial-gradient(circle at 20% 10%, rgba(215, 181, 109, 0.10), transparent 30%),
+        radial-gradient(circle at 80% 18%, rgba(126, 226, 168, 0.045), transparent 28%),
         linear-gradient(180deg, #060609 0%, #0b0b10 48%, #07070a 100%);
       color: var(--text);
       line-height: 1.6;
@@ -68,7 +65,7 @@
       top: 0;
       z-index: 50;
       backdrop-filter: blur(18px);
-      background: rgba(7, 7, 10, 0.74);
+      background: rgba(7, 7, 10, 0.76);
       border-bottom: 1px solid var(--line);
     }
 
@@ -97,7 +94,7 @@
       place-items: center;
       background: linear-gradient(135deg, var(--gold-light), #8d6724);
       color: #07070a;
-      box-shadow: 0 14px 35px rgba(215, 181, 109, 0.22);
+      box-shadow: 0 14px 35px rgba(215, 181, 109, 0.18);
       font-weight: 900;
     }
 
@@ -124,6 +121,12 @@
       background: var(--gold-soft);
       color: #f7d991;
       border: 1px solid rgba(215, 181, 109, 0.28);
+      transition: all 0.28s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-3px);
+      background: rgba(215, 181, 109, 0.16);
     }
 
     .hero {
@@ -170,7 +173,7 @@
       height: 8px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 18px rgba(126, 226, 168, 0.75);
+      box-shadow: 0 0 14px rgba(126, 226, 168, 0.55);
     }
 
     h1 {
@@ -222,7 +225,7 @@
     .btn-primary {
       background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
       color: #07070a;
-      box-shadow: 0 16px 38px rgba(215, 181, 109, 0.20);
+      box-shadow: 0 16px 38px rgba(215, 181, 109, 0.18);
     }
 
     .btn-secondary {
@@ -233,11 +236,15 @@
 
     .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.30);
     }
 
     .btn-primary:hover {
-      box-shadow: 0 22px 55px rgba(215, 181, 109, 0.20);
+      box-shadow: 0 20px 42px rgba(215, 181, 109, 0.18);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.065);
+      border-color: rgba(215, 181, 109, 0.26);
     }
 
     .btn:disabled {
@@ -255,39 +262,43 @@
       font-weight: 600;
     }
 
+    .trust-row span,
+    .soft-float {
+      transition:
+        transform 0.28s ease,
+        border-color 0.28s ease,
+        background 0.28s ease;
+    }
+
     .trust-row span {
       padding: 8px 12px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        background 0.28s ease,
-        box-shadow 0.28s ease;
+    }
+
+    .trust-row span:hover,
+    .soft-float:hover {
+      transform: translateY(-3px);
     }
 
     .trust-row span:hover {
-      transform: translateY(-4px);
-      border-color: rgba(215, 181, 109, 0.32);
-      background: rgba(255, 255, 255, 0.062);
-      box-shadow: var(--shadow-soft);
+      border-color: rgba(215, 181, 109, 0.28);
+      background: rgba(255, 255, 255, 0.065);
     }
 
     .hero-panel {
       position: relative;
       padding: 1px;
       border-radius: 32px;
-      background: linear-gradient(145deg, rgba(215, 181, 109, 0.42), rgba(255, 255, 255, 0.08), rgba(126, 226, 168, 0.16));
-      box-shadow: var(--shadow);
+      background: linear-gradient(145deg, rgba(215, 181, 109, 0.38), rgba(255, 255, 255, 0.075), rgba(126, 226, 168, 0.12));
       transition:
         transform 0.3s ease,
-        box-shadow 0.3s ease;
+        border-color 0.3s ease;
     }
 
     .hero-panel:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.52);
+      transform: translateY(-4px);
     }
 
     .dashboard-card {
@@ -295,6 +306,7 @@
       border-radius: 32px;
       padding: 26px;
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .dashboard-top {
@@ -331,33 +343,23 @@
       overflow: hidden;
     }
 
-    .metric::after,
-    .audit-item::after,
-    .card::after,
-    .price-card::after,
-    .next-box::after,
-    .contact-form::after {
+    .corner-line::after {
       content: "";
       position: absolute;
-      top: -1px;
-      right: -1px;
-      width: 72px;
-      height: 72px;
-      border-top: 1px solid rgba(215, 181, 109, 0.34);
-      border-right: 1px solid rgba(215, 181, 109, 0.26);
+      top: 0;
+      right: 0;
+      width: 54px;
+      height: 54px;
+      border-top: 1px solid rgba(215, 181, 109, 0.22);
+      border-right: 1px solid rgba(215, 181, 109, 0.18);
       border-radius: 0 18px 0 0;
-      opacity: 0.45;
+      opacity: 0.55;
       pointer-events: none;
       transition: opacity 0.28s ease;
     }
 
-    .metric:hover::after,
-    .audit-item:hover::after,
-    .card:hover::after,
-    .price-card:hover::after,
-    .next-box:hover::after,
-    .contact-form:hover::after {
-      opacity: 0.85;
+    .corner-line:hover::after {
+      opacity: 0.9;
     }
 
     .metric {
@@ -365,18 +367,11 @@
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.052);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        background 0.28s ease,
-        box-shadow 0.28s ease;
     }
 
     .metric:hover {
-      transform: translateY(-5px);
-      border-color: rgba(215, 181, 109, 0.32);
-      background: rgba(255, 255, 255, 0.064);
-      box-shadow: var(--shadow-soft);
+      border-color: rgba(215, 181, 109, 0.26);
+      background: rgba(255, 255, 255, 0.062);
     }
 
     .metric small {
@@ -407,18 +402,11 @@
       border: 1px solid rgba(255, 255, 255, 0.065);
       color: var(--muted);
       font-size: 14px;
-      transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        background 0.28s ease,
-        box-shadow 0.28s ease;
     }
 
     .audit-item:hover {
-      transform: translateY(-4px);
-      border-color: rgba(215, 181, 109, 0.30);
-      background: rgba(255, 255, 255, 0.057);
-      box-shadow: var(--shadow-soft);
+      border-color: rgba(215, 181, 109, 0.24);
+      background: rgba(255, 255, 255, 0.055);
     }
 
     .audit-item b {
@@ -471,19 +459,11 @@
       border-radius: var(--radius);
       background: var(--card);
       border: 1px solid var(--line);
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.18);
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(215, 181, 109, 0.34);
+      border-color: rgba(215, 181, 109, 0.26);
       background: var(--card-hover);
-      box-shadow: var(--shadow-hover);
     }
 
     .icon {
@@ -522,24 +502,16 @@
       border-radius: 28px;
       background: rgba(255, 255, 255, 0.052);
       border: 1px solid rgba(255, 255, 255, 0.11);
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.18);
-      transition:
-        transform 0.3s ease,
-        border-color 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
     }
 
     .price-card:hover {
-      transform: translateY(-9px);
-      border-color: rgba(215, 181, 109, 0.36);
-      background: rgba(255, 255, 255, 0.066);
-      box-shadow: var(--shadow-hover);
+      border-color: rgba(215, 181, 109, 0.28);
+      background: rgba(255, 255, 255, 0.062);
     }
 
     .featured {
-      background: rgba(215, 181, 109, 0.08);
-      border-color: rgba(215, 181, 109, 0.34);
+      background: rgba(215, 181, 109, 0.07);
+      border-color: rgba(215, 181, 109, 0.28);
     }
 
     .popular {
@@ -600,7 +572,7 @@
       position: absolute;
       top: 22px;
       right: 24px;
-      color: rgba(215, 181, 109, 0.28);
+      color: rgba(215, 181, 109, 0.22);
       font-weight: 900;
       font-size: 36px;
     }
@@ -613,18 +585,17 @@
       padding: 42px;
       border-radius: 34px;
       background: rgba(255, 255, 255, 0.052);
-      border: 1px solid rgba(215, 181, 109, 0.18);
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(215, 181, 109, 0.16);
       transition:
         transform 0.3s ease,
         border-color 0.3s ease,
-        box-shadow 0.3s ease;
+        background 0.3s ease;
     }
 
     .contact-grid:hover {
-      transform: translateY(-6px);
-      border-color: rgba(215, 181, 109, 0.30);
-      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.48);
+      transform: translateY(-3px);
+      border-color: rgba(215, 181, 109, 0.24);
+      background: rgba(255, 255, 255, 0.058);
     }
 
     .contact-info {
@@ -638,18 +609,11 @@
       border-radius: 22px;
       background: rgba(7, 7, 10, 0.58);
       border: 1px solid rgba(255, 255, 255, 0.10);
-      transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        background 0.28s ease,
-        box-shadow 0.28s ease;
     }
 
     .next-box:hover {
-      transform: translateY(-5px);
-      border-color: rgba(215, 181, 109, 0.30);
+      border-color: rgba(215, 181, 109, 0.24);
       background: rgba(255, 255, 255, 0.052);
-      box-shadow: var(--shadow-soft);
     }
 
     .next-box h3 {
@@ -699,6 +663,16 @@
       border: 1px solid rgba(215, 181, 109, 0.18);
       font-size: 14px;
       font-weight: 700;
+      transition:
+        transform 0.28s ease,
+        background 0.28s ease,
+        border-color 0.28s ease;
+    }
+
+    .contact-points span:hover {
+      transform: translateY(-3px);
+      border-color: rgba(215, 181, 109, 0.28);
+      background: rgba(215, 181, 109, 0.12);
     }
 
     .contact-form {
@@ -708,16 +682,10 @@
       border-radius: 26px;
       background: rgba(7, 7, 10, 0.72);
       border: 1px solid rgba(255, 255, 255, 0.10);
-      transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        box-shadow 0.28s ease;
     }
 
     .contact-form:hover {
-      transform: translateY(-5px);
-      border-color: rgba(215, 181, 109, 0.28);
-      box-shadow: var(--shadow-soft);
+      border-color: rgba(215, 181, 109, 0.22);
     }
 
     .form-row {
@@ -972,7 +940,7 @@
         </div>
       </div>
 
-      <div class="hero-panel">
+      <div class="hero-panel soft-float">
         <div class="dashboard-card">
           <div class="dashboard-top">
             <strong>Saionra Workspace Snapshot</strong>
@@ -980,34 +948,34 @@
           </div>
 
           <div class="metric-grid">
-            <div class="metric">
+            <div class="metric soft-float corner-line">
               <small>Content Score</small>
               <strong>92%</strong>
             </div>
-            <div class="metric">
+            <div class="metric soft-float corner-line">
               <small>Tasks Ready</small>
               <strong>18</strong>
             </div>
-            <div class="metric">
+            <div class="metric soft-float corner-line">
               <small>Workflow Status</small>
               <strong>Live</strong>
             </div>
-            <div class="metric">
+            <div class="metric soft-float corner-line">
               <small>Reports</small>
               <strong>Auto</strong>
             </div>
           </div>
 
           <div class="audit-list">
-            <div class="audit-item">
+            <div class="audit-item soft-float corner-line">
               <span><b>Content Plan</b><br>Weekly ideas, captions, and posting direction</span>
               <span class="score">Ready</span>
             </div>
-            <div class="audit-item">
+            <div class="audit-item soft-float corner-line">
               <span><b>Clip Engine</b><br>Find stronger short clips from long-form video</span>
               <span class="score">AI</span>
             </div>
-            <div class="audit-item">
+            <div class="audit-item soft-float corner-line">
               <span><b>KPI Report</b><br>Show what worked, what dropped, and what to do next</span>
               <span class="score">Next</span>
             </div>
@@ -1028,19 +996,19 @@
         </div>
 
         <div class="grid">
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">◎</div>
             <h3>AI Content Studio</h3>
             <p>Create captions, hooks, carousels, emails, post ideas, ad copy, and content plans with brand-aware direction.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">◈</div>
             <h3>AI Clip Engine</h3>
             <p>Turn long videos into short clip ideas with hook analysis, timestamps, titles, captions, and clip scores.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">✦</div>
             <h3>AI Creative Studio</h3>
             <p>Generate image concepts, ad creatives, product mockups, thumbnails, and visual directions for content.</p>
@@ -1060,37 +1028,37 @@
         </div>
 
         <div class="grid">
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">▣</div>
             <h3>Task & Client Portal</h3>
             <p>Organize requests, approvals, deliverables, work logs, files, and client updates in one clear place.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">↻</div>
             <h3>Automation Systems</h3>
             <p>Connect forms, dashboards, reports, sheets, content workflows, and business tools into cleaner systems.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">✓</div>
             <h3>KPI & Reports</h3>
             <p>Turn messy numbers into simple weekly or monthly reports showing what happened and what to do next.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">01</div>
             <h3>Team Workspace</h3>
             <p>Invite team members, assign roles, manage approvals, and organize work by client or workspace.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">02</div>
             <h3>Smart Scheduling</h3>
             <p>Prepare content queues and organize approved posts for scheduling across social platforms.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <div class="icon">03</div>
             <h3>Managed Support</h3>
             <p>For clients who want the system plus expert review, strategy, reporting, and technical support.</p>
@@ -1110,7 +1078,7 @@
         </div>
 
         <div class="pricing">
-          <div class="price-card">
+          <div class="price-card soft-float corner-line">
             <h3>Self-Service</h3>
             <div class="price">$29+ <small>/month</small></div>
             <ul>
@@ -1122,7 +1090,7 @@
             <a href="#audit" class="btn btn-secondary">Join Waitlist</a>
           </div>
 
-          <div class="price-card featured">
+          <div class="price-card featured soft-float corner-line">
             <div class="popular">Recommended</div>
             <h3>Pro Workspace</h3>
             <div class="price">$149+ <small>/month</small></div>
@@ -1135,7 +1103,7 @@
             <a href="#audit" class="btn btn-primary">Start Free Audit</a>
           </div>
 
-          <div class="price-card">
+          <div class="price-card soft-float corner-line">
             <h3>Managed Growth</h3>
             <div class="price">$750+ <small>/month</small></div>
             <ul>
@@ -1161,17 +1129,17 @@
         </div>
 
         <div class="grid">
-          <div class="card">
+          <div class="card soft-float corner-line">
             <h3>Map</h3>
             <p>Identify what feels slow, messy, manual, or hard to track in your current workflow.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <h3>Organize</h3>
             <p>Turn your content, tasks, reports, and requests into a clearer structure.</p>
           </div>
 
-          <div class="card">
+          <div class="card soft-float corner-line">
             <h3>Execute</h3>
             <p>Create, approve, schedule, report, and improve the next cycle with less manual work.</p>
           </div>
@@ -1181,7 +1149,7 @@
 
     <section id="audit">
       <div class="container">
-        <div class="contact-grid">
+        <div class="contact-grid soft-float">
           <div class="contact-info">
             <div class="section-label">Start Here</div>
             <h2 class="section-title">Get a free AI Business Audit.</h2>
@@ -1196,7 +1164,7 @@
               <span>✓ Automation</span>
             </div>
 
-            <div class="next-box">
+            <div class="next-box soft-float corner-line">
               <h3>What happens next?</h3>
 
               <div class="next-steps">
@@ -1218,7 +1186,7 @@
             </div>
           </div>
 
-          <form class="contact-form" id="auditForm">
+          <form class="contact-form soft-float corner-line" id="auditForm">
             <div class="form-row">
               <label>
                 Full name
