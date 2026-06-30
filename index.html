@@ -828,6 +828,101 @@
       transform: translateY(0);
     }
 
+
+
+    /* Portfolio-style floating cards + clean cursor edge-light only */
+    .portfolio-float {
+      will-change: transform, border-color;
+      transition:
+        transform 0.3s cubic-bezier(.2,.8,.2,1),
+        border-color 0.3s ease;
+    }
+
+    .portfolio-float:hover {
+      transform: translateY(-8px);
+      box-shadow: none !important;
+    }
+
+    .card.portfolio-float:hover {
+      background: var(--card);
+      border-color: var(--line);
+    }
+
+    .metric.portfolio-float:hover {
+      background: rgba(255, 255, 255, 0.052);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .audit-item.portfolio-float:hover {
+      background: rgba(255, 255, 255, 0.042);
+      border-color: rgba(255, 255, 255, 0.065);
+    }
+
+    .price-card.portfolio-float:hover {
+      background: rgba(255, 255, 255, 0.052);
+      border-color: rgba(255, 255, 255, 0.11);
+    }
+
+    .price-card.featured.portfolio-float:hover {
+      background: rgba(215, 181, 109, 0.07);
+      border-color: rgba(215, 181, 109, 0.28);
+    }
+
+    .next-box.portfolio-float:hover {
+      background: rgba(7, 7, 10, 0.58);
+      border-color: rgba(255, 255, 255, 0.10);
+    }
+
+    .contact-form.portfolio-float:hover {
+      background: rgba(7, 7, 10, 0.72);
+      border-color: rgba(255, 255, 255, 0.10);
+    }
+
+    .contact-grid.portfolio-float:hover {
+      background: rgba(255, 255, 255, 0.052);
+      border-color: rgba(215, 181, 109, 0.16);
+    }
+
+    .portfolio-edge {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .portfolio-edge::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      padding: 1px;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(
+          220px circle at var(--edge-x, 50%) var(--edge-y, 50%),
+          rgba(240, 211, 138, 0.95),
+          rgba(215, 181, 109, 0.45) 24%,
+          rgba(215, 181, 109, 0.10) 46%,
+          transparent 70%
+        );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: opacity 0.28s ease;
+    }
+
+    .portfolio-edge:hover::before {
+      opacity: 1;
+    }
+
+    .portfolio-edge > * {
+      position: relative;
+      z-index: 1;
+    }
+
     @media (max-width: 900px) {
       .hero,
       .grid,
@@ -1716,6 +1811,28 @@
     );
 
     revealTargets.forEach((element) => revealObserver.observe(element));
+
+    const portfolioHoverTargets = document.querySelectorAll(
+      ".hero-panel, .metric, .audit-item, .card, .price-card, .next-box, .contact-form, .contact-grid"
+    );
+
+    portfolioHoverTargets.forEach((element) => {
+      element.classList.add("portfolio-float");
+
+      if (!element.closest(".process")) {
+        element.classList.add("portfolio-edge");
+      }
+
+      const updateEdgePosition = (event) => {
+        const rect = element.getBoundingClientRect();
+        element.style.setProperty("--edge-x", `${event.clientX - rect.left}px`);
+        element.style.setProperty("--edge-y", `${event.clientY - rect.top}px`);
+      };
+
+      element.addEventListener("pointermove", updateEdgePosition);
+      element.addEventListener("pointerenter", updateEdgePosition);
+    });
+
   </script>
 </body>
 </html>
