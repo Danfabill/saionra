@@ -5,235 +5,384 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Saionra Social Scheduler</title>
+  <meta name="description" content="Saionra Social Scheduler helps create, plan, approve, and organize social content in one clean dashboard." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #f5f7fb;
-      --card: #ffffff;
-      --text: #111827;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --primary: #111827;
-      --soft: #f3f4f6;
-      --success: #16a34a;
-      --warning: #d97706;
-      --danger: #dc2626;
-      --blue: #2563eb;
-      --purple: #7c3aed;
-      --radius: 18px;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --bg: #07070a;
+      --bg-2: #0a0b10;
+      --sidebar: #0d1423;
+      --panel: rgba(255, 255, 255, 0.055);
+      --panel-2: rgba(255, 255, 255, 0.075);
+      --field: rgba(255, 255, 255, 0.06);
+      --text: #f7f4ee;
+      --muted: #b7b1a7;
+      --muted-2: #837d72;
+      --line: rgba(255, 255, 255, 0.115);
+      --gold: #d7b56d;
+      --gold-light: #f0d38a;
+      --gold-dark: #b88a35;
+      --gold-soft: rgba(215, 181, 109, 0.13);
+      --green: #7ee2a8;
+      --green-soft: rgba(126, 226, 168, 0.13);
+      --red: #fb7185;
+      --red-soft: rgba(251, 113, 133, 0.12);
+      --blue: #8ab4f8;
+      --blue-soft: rgba(138, 180, 248, 0.12);
+      --radius: 22px;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
+      --sidebar-width: 270px;
     }
 
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
+      min-height: 100vh;
+      font-family: "Inter", Arial, sans-serif;
       color: var(--text);
+      background:
+        radial-gradient(circle at 18% 10%, rgba(215, 181, 109, 0.12), transparent 29%),
+        radial-gradient(circle at 86% 18%, rgba(126, 226, 168, 0.06), transparent 24%),
+        linear-gradient(180deg, #060609 0%, #0b0c11 54%, #07070a 100%);
+      line-height: 1.5;
+      overflow-x: hidden;
     }
 
     button,
     input,
-    select,
-    textarea {
-      font-family: inherit;
+    textarea,
+    select {
+      font: inherit;
     }
 
-    .app {
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      color: #07070a;
+      background: var(--gold-light);
+    }
+
+    .app-shell {
       display: grid;
-      grid-template-columns: 270px 1fr;
+      grid-template-columns: var(--sidebar-width) 1fr;
       min-height: 100vh;
     }
 
     .sidebar {
-      background: #0f172a;
-      color: #ffffff;
-      padding: 24px;
       position: sticky;
       top: 0;
       height: 100vh;
+      padding: 24px 18px;
+      background:
+        linear-gradient(180deg, rgba(13, 20, 35, 0.98), rgba(8, 10, 17, 0.98)),
+        radial-gradient(circle at 30% 0%, rgba(215, 181, 109, 0.10), transparent 40%);
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-y: auto;
     }
 
     .brand {
-      margin-bottom: 34px;
-    }
-
-    .brand-badge {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: #ffffff;
-      color: #0f172a;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .brand h1 {
-      font-size: 24px;
-      line-height: 1.1;
-      margin: 0;
-      letter-spacing: -0.03em;
-    }
-
-    .brand p {
-      color: #cbd5e1;
-      font-size: 13px;
-      margin: 8px 0 0;
-      line-height: 1.5;
-    }
-
-    .nav-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      color: #94a3b8;
-      letter-spacing: 0.08em;
-      margin: 22px 0 10px;
-    }
-
-    .nav-item {
-      padding: 12px 14px;
-      border-radius: 14px;
-      color: #e5e7eb;
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: 0.2s ease;
+      gap: 12px;
+      margin-bottom: 24px;
     }
 
-    .nav-item:hover,
-    .nav-item.active {
-      background: rgba(255, 255, 255, 0.1);
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: #07070a;
+      background: linear-gradient(135deg, #fff4c4, var(--gold-dark));
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(215, 181, 109, 0.18);
     }
 
-    .main {
-      padding: 26px;
+    .brand strong {
+      display: block;
+      font-size: 21px;
+      letter-spacing: -0.6px;
     }
 
-    .topbar {
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sidebar-section {
+      margin-top: 24px;
+    }
+
+    .sidebar-label {
+      margin-bottom: 9px;
+      padding: 0 10px;
+      color: rgba(247, 244, 238, 0.46);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .nav-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 22px;
+      gap: 12px;
+      min-height: 42px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      color: rgba(247, 244, 238, 0.78);
+      font-size: 14px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform 0.24s ease, background 0.24s ease, color 0.24s ease, border-color 0.24s ease;
     }
 
-    .topbar h2 {
-      margin: 0;
-      font-size: 30px;
-      letter-spacing: -0.04em;
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.075);
+      border-color: rgba(215, 181, 109, 0.16);
+      transform: translateX(2px);
+    }
+
+    .nav-link small {
+      color: #f7d991;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .sidebar-note {
+      margin-top: 28px;
+      padding: 16px;
+      border-radius: 18px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(215, 181, 109, 0.14);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sidebar-note b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .main {
+      min-width: 0;
+      padding: 28px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin: -28px -28px 26px;
+      padding: 18px 28px;
+      backdrop-filter: blur(18px);
+      background: rgba(7, 7, 10, 0.78);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .topbar h1 {
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1;
+      letter-spacing: -1.5px;
     }
 
     .topbar p {
-      margin: 6px 0 0;
+      margin-top: 7px;
+      max-width: 740px;
       color: var(--muted);
       font-size: 14px;
+      font-weight: 600;
     }
 
-    .top-actions {
+    .topbar-actions {
       display: flex;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
       justify-content: flex-end;
     }
 
+    .mobile-menu {
+      display: none;
+    }
+
     .btn {
-      border: 0;
-      border-radius: 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
       padding: 11px 15px;
-      font-size: 14px;
-      cursor: pointer;
-      background: var(--soft);
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       color: var(--text);
-      font-weight: 700;
-      transition: 0.2s ease;
+      background: rgba(255, 255, 255, 0.055);
+      font-size: 13px;
+      font-weight: 900;
+      transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+      white-space: nowrap;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(215, 181, 109, 0.28);
     }
 
-    .btn.primary {
-      background: var(--primary);
-      color: #ffffff;
+    .btn-primary {
+      color: #07070a;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      border-color: rgba(215, 181, 109, 0.45);
+      box-shadow: 0 12px 28px rgba(215, 181, 109, 0.12);
     }
 
-    .btn.success {
-      background: var(--success);
-      color: #ffffff;
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #fff0b0, var(--gold));
+      box-shadow: 0 16px 34px rgba(215, 181, 109, 0.16);
     }
 
-    .btn.danger {
-      background: var(--danger);
-      color: #ffffff;
+    .btn-danger {
+      color: #ffd0d8;
+      background: rgba(251, 113, 133, 0.10);
+      border-color: rgba(251, 113, 133, 0.22);
     }
 
-    .btn.outline {
-      background: #ffffff;
-      border: 1px solid var(--border);
+    .btn-sm {
+      min-height: 34px;
+      padding: 8px 11px;
+      font-size: 12px;
     }
 
-    .grid {
+    .layout-grid {
       display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
       gap: 18px;
-    }
-
-    .stats {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      margin-bottom: 20px;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .stat-card span {
-      display: block;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-
-    .stat-card strong {
-      font-size: 28px;
-      letter-spacing: -0.04em;
-    }
-
-    .panel-grid {
-      grid-template-columns: 1.05fr 1fr;
       align-items: start;
     }
 
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .panel,
+    .stat-card,
+    .post-card,
+    .day-card,
+    .assistant-step,
+    .empty-state {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: none;
+    }
+
+    .panel {
       padding: 20px;
-      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      margin-bottom: 18px;
     }
 
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 20px;
-      letter-spacing: -0.03em;
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
     }
 
-    .card-desc {
-      margin: 0 0 18px;
+    .panel-eyebrow {
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .panel h2 {
+      font-size: 21px;
+      line-height: 1.15;
+      letter-spacing: -0.7px;
+    }
+
+    .panel p,
+    .helper-text {
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .stat-card {
+      min-height: 112px;
+      padding: 17px;
+      border-radius: 20px;
+    }
+
+    .stat-card span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 31px;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+
+    .stat-card small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-2);
+      font-size: 11px;
+      font-weight: 800;
     }
 
     .form-grid {
@@ -242,461 +391,635 @@
       gap: 14px;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
+    .field,
+    .full-field {
+      display: grid;
       gap: 7px;
     }
 
-    .field.full {
+    .full-field {
       grid-column: 1 / -1;
     }
 
     label {
+      color: rgba(247, 244, 238, 0.9);
       font-size: 12px;
-      color: #374151;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     input,
-    select,
-    textarea {
+    textarea,
+    select {
       width: 100%;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      border-radius: 12px;
+      min-height: 44px;
       padding: 12px 13px;
-      font-size: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       outline: none;
       color: var(--text);
+      background: var(--field);
+      transition: border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
     }
 
     textarea {
-      min-height: 120px;
+      min-height: 118px;
       resize: vertical;
-      line-height: 1.5;
+    }
+
+    select {
+      color-scheme: dark;
+    }
+
+    select option {
+      color: var(--text);
+      background: #0e0e14;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(183, 177, 167, 0.58);
     }
 
     input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #94a3b8;
-      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.18);
+    textarea:focus,
+    select:focus {
+      border-color: rgba(215, 181, 109, 0.54);
+      background: rgba(255, 255, 255, 0.078);
+      box-shadow: 0 0 0 4px rgba(215, 181, 109, 0.09);
+    }
+
+    .form-actions,
+    .filter-row,
+    .creator-actions,
+    .post-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .form-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 15px;
+      grid-column: 1 / -1;
+      justify-content: space-between;
+      padding-top: 4px;
     }
 
-    .ai-output {
-      background: #f8fafc;
-      border: 1px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 14px;
-      min-height: 120px;
-      color: #1f2937;
-      font-size: 14px;
-      white-space: pre-wrap;
-      line-height: 1.55;
+    .filter-row {
+      margin-bottom: 14px;
     }
 
-    .toolbar {
+    .filter-row input,
+    .filter-row select {
+      min-height: 40px;
+      max-width: 210px;
+    }
+
+    .filter-row input {
+      max-width: 290px;
+    }
+
+    .chip-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin: 20px 0;
+    }
+
+    .chip {
+      display: inline-flex;
       align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #f7d991;
+      background: rgba(215, 181, 109, 0.10);
+      border: 1px solid rgba(215, 181, 109, 0.18);
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
     }
 
-    .toolbar input,
-    .toolbar select {
-      max-width: 240px;
+    .chip.neutral {
+      color: rgba(247, 244, 238, 0.82);
+      background: rgba(255, 255, 255, 0.065);
+      border-color: rgba(255, 255, 255, 0.11);
     }
 
-    .posts {
-      display: grid;
-      gap: 14px;
+    .chip.green {
+      color: #c8f9d9;
+      background: var(--green-soft);
+      border-color: rgba(126, 226, 168, 0.22);
     }
 
-    .post-card {
-      background: #ffffff;
-      border: 1px solid var(--border);
+    .chip.red {
+      color: #ffd0d8;
+      background: var(--red-soft);
+      border-color: rgba(251, 113, 133, 0.22);
+    }
+
+    .generated-box {
+      min-height: 158px;
+      padding: 15px;
       border-radius: 18px;
-      padding: 16px;
+      color: rgba(247, 244, 238, 0.86);
+      white-space: pre-wrap;
+      background: rgba(7, 7, 10, 0.58);
+      border: 1px dashed rgba(215, 181, 109, 0.24);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .preview-card {
+      padding: 18px;
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.045));
+      border: 1px solid rgba(255, 255, 255, 0.105);
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #07070a;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .preview-brand {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .preview-date {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .media-box {
+      display: grid;
+      place-items: center;
+      min-height: 210px;
+      margin: 14px 0;
+      border-radius: 18px;
+      color: rgba(247, 244, 238, 0.54);
+      background:
+        radial-gradient(circle at 50% 40%, rgba(215, 181, 109, 0.15), transparent 40%),
+        rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .preview-caption {
+      color: rgba(247, 244, 238, 0.88);
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .queue-list {
       display: grid;
       gap: 12px;
     }
 
-    .post-top {
+    .post-card {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.052);
+    }
+
+    .post-card-top {
       display: flex;
       justify-content: space-between;
-      gap: 14px;
-      align-items: start;
+      align-items: flex-start;
+      gap: 12px;
     }
 
-    .post-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+    .post-card h3 {
+      margin-bottom: 4px;
+      font-size: 15px;
+      letter-spacing: -0.3px;
     }
 
-    .post-title h4 {
-      margin: 0;
-      font-size: 17px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 12px;
-      font-weight: 800;
-      background: #eef2ff;
-      color: #3730a3;
-      white-space: nowrap;
-    }
-
-    .badge.draft {
-      background: #f3f4f6;
-      color: #374151;
-    }
-
-    .badge.approved {
-      background: #ecfdf5;
-      color: #047857;
-    }
-
-    .badge.scheduled {
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .badge.ready {
-      background: #fff7ed;
-      color: #c2410c;
-    }
-
-    .badge.posted {
-      background: #dcfce7;
-      color: #166534;
-    }
-
-    .badge.failed {
-      background: #fef2f2;
-      color: #b91c1c;
-    }
-
-    .post-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+    .post-card p {
       color: var(--muted);
-      font-size: 13px;
-    }
-
-    .caption-box {
-      background: #f9fafb;
-      border-radius: 14px;
-      padding: 12px;
-      color: #374151;
-      font-size: 14px;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .post-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .small-btn {
-      border: 1px solid var(--border);
-      background: #ffffff;
-      border-radius: 11px;
-      padding: 8px 10px;
       font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
+      font-weight: 600;
     }
 
-    .small-btn:hover {
-      background: #f9fafb;
-    }
-
-    .calendar-wrap {
-      margin-top: 20px;
-    }
-
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      gap: 10px;
-    }
-
-    .calendar-header h3 {
-      margin: 0;
-      font-size: 20px;
+    .post-snippet {
+      padding: 11px 12px;
+      border-radius: 14px;
+      color: rgba(247, 244, 238, 0.82);
+      background: rgba(7, 7, 10, 0.44);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 12px;
+      font-weight: 600;
     }
 
     .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 10px;
     }
 
-    .day-name {
+    .day-card {
+      min-height: 116px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .day-card strong {
+      display: block;
       font-size: 12px;
-      font-weight: 900;
+    }
+
+    .day-card span {
+      display: block;
+      margin-top: 3px;
       color: var(--muted);
-      text-align: center;
-      padding-bottom: 4px;
-    }
-
-    .day {
-      min-height: 105px;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
-
-    .day.muted {
-      opacity: 0.45;
-      background: #f9fafb;
-    }
-
-    .day-number {
-      font-weight: 900;
-      font-size: 13px;
-    }
-
-    .day-post {
-      border-radius: 10px;
-      background: #f3f4f6;
-      padding: 7px;
       font-size: 11px;
-      line-height: 1.25;
-      color: #111827;
-      cursor: pointer;
+      font-weight: 800;
     }
 
-    .assistant-card {
-      background: #111827;
-      color: #ffffff;
-      border-radius: 18px;
-      padding: 18px;
-      margin-top: 18px;
+    .day-pill {
+      display: block;
+      margin-top: 9px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      color: #f7d991;
+      background: rgba(215, 181, 109, 0.10);
+      border: 1px solid rgba(215, 181, 109, 0.16);
+      font-size: 10px;
+      font-weight: 900;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    .assistant-card h3 {
-      margin: 0 0 8px;
-      color: #ffffff;
-    }
-
-    .assistant-card p {
-      margin: 0 0 14px;
-      color: #d1d5db;
-      line-height: 1.5;
-      font-size: 13px;
-    }
-
-    .checklist {
+    .assistant-grid {
       display: grid;
       gap: 10px;
-      margin-top: 12px;
     }
 
-    .check-item {
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 11px;
+    .assistant-step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 11px;
+      padding: 12px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .assistant-step span {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #07070a;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .assistant-step b {
+      display: block;
+      margin-bottom: 3px;
       font-size: 13px;
-      color: #f9fafb;
+    }
+
+    .assistant-step p {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
     }
 
     .empty-state {
-      text-align: center;
-      padding: 40px 20px;
-      border: 1px dashed #cbd5e1;
+      padding: 20px;
       border-radius: 18px;
       color: var(--muted);
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.045);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .toast {
       position: fixed;
       right: 22px;
       bottom: 22px;
-      background: #111827;
-      color: #ffffff;
-      padding: 13px 16px;
-      border-radius: 14px;
+      z-index: 80;
+      min-width: min(360px, calc(100vw - 44px));
+      padding: 14px 16px;
+      border-radius: 18px;
+      color: #c8f9d9;
+      background: rgba(9, 15, 13, 0.94);
+      border: 1px solid rgba(126, 226, 168, 0.24);
       box-shadow: var(--shadow);
-      display: none;
-      z-index: 999;
-      font-size: 14px;
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s ease, transform 0.24s ease;
+      font-size: 13px;
+      font-weight: 800;
     }
 
     .toast.show {
-      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @media (max-width: 1100px) {
-      .app {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: relative;
-        height: auto;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .panel-grid {
-        grid-template-columns: 1fr;
-      }
+    .float-card {
+      will-change: transform;
+      transition: transform 0.3s cubic-bezier(.2,.8,.2,1), border-color 0.3s ease;
     }
 
-    @media (max-width: 760px) {
-      .main {
-        padding: 18px;
+    .float-card:hover {
+      transform: translateY(-6px);
+      box-shadow: none !important;
+    }
+
+    .edge-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .edge-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      padding: 1px;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(
+          220px circle at var(--edge-x, 50%) var(--edge-y, 50%),
+          rgba(240, 211, 138, 0.92),
+          rgba(215, 181, 109, 0.43) 24%,
+          rgba(215, 181, 109, 0.10) 46%,
+          transparent 70%
+        );
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: opacity 0.28s ease;
+    }
+
+    .edge-card:hover::before {
+      opacity: 1;
+    }
+
+    .edge-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    @media (max-width: 1180px) {
+      .stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .form-grid {
+      .layout-grid {
         grid-template-columns: 1fr;
       }
 
       .calendar-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
       }
 
-      .day-name {
-        display: none;
+      .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 70;
+        width: min(84vw, var(--sidebar-width));
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
+      }
+
+      body.sidebar-open .sidebar {
+        transform: translateX(0);
+      }
+
+      .mobile-menu {
+        display: inline-flex;
+      }
+
+      .main {
+        padding: 22px;
+      }
+
+      .topbar {
+        margin: -22px -22px 22px;
+        padding: 15px 22px;
+        align-items: flex-start;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar,
+      .panel-header,
+      .post-card-top,
+      .form-actions {
+        display: grid;
+        justify-content: stretch;
+      }
+
+      .topbar-actions,
+      .form-actions,
+      .creator-actions,
+      .post-actions,
+      .filter-row {
+        width: 100%;
+      }
+
+      .btn,
+      .filter-row input,
+      .filter-row select {
+        width: 100%;
+        max-width: none;
+      }
+
+      .stats-grid,
+      .form-grid,
+      .calendar-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 17px;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="app">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-badge">S</div>
-        <h1>Saionra</h1>
-        <p>AI Business OS for content, scheduling, and business workflows.</p>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#overview" aria-label="Saionra Social Scheduler">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>Saionra</strong>
+          <span>AI Business OS for content workflows</span>
+        </span>
+      </a>
+
+      <div class="sidebar-section">
+        <div class="sidebar-label">Social Module</div>
+        <nav class="nav-list" aria-label="Social Scheduler Navigation">
+          <a class="nav-link active" href="#overview">Overview <small>Live</small></a>
+          <a class="nav-link" href="#create">Create Post</a>
+          <a class="nav-link" href="#creator">AI Creator</a>
+          <a class="nav-link" href="#calendar">Calendar</a>
+          <a class="nav-link" href="#queue">Draft Manager</a>
+          <a class="nav-link" href="#assistant">Posting Assistant</a>
+        </nav>
       </div>
 
-      <div class="nav-title">Social Module</div>
-      <div class="nav-item active">Dashboard</div>
-      <div class="nav-item">Content Calendar</div>
-      <div class="nav-item">AI Creator</div>
-      <div class="nav-item">Draft Manager</div>
-      <div class="nav-item">Posting Assistant</div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Coming Soon</div>
+        <div class="nav-list">
+          <span class="nav-link">Meta Auto-Posting <small>API</small></span>
+          <span class="nav-link">Analytics <small>GA4</small></span>
+          <span class="nav-link">Reports <small>CSV</small></span>
+          <span class="nav-link">SmartLink <small>Beta</small></span>
+        </div>
+      </div>
 
-      <div class="nav-title">Coming Soon</div>
-      <div class="nav-item">Meta Auto-Posting</div>
-      <div class="nav-item">Analytics</div>
-      <div class="nav-item">Reports</div>
-      <div class="nav-item">SmartLink</div>
+      <div class="sidebar-note edge-card">
+        <b>Clean first version</b>
+        Plan, write, save, filter, export, and manually post content now. Auto-posting can connect later without rebuilding the UI.
+      </div>
     </aside>
 
     <main class="main">
-      <div class="topbar">
+      <header class="topbar">
+        <button class="btn mobile-menu" id="mobileMenuButton" type="button">Menu</button>
+
         <div>
-          <h2>Social Scheduler</h2>
-          <p>Create, plan, approve, and schedule content from one simple dashboard.</p>
+          <h1>Social Scheduler</h1>
+          <p>Create, plan, approve, and organize content from one calm Saionra dashboard.</p>
         </div>
 
-        <div class="top-actions">
-          <button class="btn outline" onclick="exportCSV()">Export CSV</button>
-          <button class="btn primary" onclick="scrollToForm()">Create Post</button>
+        <div class="topbar-actions">
+          <button class="btn" id="exportCsvButton" type="button">Export CSV</button>
+          <button class="btn btn-primary" id="jumpCreateButton" type="button">Create Post</button>
         </div>
-      </div>
+      </header>
 
-      <section class="grid stats">
-        <div class="stat-card">
-          <span>Total Posts</span>
-          <strong id="totalPosts">0</strong>
-        </div>
+      <section id="overview" aria-label="Overview">
+        <div class="stats-grid">
+          <article class="stat-card float-card edge-card">
+            <span>Total Posts <small>All</small></span>
+            <strong id="statTotal">0</strong>
+            <small>Saved in this browser</small>
+          </article>
 
-        <div class="stat-card">
-          <span>Drafts</span>
-          <strong id="draftPosts">0</strong>
-        </div>
+          <article class="stat-card float-card edge-card">
+            <span>Drafts <small>Plan</small></span>
+            <strong id="statDrafts">0</strong>
+            <small>Needs review</small>
+          </article>
 
-        <div class="stat-card">
-          <span>Scheduled</span>
-          <strong id="scheduledPosts">0</strong>
-        </div>
+          <article class="stat-card float-card edge-card">
+            <span>Scheduled <small>Queue</small></span>
+            <strong id="statScheduled">0</strong>
+            <small>Ready for calendar</small>
+          </article>
 
-        <div class="stat-card">
-          <span>Ready Today</span>
-          <strong id="readyPosts">0</strong>
-        </div>
+          <article class="stat-card float-card edge-card">
+            <span>Ready Today <small>Action</small></span>
+            <strong id="statReadyToday">0</strong>
+            <small>Manual posting focus</small>
+          </article>
 
-        <div class="stat-card">
-          <span>Posted</span>
-          <strong id="postedPosts">0</strong>
+          <article class="stat-card float-card edge-card">
+            <span>Posted <small>Done</small></span>
+            <strong id="statPosted">0</strong>
+            <small>Completed content</small>
+          </article>
         </div>
       </section>
 
-      <section class="grid panel-grid">
-        <div class="card" id="postFormCard">
-          <h3>Create Scheduled Post</h3>
-          <p class="card-desc">Add content, choose platform, set date and time, then save it to your planner.</p>
+      <div class="layout-grid">
+        <div>
+          <section class="panel float-card edge-card" id="create" aria-label="Create Scheduled Post">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">Planner</div>
+                <h2 id="formTitle">Create Scheduled Post</h2>
+                <p>Add the content, platform, schedule, media note, caption, and internal reminder.</p>
+              </div>
+              <div class="chip-row">
+                <span class="chip neutral" id="editStatusChip">New post</span>
+              </div>
+            </div>
 
-          <form id="postForm">
-            <input type="hidden" id="editingId" />
-
-            <div class="form-grid">
+            <form class="form-grid" id="postForm">
               <div class="field">
-                <label for="title">Post Title</label>
-                <input id="title" type="text" placeholder="Example: Immigration consultation promo" required />
+                <label for="postTitle">Post Title</label>
+                <input type="text" id="postTitle" name="postTitle" placeholder="Example: Immigration consultation promo" required>
               </div>
 
               <div class="field">
                 <label for="platform">Platform</label>
-                <select id="platform" required>
+                <select id="platform" name="platform" required>
                   <option value="Instagram">Instagram</option>
                   <option value="Facebook">Facebook</option>
                   <option value="LinkedIn">LinkedIn</option>
                   <option value="TikTok">TikTok</option>
                   <option value="YouTube Shorts">YouTube Shorts</option>
-                  <option value="Threads">Threads</option>
+                  <option value="X / Twitter">X / Twitter</option>
                   <option value="Pinterest">Pinterest</option>
-                  <option value="X">X</option>
                 </select>
               </div>
 
               <div class="field">
                 <label for="postType">Post Type</label>
-                <select id="postType">
+                <select id="postType" name="postType" required>
                   <option value="Single Image">Single Image</option>
                   <option value="Carousel">Carousel</option>
-                  <option value="Reel / Short Video">Reel / Short Video</option>
+                  <option value="Short Video / Reel">Short Video / Reel</option>
                   <option value="Story">Story</option>
                   <option value="Text Post">Text Post</option>
                   <option value="Link Post">Link Post</option>
@@ -705,582 +1028,686 @@
 
               <div class="field">
                 <label for="status">Status</label>
-                <select id="status">
+                <select id="status" name="status" required>
                   <option value="Draft">Draft</option>
-                  <option value="Approved">Approved</option>
                   <option value="Scheduled">Scheduled</option>
                   <option value="Ready">Ready</option>
                   <option value="Posted">Posted</option>
-                  <option value="Failed">Failed</option>
                 </select>
               </div>
 
               <div class="field">
-                <label for="scheduledAt">Schedule Date & Time</label>
-                <input id="scheduledAt" type="datetime-local" required />
+                <label for="scheduleDateTime">Schedule Date & Time</label>
+                <input type="datetime-local" id="scheduleDateTime" name="scheduleDateTime">
               </div>
 
               <div class="field">
                 <label for="mediaUrl">Media URL / File Note</label>
-                <input id="mediaUrl" type="text" placeholder="Paste image/video link or file note" />
+                <input type="text" id="mediaUrl" name="mediaUrl" placeholder="Paste image/video link or file note">
               </div>
 
-              <div class="field full">
+              <div class="full-field">
                 <label for="caption">Caption</label>
-                <textarea id="caption" placeholder="Write or generate your caption here..." required></textarea>
+                <textarea id="caption" name="caption" placeholder="Write or generate your caption here..."></textarea>
               </div>
 
-              <div class="field full">
-                <label for="notes">Internal Notes</label>
-                <textarea id="notes" placeholder="Client notes, content angle, CTA, asset reminder..."></textarea>
+              <div class="full-field">
+                <label for="internalNotes">Internal Notes</label>
+                <textarea id="internalNotes" name="internalNotes" placeholder="Client notes, CTA, asset reminder, posting checklist..."></textarea>
+              </div>
+
+              <div class="form-actions">
+                <div class="chip-row">
+                  <span class="chip" id="scheduleHint">No schedule selected</span>
+                  <span class="chip neutral" id="previewPlatformChip">Instagram</span>
+                </div>
+
+                <div class="post-actions">
+                  <button class="btn" id="cancelEditButton" type="button">Clear</button>
+                  <button class="btn btn-primary" id="savePostButton" type="submit">Save Post</button>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel float-card edge-card" id="queue" aria-label="Draft Manager">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">Manager</div>
+                <h2>Content Queue</h2>
+                <p>Filter drafts, scheduled posts, ready posts, and posted content without jumping across tools.</p>
               </div>
             </div>
 
-            <div class="form-actions">
-              <button class="btn primary" type="submit">Save Post</button>
-              <button class="btn outline" type="button" onclick="resetForm()">Reset</button>
-              <button class="btn success" type="button" onclick="markDuePostsReady()">Check Due Posts</button>
-            </div>
-          </form>
-        </div>
-
-        <div class="card">
-          <h3>AI Content Creator</h3>
-          <p class="card-desc">Free first version: smart prompt/template generator. Later we can connect Gemini API or another AI API.</p>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="aiBusiness">Business / Brand</label>
-              <input id="aiBusiness" type="text" placeholder="Example: Saionra, law firm, restaurant" />
-            </div>
-
-            <div class="field">
-              <label for="aiGoal">Goal</label>
-              <select id="aiGoal">
-                <option value="Get leads">Get leads</option>
-                <option value="Build trust">Build trust</option>
-                <option value="Promote offer">Promote offer</option>
-                <option value="Educate audience">Educate audience</option>
-                <option value="Increase engagement">Increase engagement</option>
+            <div class="filter-row">
+              <input type="search" id="searchInput" placeholder="Search title or caption">
+              <select id="filterStatus">
+                <option value="All">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Ready">Ready</option>
+                <option value="Posted">Posted</option>
+              </select>
+              <select id="filterPlatform">
+                <option value="All">All Platforms</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Facebook">Facebook</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="TikTok">TikTok</option>
+                <option value="YouTube Shorts">YouTube Shorts</option>
+                <option value="X / Twitter">X / Twitter</option>
+                <option value="Pinterest">Pinterest</option>
               </select>
             </div>
 
-            <div class="field">
-              <label for="aiAudience">Target Audience</label>
-              <input id="aiAudience" type="text" placeholder="Example: business owners, parents, immigrants" />
+            <div class="queue-list" id="queueList"></div>
+          </section>
+
+          <section class="panel float-card edge-card" id="calendar" aria-label="Content Calendar">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">Calendar</div>
+                <h2>Next 14 Days</h2>
+                <p>A quick calendar view so the schedule feels clear before you post or approve.</p>
+              </div>
             </div>
 
-            <div class="field">
-              <label for="aiTone">Tone</label>
-              <select id="aiTone">
-                <option value="Professional and simple">Professional and simple</option>
-                <option value="Friendly and clear">Friendly and clear</option>
-                <option value="Direct and confident">Direct and confident</option>
-                <option value="Warm and helpful">Warm and helpful</option>
-                <option value="Premium and persuasive">Premium and persuasive</option>
-              </select>
+            <div class="calendar-grid" id="calendarGrid"></div>
+          </section>
+        </div>
+
+        <aside>
+          <section class="panel float-card edge-card" id="creator" aria-label="AI Content Creator">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">AI Creator</div>
+                <h2>Caption Builder</h2>
+                <p>Free first version: smart template generator. Later, this can connect to Gemini, OpenAI, or another API.</p>
+              </div>
             </div>
-          </div>
 
-          <div class="form-actions">
-            <button class="btn primary" onclick="generateAIContent()">Generate Caption</button>
-            <button class="btn outline" onclick="useGeneratedCaption()">Use in Post Form</button>
-          </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="aiBrand">Business / Brand</label>
+                <input type="text" id="aiBrand" placeholder="Example: Saionra, law firm, restaurant">
+              </div>
 
-          <div class="ai-output" id="aiOutput">Generated content will appear here.</div>
+              <div class="field">
+                <label for="aiGoal">Goal</label>
+                <select id="aiGoal">
+                  <option value="Get leads">Get leads</option>
+                  <option value="Drive traffic">Drive traffic</option>
+                  <option value="Increase engagement">Increase engagement</option>
+                  <option value="Promote offer">Promote offer</option>
+                  <option value="Educate audience">Educate audience</option>
+                  <option value="Announce update">Announce update</option>
+                </select>
+              </div>
 
-          <div class="assistant-card">
-            <h3>Manual Posting Assistant</h3>
-            <p>For platforms that are not connected yet, Saionra can still prepare everything and guide you step by step.</p>
+              <div class="field">
+                <label for="aiAudience">Target Audience</label>
+                <input type="text" id="aiAudience" placeholder="Example: business owners, parents, immigrants">
+              </div>
 
-            <div class="checklist">
-              <div class="check-item">1. Open the scheduled post.</div>
-              <div class="check-item">2. Copy the caption.</div>
-              <div class="check-item">3. Download or open the media file.</div>
-              <div class="check-item">4. Publish manually on the selected platform.</div>
-              <div class="check-item">5. Mark the post as Posted.</div>
+              <div class="field">
+                <label for="aiTone">Tone</label>
+                <select id="aiTone">
+                  <option value="Professional and simple">Professional and simple</option>
+                  <option value="Warm and helpful">Warm and helpful</option>
+                  <option value="Premium and confident">Premium and confident</option>
+                  <option value="Direct and sales-focused">Direct and sales-focused</option>
+                  <option value="Educational and clear">Educational and clear</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="aiPlatform">Platform</label>
+                <select id="aiPlatform">
+                  <option value="Instagram">Instagram</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="YouTube Shorts">YouTube Shorts</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="aiOffer">Offer / CTA</label>
+                <input type="text" id="aiOffer" placeholder="Example: Book a free audit">
+              </div>
+
+              <div class="full-field">
+                <div class="creator-actions">
+                  <button class="btn btn-primary" id="generateCaptionButton" type="button">Generate Caption</button>
+                  <button class="btn" id="useGeneratedButton" type="button">Use in Post Form</button>
+                  <button class="btn" id="copyGeneratedButton" type="button">Copy</button>
+                </div>
+              </div>
+
+              <div class="full-field">
+                <div class="generated-box" id="generatedContent">Generated content will appear here.</div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section class="card calendar-wrap">
-        <div class="calendar-header">
-          <h3 id="calendarTitle">Calendar</h3>
-          <div class="top-actions">
-            <button class="btn outline" onclick="changeMonth(-1)">Previous</button>
-            <button class="btn outline" onclick="goCurrentMonth()">Today</button>
-            <button class="btn outline" onclick="changeMonth(1)">Next</button>
-          </div>
-        </div>
+          <section class="panel float-card edge-card" aria-label="Post Preview">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">Preview</div>
+                <h2>Post Preview</h2>
+                <p>Live preview based on the post form.</p>
+              </div>
+            </div>
 
-        <div class="calendar-grid" id="calendar"></div>
-      </section>
+            <article class="preview-card">
+              <div class="preview-top">
+                <div class="avatar-row">
+                  <div class="avatar" id="previewAvatar">S</div>
+                  <div>
+                    <span class="preview-brand" id="previewTitle">Untitled Post</span>
+                    <span class="preview-date" id="previewDate">No date selected</span>
+                  </div>
+                </div>
+                <span class="chip" id="previewStatus">Draft</span>
+              </div>
 
-      <section class="card" style="margin-top: 20px;">
-        <h3>Draft Manager</h3>
-        <p class="card-desc">Filter, edit, approve, schedule, copy, duplicate, or mark posts as published.</p>
+              <div class="media-box" id="previewMedia">Media preview / file note</div>
+              <div class="preview-caption" id="previewCaption">Your caption preview will appear here.</div>
+            </article>
+          </section>
 
-        <div class="toolbar">
-          <input id="searchInput" type="text" placeholder="Search posts..." oninput="renderPosts()" />
+          <section class="panel float-card edge-card" id="assistant" aria-label="Manual Posting Assistant">
+            <div class="panel-header">
+              <div>
+                <div class="panel-eyebrow">Assistant</div>
+                <h2>Manual Posting Assistant</h2>
+                <p>For platforms that are not connected yet, Saionra still prepares the post and guides the posting steps.</p>
+              </div>
+            </div>
 
-          <select id="platformFilter" onchange="renderPosts()">
-            <option value="All">All Platforms</option>
-            <option value="Instagram">Instagram</option>
-            <option value="Facebook">Facebook</option>
-            <option value="LinkedIn">LinkedIn</option>
-            <option value="TikTok">TikTok</option>
-            <option value="YouTube Shorts">YouTube Shorts</option>
-            <option value="Threads">Threads</option>
-            <option value="Pinterest">Pinterest</option>
-            <option value="X">X</option>
-          </select>
+            <div class="assistant-grid">
+              <div class="assistant-step float-card edge-card">
+                <span>1</span>
+                <div>
+                  <b>Open the ready post.</b>
+                  <p>Use the Ready filter and confirm caption, media note, CTA, and platform.</p>
+                </div>
+              </div>
 
-          <select id="statusFilter" onchange="renderPosts()">
-            <option value="All">All Status</option>
-            <option value="Draft">Draft</option>
-            <option value="Approved">Approved</option>
-            <option value="Scheduled">Scheduled</option>
-            <option value="Ready">Ready</option>
-            <option value="Posted">Posted</option>
-            <option value="Failed">Failed</option>
-          </select>
+              <div class="assistant-step float-card edge-card">
+                <span>2</span>
+                <div>
+                  <b>Copy caption and media note.</b>
+                  <p>Open the platform, upload the asset, paste the caption, and check the preview.</p>
+                </div>
+              </div>
 
-          <button class="btn outline" onclick="seedDemoPosts()">Add Demo Posts</button>
-          <button class="btn danger" onclick="clearAllPosts()">Clear All</button>
-        </div>
-
-        <div class="posts" id="postsList"></div>
-      </section>
+              <div class="assistant-step float-card edge-card">
+                <span>3</span>
+                <div>
+                  <b>Post or schedule manually.</b>
+                  <p>After posting, mark the item as Posted so reports and counts stay clean.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
     </main>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Saved.</div>
 
   <script>
-    const STORAGE_KEY = "saionra_social_scheduler_posts_v1";
+    const STORAGE_KEY = "saionra_social_posts_v1";
 
-    let posts = loadPosts();
-    let calendarDate = new Date();
-
-    const form = document.getElementById("postForm");
-
-    form.addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const editingId = document.getElementById("editingId").value;
-
-      const postData = {
-        id: editingId || crypto.randomUUID(),
-        title: document.getElementById("title").value.trim(),
-        platform: document.getElementById("platform").value,
-        postType: document.getElementById("postType").value,
-        status: document.getElementById("status").value,
-        scheduledAt: document.getElementById("scheduledAt").value,
-        mediaUrl: document.getElementById("mediaUrl").value.trim(),
-        caption: document.getElementById("caption").value.trim(),
-        notes: document.getElementById("notes").value.trim(),
-        createdAt: editingId
-          ? posts.find(post => post.id === editingId)?.createdAt || new Date().toISOString()
-          : new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      };
-
-      if (!postData.title || !postData.caption || !postData.scheduledAt) {
-        showToast("Please complete the title, caption, and schedule time.");
-        return;
+    const state = {
+      posts: [],
+      editingId: null,
+      filters: {
+        search: "",
+        status: "All",
+        platform: "All"
       }
+    };
 
-      if (editingId) {
-        posts = posts.map(post => post.id === editingId ? postData : post);
-        showToast("Post updated.");
-      } else {
-        posts.unshift(postData);
-        showToast("Post saved.");
-      }
+    const statusConfig = {
+      Draft: { label: "Draft", className: "neutral" },
+      Scheduled: { label: "Scheduled", className: "" },
+      Ready: { label: "Ready", className: "green" },
+      Posted: { label: "Posted", className: "green" }
+    };
 
-      savePosts();
-      resetForm();
-      renderAll();
-    });
+    const selectors = {
+      postForm: document.getElementById("postForm"),
+      formTitle: document.getElementById("formTitle"),
+      editStatusChip: document.getElementById("editStatusChip"),
+      postTitle: document.getElementById("postTitle"),
+      platform: document.getElementById("platform"),
+      postType: document.getElementById("postType"),
+      status: document.getElementById("status"),
+      scheduleDateTime: document.getElementById("scheduleDateTime"),
+      mediaUrl: document.getElementById("mediaUrl"),
+      caption: document.getElementById("caption"),
+      internalNotes: document.getElementById("internalNotes"),
+      savePostButton: document.getElementById("savePostButton"),
+      cancelEditButton: document.getElementById("cancelEditButton"),
+      scheduleHint: document.getElementById("scheduleHint"),
+      previewPlatformChip: document.getElementById("previewPlatformChip"),
+      queueList: document.getElementById("queueList"),
+      calendarGrid: document.getElementById("calendarGrid"),
+      searchInput: document.getElementById("searchInput"),
+      filterStatus: document.getElementById("filterStatus"),
+      filterPlatform: document.getElementById("filterPlatform"),
+      statTotal: document.getElementById("statTotal"),
+      statDrafts: document.getElementById("statDrafts"),
+      statScheduled: document.getElementById("statScheduled"),
+      statReadyToday: document.getElementById("statReadyToday"),
+      statPosted: document.getElementById("statPosted"),
+      previewAvatar: document.getElementById("previewAvatar"),
+      previewTitle: document.getElementById("previewTitle"),
+      previewDate: document.getElementById("previewDate"),
+      previewStatus: document.getElementById("previewStatus"),
+      previewMedia: document.getElementById("previewMedia"),
+      previewCaption: document.getElementById("previewCaption"),
+      generatedContent: document.getElementById("generatedContent"),
+      aiBrand: document.getElementById("aiBrand"),
+      aiGoal: document.getElementById("aiGoal"),
+      aiAudience: document.getElementById("aiAudience"),
+      aiTone: document.getElementById("aiTone"),
+      aiPlatform: document.getElementById("aiPlatform"),
+      aiOffer: document.getElementById("aiOffer"),
+      generateCaptionButton: document.getElementById("generateCaptionButton"),
+      useGeneratedButton: document.getElementById("useGeneratedButton"),
+      copyGeneratedButton: document.getElementById("copyGeneratedButton"),
+      exportCsvButton: document.getElementById("exportCsvButton"),
+      jumpCreateButton: document.getElementById("jumpCreateButton"),
+      mobileMenuButton: document.getElementById("mobileMenuButton"),
+      toast: document.getElementById("toast")
+    };
 
-    function loadPosts() {
+    function createId() {
+      return "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
+    }
+
+    function readPosts() {
       try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(saved) ? saved : [];
       } catch (error) {
+        console.warn("Could not read saved posts", error);
         return [];
       }
     }
 
     function savePosts() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.posts));
     }
 
-    function renderAll() {
-      updateStats();
-      renderCalendar();
-      renderPosts();
+    function showToast(message) {
+      selectors.toast.textContent = message;
+      selectors.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => selectors.toast.classList.remove("show"), 2600);
     }
 
-    function updateStats() {
-      const total = posts.length;
-      const drafts = posts.filter(post => post.status === "Draft").length;
-      const scheduled = posts.filter(post => post.status === "Scheduled").length;
-      const ready = posts.filter(post => post.status === "Ready").length;
-      const posted = posts.filter(post => post.status === "Posted").length;
+    function formatDateTime(value) {
+      if (!value) return "No date selected";
 
-      document.getElementById("totalPosts").textContent = total;
-      document.getElementById("draftPosts").textContent = drafts;
-      document.getElementById("scheduledPosts").textContent = scheduled;
-      document.getElementById("readyPosts").textContent = ready;
-      document.getElementById("postedPosts").textContent = posted;
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "No date selected";
+
+      return new Intl.DateTimeFormat(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      }).format(date);
     }
 
-    function renderPosts() {
-      const list = document.getElementById("postsList");
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const platform = document.getElementById("platformFilter").value;
-      const status = document.getElementById("statusFilter").value;
-
-      let filtered = [...posts];
-
-      if (search) {
-        filtered = filtered.filter(post =>
-          post.title.toLowerCase().includes(search) ||
-          post.caption.toLowerCase().includes(search) ||
-          post.platform.toLowerCase().includes(search) ||
-          post.postType.toLowerCase().includes(search)
-        );
-      }
-
-      if (platform !== "All") {
-        filtered = filtered.filter(post => post.platform === platform);
-      }
-
-      if (status !== "All") {
-        filtered = filtered.filter(post => post.status === status);
-      }
-
-      filtered.sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
-
-      if (!filtered.length) {
-        list.innerHTML = `
-          <div class="empty-state">
-            No posts yet. Create your first scheduled post above.
-          </div>
-        `;
-        return;
-      }
-
-      list.innerHTML = filtered.map(post => {
-        return `
-          <article class="post-card">
-            <div class="post-top">
-              <div>
-                <div class="post-title">
-                  <h4>${escapeHTML(post.title)}</h4>
-                  <span class="badge">${escapeHTML(post.platform)}</span>
-                  <span class="badge ${statusClass(post.status)}">${escapeHTML(post.status)}</span>
-                </div>
-
-                <div class="post-meta">
-                  <span>${escapeHTML(post.postType)}</span>
-                  <span>•</span>
-                  <span>${formatDateTime(post.scheduledAt)}</span>
-                  ${post.mediaUrl ? `<span>• Media added</span>` : ""}
-                </div>
-              </div>
-            </div>
-
-            <div class="caption-box">${escapeHTML(post.caption)}</div>
-
-            ${post.notes ? `<div class="caption-box"><strong>Notes:</strong><br>${escapeHTML(post.notes)}</div>` : ""}
-
-            <div class="post-actions">
-              <button class="small-btn" onclick="editPost('${post.id}')">Edit</button>
-              <button class="small-btn" onclick="copyCaption('${post.id}')">Copy Caption</button>
-              <button class="small-btn" onclick="setStatus('${post.id}', 'Approved')">Approve</button>
-              <button class="small-btn" onclick="setStatus('${post.id}', 'Scheduled')">Schedule</button>
-              <button class="small-btn" onclick="setStatus('${post.id}', 'Ready')">Ready</button>
-              <button class="small-btn" onclick="setStatus('${post.id}', 'Posted')">Posted</button>
-              <button class="small-btn" onclick="setStatus('${post.id}', 'Failed')">Failed</button>
-              <button class="small-btn" onclick="duplicatePost('${post.id}')">Duplicate</button>
-              <button class="small-btn" onclick="openPlatform('${post.platform}')">Open Platform</button>
-              <button class="small-btn" onclick="deletePost('${post.id}')">Delete</button>
-            </div>
-          </article>
-        `;
-      }).join("");
+    function isToday(value) {
+      if (!value) return false;
+      const date = new Date(value);
+      const today = new Date();
+      return (
+        date.getFullYear() === today.getFullYear() &&
+        date.getMonth() === today.getMonth() &&
+        date.getDate() === today.getDate()
+      );
     }
 
-    function renderCalendar() {
-      const calendar = document.getElementById("calendar");
-      const title = document.getElementById("calendarTitle");
-
-      const year = calendarDate.getFullYear();
-      const month = calendarDate.getMonth();
-
-      const monthName = calendarDate.toLocaleString("en-US", {
-        month: "long",
-        year: "numeric"
-      });
-
-      title.textContent = monthName;
-
-      const firstDay = new Date(year, month, 1);
-      const startDay = firstDay.getDay();
-
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const previousDays = new Date(year, month, 0).getDate();
-
-      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-      let html = dayNames.map(day => `<div class="day-name">${day}</div>`).join("");
-
-      for (let i = startDay - 1; i >= 0; i--) {
-        html += `
-          <div class="day muted">
-            <div class="day-number">${previousDays - i}</div>
-          </div>
-        `;
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dateKey = toDateKey(new Date(year, month, day));
-
-        const dayPosts = posts.filter(post => {
-          if (!post.scheduledAt) return false;
-          return toDateKey(new Date(post.scheduledAt)) === dateKey;
-        });
-
-        html += `
-          <div class="day">
-            <div class="day-number">${day}</div>
-            ${dayPosts.slice(0, 3).map(post => `
-              <div class="day-post" onclick="editPost('${post.id}')">
-                <strong>${escapeHTML(post.platform)}</strong><br>
-                ${escapeHTML(shortText(post.title, 28))}
-              </div>
-            `).join("")}
-            ${dayPosts.length > 3 ? `<div class="day-post">+${dayPosts.length - 3} more</div>` : ""}
-          </div>
-        `;
-      }
-
-      const totalCells = startDay + daysInMonth;
-      const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-
-      for (let i = 1; i <= remaining; i++) {
-        html += `
-          <div class="day muted">
-            <div class="day-number">${i}</div>
-          </div>
-        `;
-      }
-
-      calendar.innerHTML = html;
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
-    function generateAIContent() {
-      const business = document.getElementById("aiBusiness").value.trim() || "your business";
-      const goal = document.getElementById("aiGoal").value;
-      const audience = document.getElementById("aiAudience").value.trim() || "your target audience";
-      const tone = document.getElementById("aiTone").value;
-      const platform = document.getElementById("platform").value;
-      const postType = document.getElementById("postType").value;
+    function truncate(value, max = 160) {
+      const text = String(value || "").trim();
+      if (text.length <= max) return text;
+      return text.slice(0, max).trim() + "...";
+    }
 
-      const hooks = {
-        "Get leads": "Still losing potential clients because your offer is not clear enough?",
-        "Build trust": "Trust is built before the client ever sends a message.",
-        "Promote offer": "Here is a simple way to get more value from this offer.",
-        "Educate audience": "Most people miss this simple point, but it can change the result.",
-        "Increase engagement": "Let’s be honest, this is something many people deal with."
+    function getPostFromForm() {
+      return {
+        id: state.editingId || createId(),
+        title: selectors.postTitle.value.trim(),
+        platform: selectors.platform.value,
+        type: selectors.postType.value,
+        status: selectors.status.value,
+        scheduleDateTime: selectors.scheduleDateTime.value,
+        mediaUrl: selectors.mediaUrl.value.trim(),
+        caption: selectors.caption.value.trim(),
+        internalNotes: selectors.internalNotes.value.trim(),
+        updatedAt: new Date().toISOString(),
+        createdAt: state.editingId
+          ? state.posts.find((post) => post.id === state.editingId)?.createdAt || new Date().toISOString()
+          : new Date().toISOString()
       };
-
-      const ctas = {
-        "Get leads": "Send us a message today to get started.",
-        "Build trust": "Follow for more simple and helpful tips.",
-        "Promote offer": "Message us now to learn more.",
-        "Educate audience": "Save this post so you can come back to it later.",
-        "Increase engagement": "Comment your thoughts below."
-      };
-
-      const output = `${hooks[goal]}
-
-For ${business}, content should not only look good. It should help ${audience} understand the problem, trust the solution, and take the next step.
-
-Post idea for ${platform}:
-${postType} focused on ${goal.toLowerCase()}.
-
-Caption:
-If you are part of ${audience}, the biggest mistake is waiting until the problem becomes urgent.
-
-A clear system, clear message, and clear next step can make the process easier.
-
-That is what ${business} is built to support: simple, organized, and action-focused work that helps people move forward with confidence.
-
-${ctas[goal]}
-
-Tone: ${tone}
-
-Suggested hashtags:
-#SocialMediaMarketing #ContentStrategy #BusinessGrowth #DigitalMarketing #Saionra`;
-
-      document.getElementById("aiOutput").textContent = output;
-      showToast("Caption generated.");
     }
 
-    function useGeneratedCaption() {
-      const output = document.getElementById("aiOutput").textContent;
-
-      if (!output || output === "Generated content will appear here.") {
-        showToast("Generate content first.");
-        return;
-      }
-
-      document.getElementById("caption").value = output;
-
-      if (!document.getElementById("title").value) {
-        document.getElementById("title").value = "AI Generated Social Post";
-      }
-
-      showToast("Generated caption added to post form.");
-    }
-
-    function editPost(id) {
-      const post = posts.find(item => item.id === id);
-
-      if (!post) return;
-
-      document.getElementById("editingId").value = post.id;
-      document.getElementById("title").value = post.title;
-      document.getElementById("platform").value = post.platform;
-      document.getElementById("postType").value = post.postType;
-      document.getElementById("status").value = post.status;
-      document.getElementById("scheduledAt").value = post.scheduledAt;
-      document.getElementById("mediaUrl").value = post.mediaUrl || "";
-      document.getElementById("caption").value = post.caption;
-      document.getElementById("notes").value = post.notes || "";
-
-      scrollToForm();
-      showToast("Post loaded for editing.");
+    function validatePost(post) {
+      if (!post.title) return "Please add a post title.";
+      if (!post.platform) return "Please choose a platform.";
+      if (!post.status) return "Please choose a status.";
+      if (!post.caption && !post.mediaUrl) return "Add a caption or media note before saving.";
+      return "";
     }
 
     function resetForm() {
-      form.reset();
-      document.getElementById("editingId").value = "";
-      document.getElementById("status").value = "Draft";
+      state.editingId = null;
+      selectors.postForm.reset();
+      selectors.platform.value = "Instagram";
+      selectors.postType.value = "Single Image";
+      selectors.status.value = "Draft";
+      selectors.formTitle.textContent = "Create Scheduled Post";
+      selectors.editStatusChip.textContent = "New post";
+      selectors.editStatusChip.className = "chip neutral";
+      selectors.savePostButton.textContent = "Save Post";
+      updateLivePreview();
     }
 
-    function deletePost(id) {
-      const confirmed = confirm("Delete this post?");
+    function setFormFromPost(post) {
+      state.editingId = post.id;
+      selectors.postTitle.value = post.title || "";
+      selectors.platform.value = post.platform || "Instagram";
+      selectors.postType.value = post.type || "Single Image";
+      selectors.status.value = post.status || "Draft";
+      selectors.scheduleDateTime.value = post.scheduleDateTime || "";
+      selectors.mediaUrl.value = post.mediaUrl || "";
+      selectors.caption.value = post.caption || "";
+      selectors.internalNotes.value = post.internalNotes || "";
+      selectors.formTitle.textContent = "Edit Scheduled Post";
+      selectors.editStatusChip.textContent = "Editing";
+      selectors.editStatusChip.className = "chip";
+      selectors.savePostButton.textContent = "Update Post";
+      updateLivePreview();
+      document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
+      selectors.postTitle.focus();
+    }
 
-      if (!confirmed) return;
+    function upsertPost(post) {
+      const index = state.posts.findIndex((item) => item.id === post.id);
 
-      posts = posts.filter(post => post.id !== id);
+      if (index >= 0) {
+        state.posts[index] = post;
+      } else {
+        state.posts.unshift(post);
+      }
+
       savePosts();
       renderAll();
-      showToast("Post deleted.");
+    }
+
+    function updatePostStatus(id, status) {
+      const post = state.posts.find((item) => item.id === id);
+      if (!post) return;
+      post.status = status;
+      post.updatedAt = new Date().toISOString();
+      savePosts();
+      renderAll();
+      showToast(`Marked as ${status}.`);
     }
 
     function duplicatePost(id) {
-      const post = posts.find(item => item.id === id);
-
+      const post = state.posts.find((item) => item.id === id);
       if (!post) return;
 
       const copy = {
         ...post,
-        id: crypto.randomUUID(),
+        id: createId(),
         title: post.title + " Copy",
         status: "Draft",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
 
-      posts.unshift(copy);
+      state.posts.unshift(copy);
       savePosts();
       renderAll();
-      showToast("Post duplicated.");
+      showToast("Post duplicated as a draft.");
     }
 
-    function setStatus(id, status) {
-      posts = posts.map(post => {
-        if (post.id !== id) return post;
-
-        return {
-          ...post,
-          status,
-          updatedAt: new Date().toISOString()
-        };
-      });
-
-      savePosts();
-      renderAll();
-      showToast(`Status changed to ${status}.`);
-    }
-
-    function copyCaption(id) {
-      const post = posts.find(item => item.id === id);
-
+    function deletePost(id) {
+      const post = state.posts.find((item) => item.id === id);
       if (!post) return;
 
-      navigator.clipboard.writeText(post.caption)
-        .then(() => showToast("Caption copied."))
-        .catch(() => showToast("Copy failed. Please copy manually."));
-    }
+      const confirmed = window.confirm(`Delete "${post.title}"?`);
+      if (!confirmed) return;
 
-    function openPlatform(platform) {
-      const links = {
-        "Instagram": "https://www.instagram.com/",
-        "Facebook": "https://www.facebook.com/",
-        "LinkedIn": "https://www.linkedin.com/",
-        "TikTok": "https://www.tiktok.com/",
-        "YouTube Shorts": "https://www.youtube.com/",
-        "Threads": "https://www.threads.net/",
-        "Pinterest": "https://www.pinterest.com/",
-        "X": "https://x.com/"
-      };
-
-      window.open(links[platform] || "https://www.google.com/", "_blank");
-    }
-
-    function markDuePostsReady() {
-      const now = new Date();
-
-      let changed = 0;
-
-      posts = posts.map(post => {
-        const scheduledDate = new Date(post.scheduledAt);
-
-        if (
-          post.status === "Scheduled" &&
-          scheduledDate <= now
-        ) {
-          changed++;
-
-          return {
-            ...post,
-            status: "Ready",
-            updatedAt: new Date().toISOString()
-          };
-        }
-
-        return post;
-      });
-
+      state.posts = state.posts.filter((item) => item.id !== id);
       savePosts();
       renderAll();
+      showToast("Post deleted.");
 
-      if (changed) {
-        showToast(`${changed} due post(s) marked as Ready.`);
-      } else {
-        showToast("No due scheduled posts right now.");
+      if (state.editingId === id) {
+        resetForm();
       }
     }
 
-    function exportCSV() {
+    function getFilteredPosts() {
+      const search = state.filters.search.toLowerCase().trim();
+
+      return state.posts
+        .filter((post) => state.filters.status === "All" || post.status === state.filters.status)
+        .filter((post) => state.filters.platform === "All" || post.platform === state.filters.platform)
+        .filter((post) => {
+          if (!search) return true;
+          return [post.title, post.caption, post.mediaUrl, post.internalNotes].join(" ").toLowerCase().includes(search);
+        })
+        .sort((a, b) => {
+          const aTime = a.scheduleDateTime ? new Date(a.scheduleDateTime).getTime() : Number.MAX_SAFE_INTEGER;
+          const bTime = b.scheduleDateTime ? new Date(b.scheduleDateTime).getTime() : Number.MAX_SAFE_INTEGER;
+          return aTime - bTime;
+        });
+    }
+
+    function renderStats() {
+      const total = state.posts.length;
+      const drafts = state.posts.filter((post) => post.status === "Draft").length;
+      const scheduled = state.posts.filter((post) => post.status === "Scheduled").length;
+      const posted = state.posts.filter((post) => post.status === "Posted").length;
+      const readyToday = state.posts.filter((post) => ["Scheduled", "Ready"].includes(post.status) && isToday(post.scheduleDateTime)).length;
+
+      selectors.statTotal.textContent = total;
+      selectors.statDrafts.textContent = drafts;
+      selectors.statScheduled.textContent = scheduled;
+      selectors.statReadyToday.textContent = readyToday;
+      selectors.statPosted.textContent = posted;
+    }
+
+    function renderQueue() {
+      const posts = getFilteredPosts();
+
       if (!posts.length) {
-        showToast("No posts to export.");
+        selectors.queueList.innerHTML = `
+          <div class="empty-state edge-card">
+            No posts found. Create your first post or change the filters.
+          </div>
+        `;
+        return;
+      }
+
+      selectors.queueList.innerHTML = posts.map((post) => {
+        const statusClass = statusConfig[post.status]?.className || "neutral";
+        const statusChip = `<span class="chip ${statusClass}">${escapeHtml(post.status)}</span>`;
+        const schedule = formatDateTime(post.scheduleDateTime);
+        const snippet = truncate(post.caption || post.mediaUrl || "No caption or media note yet.", 190);
+
+        return `
+          <article class="post-card float-card edge-card" data-post-id="${escapeHtml(post.id)}">
+            <div class="post-card-top">
+              <div>
+                <h3>${escapeHtml(post.title)}</h3>
+                <p>${escapeHtml(post.platform)} • ${escapeHtml(post.type)} • ${escapeHtml(schedule)}</p>
+              </div>
+              <div class="chip-row">${statusChip}</div>
+            </div>
+
+            <div class="post-snippet">${escapeHtml(snippet)}</div>
+
+            <div class="post-actions">
+              <button class="btn btn-sm" data-action="edit" type="button">Edit</button>
+              <button class="btn btn-sm" data-action="duplicate" type="button">Duplicate</button>
+              <button class="btn btn-sm" data-action="ready" type="button">Mark Ready</button>
+              <button class="btn btn-sm" data-action="posted" type="button">Mark Posted</button>
+              <button class="btn btn-sm btn-danger" data-action="delete" type="button">Delete</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      refreshEdgeCards();
+    }
+
+    function renderCalendar() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const dayCards = Array.from({ length: 14 }, (_, index) => {
+        const date = new Date(today);
+        date.setDate(today.getDate() + index);
+
+        const dateKey = date.toISOString().slice(0, 10);
+        const postsForDay = state.posts.filter((post) => post.scheduleDateTime && post.scheduleDateTime.slice(0, 10) === dateKey);
+        const dayName = new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(date);
+        const dayDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" }).format(date);
+        const pills = postsForDay.slice(0, 3).map((post) => `<span class="day-pill">${escapeHtml(post.platform)} • ${escapeHtml(post.title)}</span>`).join("");
+        const more = postsForDay.length > 3 ? `<span class="day-pill">+${postsForDay.length - 3} more</span>` : "";
+
+        return `
+          <article class="day-card float-card edge-card">
+            <strong>${escapeHtml(dayName)}</strong>
+            <span>${escapeHtml(dayDate)}</span>
+            ${pills || `<span class="day-pill">Open slot</span>`}
+            ${more}
+          </article>
+        `;
+      });
+
+      selectors.calendarGrid.innerHTML = dayCards.join("");
+      refreshEdgeCards();
+    }
+
+    function updateLivePreview() {
+      const title = selectors.postTitle.value.trim() || "Untitled Post";
+      const platform = selectors.platform.value || "Instagram";
+      const status = selectors.status.value || "Draft";
+      const caption = selectors.caption.value.trim() || "Your caption preview will appear here.";
+      const media = selectors.mediaUrl.value.trim() || "Media preview / file note";
+      const schedule = formatDateTime(selectors.scheduleDateTime.value);
+
+      selectors.previewAvatar.textContent = platform.charAt(0).toUpperCase();
+      selectors.previewTitle.textContent = title;
+      selectors.previewDate.textContent = `${platform} • ${schedule}`;
+      selectors.previewStatus.textContent = status;
+      selectors.previewStatus.className = `chip ${statusConfig[status]?.className || "neutral"}`;
+      selectors.previewMedia.textContent = media;
+      selectors.previewCaption.textContent = caption;
+      selectors.scheduleHint.textContent = selectors.scheduleDateTime.value ? schedule : "No schedule selected";
+      selectors.previewPlatformChip.textContent = platform;
+    }
+
+    function renderAll() {
+      renderStats();
+      renderQueue();
+      renderCalendar();
+    }
+
+    function generateCaption() {
+      const brand = selectors.aiBrand.value.trim() || "your business";
+      const goal = selectors.aiGoal.value;
+      const audience = selectors.aiAudience.value.trim() || "your ideal clients";
+      const tone = selectors.aiTone.value;
+      const platform = selectors.aiPlatform.value;
+      const offer = selectors.aiOffer.value.trim() || "message us to get started";
+
+      const hookMap = {
+        "Get leads": `If ${audience} are interested but not taking action yet, the problem may not be the offer. It may be the way the next step is presented.`,
+        "Drive traffic": `${audience} do not need more noise. They need one clear reason to click and learn more.`,
+        "Increase engagement": `Quick question for ${audience}: what part of this process feels the most time-consuming right now?`,
+        "Promote offer": `${brand} is built for ${audience} who want a clearer, easier way to move forward.`,
+        "Educate audience": `Most ${audience} do not struggle because they are lazy. They struggle because the process is not simple enough yet.`,
+        "Announce update": `New update from ${brand}: this is designed to make the next step easier for ${audience}.`
+      };
+
+      const platformNote = {
+        Instagram: "Keep the first line strong, then use simple spacing and a clear CTA.",
+        Facebook: "Make the copy warm, helpful, and easy to reply to.",
+        LinkedIn: "Make the message clear, useful, and business-focused.",
+        TikTok: "Use this as the caption under a direct hook-style short video.",
+        "YouTube Shorts": "Keep it short and connect the caption to the video hook."
+      };
+
+      const caption = `${hookMap[goal]}\n\n${brand} helps ${audience} simplify the next step without adding more confusion, tools, or manual work.\n\nBest angle: ${tone.toLowerCase()}.\n\nCTA: ${offer}.\n\nPosting note for ${platform}: ${platformNote[platform] || "Keep the copy clear and focused."}\n\n#Saionra #BusinessAutomation #ContentWorkflow #SocialMediaManagement`;
+
+      selectors.generatedContent.textContent = caption;
+      showToast("Caption generated.");
+    }
+
+    async function copyText(text) {
+      if (!text || text === "Generated content will appear here.") {
+        showToast("Generate content first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Copied to clipboard.");
+      } catch (error) {
+        selectors.generatedContent.focus?.();
+        showToast("Copy failed. You can select the text manually.");
+      }
+    }
+
+    function useGeneratedInPostForm() {
+      const generated = selectors.generatedContent.textContent.trim();
+
+      if (!generated || generated === "Generated content will appear here.") {
+        showToast("Generate content first.");
+        return;
+      }
+
+      selectors.caption.value = generated;
+
+      if (!selectors.postTitle.value.trim()) {
+        const brand = selectors.aiBrand.value.trim() || "Generated";
+        selectors.postTitle.value = `${brand} ${selectors.aiGoal.value}`;
+      }
+
+      selectors.platform.value = selectors.aiPlatform.value;
+      updateLivePreview();
+      document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast("Generated caption added to the post form.");
+    }
+
+    function exportCsv() {
+      if (!state.posts.length) {
+        showToast("No posts to export yet.");
         return;
       }
 
@@ -1289,197 +1716,166 @@ Suggested hashtags:
         "Platform",
         "Post Type",
         "Status",
-        "Scheduled At",
-        "Media URL",
+        "Schedule Date & Time",
+        "Media URL / File Note",
         "Caption",
-        "Notes",
+        "Internal Notes",
         "Created At",
         "Updated At"
       ];
 
-      const rows = posts.map(post => [
+      const rows = state.posts.map((post) => [
         post.title,
         post.platform,
-        post.postType,
+        post.type,
         post.status,
-        post.scheduledAt,
+        post.scheduleDateTime,
         post.mediaUrl,
         post.caption,
-        post.notes,
+        post.internalNotes,
         post.createdAt,
         post.updatedAt
       ]);
 
-      const csv = [
-        headers,
-        ...rows
-      ].map(row => row.map(cell => `"${String(cell || "").replace(/"/g, '""')}"`).join(",")).join("\n");
+      const csv = [headers, ...rows]
+        .map((row) => row.map((cell) => `"${String(cell || "").replaceAll('"', '""')}"`).join(","))
+        .join("\n");
 
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       const url = URL.createObjectURL(blob);
-
       const link = document.createElement("a");
       link.href = url;
-      link.download = "saionra-social-posts.csv";
+      link.download = `saionra-social-posts-${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(link);
       link.click();
-
+      link.remove();
       URL.revokeObjectURL(url);
       showToast("CSV exported.");
     }
 
-    function seedDemoPosts() {
-      const now = new Date();
+    function refreshEdgeCards() {
+      const cards = document.querySelectorAll(".edge-card");
 
-      const demo = [
-        {
-          title: "AI content workflow promo",
-          platform: "LinkedIn",
-          postType: "Text Post",
-          status: "Draft",
-          scheduledAt: addDaysInputValue(now, 1, 9, 0),
-          mediaUrl: "",
-          caption: "A strong content system does not start with random posting. It starts with a clear offer, clear audience, clear calendar, and a simple way to track what is working.\n\nThat is what Saionra is being built for.",
-          notes: "Use for Saionra portfolio positioning."
-        },
-        {
-          title: "Instagram carousel idea",
-          platform: "Instagram",
-          postType: "Carousel",
-          status: "Scheduled",
-          scheduledAt: addDaysInputValue(now, 2, 18, 30),
-          mediaUrl: "Canva carousel draft",
-          caption: "5 reasons your content is not converting yet:\n\n1. The offer is not clear\n2. The CTA is weak\n3. The content has no direction\n4. There is no follow-up system\n5. The results are not being tracked\n\nFix the system, not only the caption.",
-          notes: "Carousel: 6 slides."
-        },
-        {
-          title: "Facebook trust post",
-          platform: "Facebook",
-          postType: "Single Image",
-          status: "Approved",
-          scheduledAt: addDaysInputValue(now, 3, 12, 0),
-          mediaUrl: "",
-          caption: "People do not hire only because a service exists. They hire when the message is clear, the process looks organized, and the next step feels easy.",
-          notes: "Good for service business audience."
+      cards.forEach((card) => {
+        if (card.dataset.edgeReady === "true") return;
+        card.dataset.edgeReady = "true";
+
+        const updateEdgePosition = (event) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--edge-x", `${event.clientX - rect.left}px`);
+          card.style.setProperty("--edge-y", `${event.clientY - rect.top}px`);
+        };
+
+        card.addEventListener("pointermove", updateEdgePosition);
+        card.addEventListener("pointerenter", updateEdgePosition);
+      });
+    }
+
+    function bindEvents() {
+      selectors.postForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const post = getPostFromForm();
+        const error = validatePost(post);
+
+        if (error) {
+          showToast(error);
+          return;
         }
-      ].map(item => ({
-        ...item,
-        id: crypto.randomUUID(),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
-      }));
 
-      posts = [...demo, ...posts];
-      savePosts();
-      renderAll();
-      showToast("Demo posts added.");
-    }
-
-    function clearAllPosts() {
-      const confirmed = confirm("Clear all posts? This cannot be undone.");
-
-      if (!confirmed) return;
-
-      posts = [];
-      savePosts();
-      renderAll();
-      showToast("All posts cleared.");
-    }
-
-    function changeMonth(direction) {
-      calendarDate = new Date(
-        calendarDate.getFullYear(),
-        calendarDate.getMonth() + direction,
-        1
-      );
-
-      renderCalendar();
-    }
-
-    function goCurrentMonth() {
-      calendarDate = new Date();
-      renderCalendar();
-    }
-
-    function scrollToForm() {
-      document.getElementById("postFormCard").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+        upsertPost(post);
+        showToast(state.editingId ? "Post updated." : "Post saved.");
+        resetForm();
       });
-    }
 
-    function statusClass(status) {
-      return String(status || "").toLowerCase();
-    }
+      selectors.cancelEditButton.addEventListener("click", resetForm);
 
-    function formatDateTime(value) {
-      if (!value) return "No schedule";
-
-      const date = new Date(value);
-
-      return date.toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
+      [
+        selectors.postTitle,
+        selectors.platform,
+        selectors.postType,
+        selectors.status,
+        selectors.scheduleDateTime,
+        selectors.mediaUrl,
+        selectors.caption
+      ].forEach((field) => {
+        field.addEventListener("input", updateLivePreview);
+        field.addEventListener("change", updateLivePreview);
       });
+
+      selectors.searchInput.addEventListener("input", (event) => {
+        state.filters.search = event.target.value;
+        renderQueue();
+      });
+
+      selectors.filterStatus.addEventListener("change", (event) => {
+        state.filters.status = event.target.value;
+        renderQueue();
+      });
+
+      selectors.filterPlatform.addEventListener("change", (event) => {
+        state.filters.platform = event.target.value;
+        renderQueue();
+      });
+
+      selectors.queueList.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-action]");
+        const card = event.target.closest("[data-post-id]");
+        if (!button || !card) return;
+
+        const id = card.dataset.postId;
+        const action = button.dataset.action;
+        const post = state.posts.find((item) => item.id === id);
+
+        if (action === "edit" && post) setFormFromPost(post);
+        if (action === "duplicate") duplicatePost(id);
+        if (action === "ready") updatePostStatus(id, "Ready");
+        if (action === "posted") updatePostStatus(id, "Posted");
+        if (action === "delete") deletePost(id);
+      });
+
+      selectors.generateCaptionButton.addEventListener("click", generateCaption);
+      selectors.useGeneratedButton.addEventListener("click", useGeneratedInPostForm);
+      selectors.copyGeneratedButton.addEventListener("click", () => copyText(selectors.generatedContent.textContent.trim()));
+      selectors.exportCsvButton.addEventListener("click", exportCsv);
+
+      selectors.jumpCreateButton.addEventListener("click", () => {
+        document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
+        selectors.postTitle.focus();
+      });
+
+      selectors.mobileMenuButton.addEventListener("click", () => {
+        document.body.classList.toggle("sidebar-open");
+      });
+
+      document.querySelectorAll(".nav-link[href]").forEach((link) => {
+        link.addEventListener("click", () => {
+          document.body.classList.remove("sidebar-open");
+        });
+      });
+
+      const observedSections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".nav-link[href]");
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach((link) => {
+            link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+          });
+        });
+      }, { threshold: 0.32, rootMargin: "-10% 0px -55% 0px" });
+
+      observedSections.forEach((section) => navObserver.observe(section));
     }
 
-    function toDateKey(date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-
-      return `${year}-${month}-${day}`;
+    function init() {
+      state.posts = readPosts();
+      bindEvents();
+      updateLivePreview();
+      renderAll();
+      refreshEdgeCards();
     }
 
-    function shortText(text, max) {
-      if (!text) return "";
-
-      return text.length > max
-        ? text.slice(0, max) + "..."
-        : text;
-    }
-
-    function escapeHTML(value) {
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    function addDaysInputValue(baseDate, days, hours, minutes) {
-      const date = new Date(baseDate);
-
-      date.setDate(date.getDate() + days);
-      date.setHours(hours);
-      date.setMinutes(minutes);
-      date.setSeconds(0);
-      date.setMilliseconds(0);
-
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const hour = String(date.getHours()).padStart(2, "0");
-      const minute = String(date.getMinutes()).padStart(2, "0");
-
-      return `${year}-${month}-${day}T${hour}:${minute}`;
-    }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-
-      toast.textContent = message;
-      toast.classList.add("show");
-
-      setTimeout(() => {
-        toast.classList.remove("show");
-      }, 2600);
-    }
-
-    renderAll();
+    init();
   </script>
 </body>
 </html>
