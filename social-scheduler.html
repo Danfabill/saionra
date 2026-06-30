@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Saionra Social Scheduler</title>
-  <meta name="description" content="Saionra Social Scheduler helps create, plan, approve, and organize social content in one clean dashboard." />
+  <title>Saionra Social Workspace</title>
+  <meta name="description" content="Saionra Social Workspace helps small teams plan, create, approve, schedule, and report social media content from one calm AI-powered dashboard." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,9 +32,13 @@
       --green-soft: rgba(126, 226, 168, 0.13);
       --red: #fb7185;
       --red-soft: rgba(251, 113, 133, 0.12);
+      --blue: #8ab4f8;
+      --blue-soft: rgba(138, 180, 248, 0.12);
+      --purple: #c4b5fd;
+      --purple-soft: rgba(196, 181, 253, 0.12);
       --radius: 22px;
-      --sidebar-width: 260px;
-      --content-max: 1500px;
+      --sidebar-width: 264px;
+      --content-max: 1540px;
     }
 
     * {
@@ -80,6 +84,37 @@
       background: var(--gold-light);
     }
 
+    /* Keep scrolling usable, but remove the distracting white inner scrollbar from the fixed sidebar. */
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(215, 181, 109, 0.28) rgba(7, 7, 10, 0.12);
+    }
+
+    html::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: rgba(7, 7, 10, 0.18);
+    }
+
+    html::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: rgba(215, 181, 109, 0.28);
+      border: 3px solid rgba(7, 7, 10, 0.88);
+    }
+
+    .sidebar {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
     .app-shell {
       display: grid;
       grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
@@ -120,30 +155,59 @@
     .brand strong {
       display: block;
       font-size: 20px;
-      line-height: 1.1;
       letter-spacing: -0.5px;
+      font-weight: 800;
     }
 
     .brand span span {
       display: block;
-      max-width: 160px;
-      margin-top: 3px;
       color: var(--muted);
       font-size: 12px;
       font-weight: 500;
     }
 
+    .workspace-card {
+      margin-bottom: 22px;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(215, 181, 109, 0.14);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .workspace-card small {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted-soft);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .workspace-card strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .workspace-card p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
     .sidebar-section {
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     .sidebar-label {
-      margin-bottom: 9px;
+      margin-bottom: 8px;
       padding: 0 10px;
-      color: rgba(247, 244, 238, 0.46);
+      color: rgba(247, 244, 238, 0.42);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.1px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
     }
 
@@ -152,103 +216,91 @@
       gap: 6px;
     }
 
-    .nav-link {
+    .nav-button,
+    .nav-soon {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
       min-height: 40px;
       padding: 10px 12px;
       border-radius: 14px;
       color: rgba(247, 244, 238, 0.76);
-      font-size: 14px;
-      font-weight: 600;
-      border: 1px solid transparent;
       background: transparent;
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
 
-    .nav-link:hover,
-    .nav-link.active {
+    .nav-button:hover,
+    .nav-button.active {
       color: var(--text);
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(215, 181, 109, 0.14);
+      background: rgba(255, 255, 255, 0.075);
+      border-color: rgba(215, 181, 109, 0.16);
     }
 
-    .nav-link small {
+    .nav-button small,
+    .nav-soon small {
       color: #f7d991;
       font-size: 11px;
       font-weight: 700;
     }
 
-    .sidebar-note {
-      margin-top: 26px;
-      padding: 15px;
-      border-radius: 18px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.045);
-      border: 1px solid rgba(215, 181, 109, 0.13);
-      font-size: 12px;
-      font-weight: 400;
-    }
-
-    .sidebar-note b {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 650;
+    .nav-soon {
+      color: rgba(247, 244, 238, 0.46);
+      cursor: default;
     }
 
     .main {
       min-width: 0;
-      padding: 28px;
+      padding: 26px;
     }
 
-    .content-wrap {
+    .main-inner {
       width: min(100%, var(--content-max));
       margin: 0 auto;
     }
 
     .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
+      position: relative;
+      z-index: 10;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 18px;
-      margin: -28px -28px 24px;
-      padding: 16px 28px;
-      backdrop-filter: blur(18px);
-      background: rgba(7, 7, 10, 0.82);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.095);
     }
 
-    .topbar-title {
-      min-width: 0;
-    }
-
-    .topbar h1 {
+    .topbar-title h1 {
       font-size: clamp(24px, 3vw, 34px);
       line-height: 1.05;
-      letter-spacing: -1px;
-      font-weight: 750;
+      letter-spacing: -1.1px;
+      font-weight: 800;
     }
 
-    .topbar p {
-      margin-top: 6px;
-      max-width: 680px;
+    .topbar-title p {
+      margin-top: 5px;
+      max-width: 780px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 400;
     }
 
-    .topbar-actions {
+    .topbar-actions,
+    .button-row,
+    .filter-row,
+    .chip-row,
+    .post-actions {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
+      gap: 9px;
       flex-wrap: wrap;
     }
 
@@ -268,21 +320,21 @@
       color: var(--text);
       background: rgba(255, 255, 255, 0.055);
       font-size: 13px;
-      font-weight: 650;
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      font-weight: 600;
+      transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
       white-space: nowrap;
     }
 
     .btn:hover {
       background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(215, 181, 109, 0.26);
+      border-color: rgba(215, 181, 109, 0.28);
     }
 
     .btn-primary {
       color: #07070a;
       background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
       border-color: rgba(215, 181, 109, 0.45);
-      font-weight: 750;
+      font-weight: 700;
     }
 
     .btn-primary:hover {
@@ -301,88 +353,33 @@
       font-size: 12px;
     }
 
-    .overview-panel,
-    .panel,
-    .stat-card,
-    .post-card,
-    .day-card,
-    .assistant-step,
-    .empty-state,
-    .preview-card {
-      border: 1px solid var(--line);
-      background: var(--panel);
-      box-shadow: none;
+    .page {
+      display: none;
     }
 
-    .overview-panel {
+    .page.active {
+      display: block;
+    }
+
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px;
+      grid-template-columns: minmax(0, 1fr) 360px;
       gap: 18px;
-      align-items: stretch;
-      margin-bottom: 18px;
-      padding: 20px;
-      border-radius: 28px;
-      background:
-        linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.035)),
-        radial-gradient(circle at 94% 0%, rgba(215, 181, 109, 0.12), transparent 28%);
+      align-items: start;
     }
 
-    .overview-copy h2 {
-      max-width: 760px;
-      margin-bottom: 10px;
-      font-size: clamp(28px, 4vw, 46px);
-      line-height: 1.02;
-      letter-spacing: -1.7px;
-      font-weight: 780;
-    }
-
-    .overview-copy p {
-      max-width: 720px;
-      color: var(--muted);
-      font-size: 15px;
-      font-weight: 400;
-    }
-
-    .overview-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .focus-box {
+    .planner-grid {
       display: grid;
-      align-content: space-between;
-      gap: 16px;
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(7, 7, 10, 0.45);
-      border: 1px solid rgba(215, 181, 109, 0.15);
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: 18px;
+      align-items: start;
     }
 
-    .focus-box span {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 650;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .focus-box strong {
-      display: block;
-      font-size: 26px;
-      line-height: 1.1;
-      letter-spacing: -0.7px;
-      font-weight: 750;
-    }
-
-    .focus-box p {
-      margin-top: 9px;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 400;
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.8fr);
+      gap: 18px;
+      align-items: start;
     }
 
     .stats-grid {
@@ -392,58 +389,21 @@
       margin-bottom: 18px;
     }
 
-    .stat-card {
-      min-height: 96px;
-      padding: 15px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.048);
-    }
-
-    .stat-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 500;
-    }
-
-    .stat-card strong {
-      display: block;
-      margin-top: 6px;
-      font-size: 28px;
-      line-height: 1;
-      letter-spacing: -0.8px;
-      font-weight: 760;
-    }
-
-    .stat-card small {
-      display: block;
-      margin-top: 7px;
-      color: var(--muted-soft);
-      font-size: 11px;
-      font-weight: 400;
-    }
-
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .sticky-side {
-      position: sticky;
-      top: 98px;
+    .panel,
+    .stat-card,
+    .post-card,
+    .day-card,
+    .empty-state,
+    .insight-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: none;
     }
 
     .panel {
       padding: 20px;
       border-radius: var(--radius);
-      scroll-margin-top: 96px;
+      margin-bottom: 18px;
     }
 
     .panel-header {
@@ -451,7 +411,7 @@
       justify-content: space-between;
       align-items: flex-start;
       gap: 14px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .panel-eyebrow {
@@ -460,14 +420,14 @@
       font-weight: 700;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .panel h2 {
       font-size: 20px;
-      line-height: 1.18;
+      line-height: 1.2;
       letter-spacing: -0.5px;
-      font-weight: 720;
+      font-weight: 750;
     }
 
     .panel p,
@@ -475,6 +435,39 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 400;
+    }
+
+    .stat-card {
+      min-height: 104px;
+      padding: 16px;
+      border-radius: 18px;
+    }
+
+    .stat-card span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .stat-card strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -1px;
+      font-weight: 800;
+    }
+
+    .stat-card small {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted-soft);
+      font-size: 11px;
+      font-weight: 500;
     }
 
     .form-grid {
@@ -503,20 +496,20 @@
     textarea,
     select {
       width: 100%;
-      min-height: 44px;
-      padding: 12px 13px;
-      border-radius: 14px;
+      min-height: 42px;
+      padding: 11px 12px;
+      border-radius: 13px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       outline: none;
       color: var(--text);
       background: var(--field);
-      font-size: 14px;
-      font-weight: 400;
       transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      font-size: 13px;
+      font-weight: 400;
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 112px;
       resize: vertical;
     }
 
@@ -531,7 +524,7 @@
 
     input::placeholder,
     textarea::placeholder {
-      color: rgba(183, 177, 167, 0.56);
+      color: rgba(183, 177, 167, 0.55);
     }
 
     input:focus,
@@ -542,19 +535,13 @@
       box-shadow: 0 0 0 4px rgba(215, 181, 109, 0.08);
     }
 
-    .form-actions,
-    .filter-row,
-    .creator-actions,
-    .post-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
     .form-actions {
       grid-column: 1 / -1;
+      display: flex;
       justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
       padding-top: 4px;
     }
 
@@ -564,38 +551,32 @@
 
     .filter-row input,
     .filter-row select {
-      min-height: 40px;
-      max-width: 220px;
+      min-height: 39px;
+      max-width: 210px;
     }
 
     .filter-row input {
-      max-width: 310px;
-    }
-
-    .chip-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      max-width: 300px;
     }
 
     .chip {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 6px 10px;
+      padding: 7px 10px;
       border-radius: 999px;
       color: #f7d991;
       background: rgba(215, 181, 109, 0.10);
-      border: 1px solid rgba(215, 181, 109, 0.17);
+      border: 1px solid rgba(215, 181, 109, 0.18);
       font-size: 11px;
-      font-weight: 650;
+      font-weight: 600;
       white-space: nowrap;
     }
 
     .chip.neutral {
-      color: rgba(247, 244, 238, 0.82);
+      color: rgba(247, 244, 238, 0.78);
       background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.11);
     }
 
     .chip.green {
@@ -610,22 +591,112 @@
       border-color: rgba(251, 113, 133, 0.22);
     }
 
+    .chip.blue {
+      color: #d7e7ff;
+      background: var(--blue-soft);
+      border-color: rgba(138, 180, 248, 0.22);
+    }
+
+    .chip.purple {
+      color: #ebe4ff;
+      background: var(--purple-soft);
+      border-color: rgba(196, 181, 253, 0.22);
+    }
+
+    .quick-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quick-item {
+      display: grid;
+      gap: 8px;
+      padding: 13px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--line-soft);
+    }
+
+    .quick-item strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .quick-item p {
+      font-size: 12px;
+    }
+
+    .queue-list,
+    .approval-list,
+    .report-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .post-card {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.048);
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .post-card:hover {
+      border-color: rgba(215, 181, 109, 0.22);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .post-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .post-card h3 {
+      margin-bottom: 4px;
+      font-size: 15px;
+      letter-spacing: -0.25px;
+      font-weight: 700;
+    }
+
+    .post-card p {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .post-snippet,
+    .note-box {
+      padding: 11px 12px;
+      border-radius: 14px;
+      color: rgba(247, 244, 238, 0.82);
+      background: rgba(7, 7, 10, 0.44);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      font-size: 12px;
+      font-weight: 400;
+      white-space: pre-wrap;
+    }
+
     .generated-box {
-      min-height: 146px;
+      min-height: 166px;
       padding: 15px;
       border-radius: 18px;
       color: rgba(247, 244, 238, 0.86);
       white-space: pre-wrap;
-      background: rgba(7, 7, 10, 0.52);
-      border: 1px dashed rgba(215, 181, 109, 0.23);
+      background: rgba(7, 7, 10, 0.58);
+      border: 1px dashed rgba(215, 181, 109, 0.24);
       font-size: 13px;
       font-weight: 400;
     }
 
     .preview-card {
-      padding: 16px;
+      padding: 18px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.048);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.105);
     }
 
     .preview-top {
@@ -633,7 +704,7 @@
       justify-content: space-between;
       gap: 12px;
       align-items: center;
-      margin-bottom: 13px;
+      margin-bottom: 14px;
     }
 
     .avatar-row {
@@ -644,22 +715,22 @@
     }
 
     .avatar {
-      width: 38px;
-      height: 38px;
-      flex: 0 0 38px;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
       display: grid;
       place-items: center;
       border-radius: 999px;
       color: #07070a;
       background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
       font-size: 14px;
-      font-weight: 750;
+      font-weight: 800;
     }
 
     .preview-brand {
       display: block;
       font-size: 14px;
-      font-weight: 650;
+      font-weight: 700;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -675,163 +746,255 @@
     .media-box {
       display: grid;
       place-items: center;
-      min-height: 190px;
-      margin: 13px 0;
-      padding: 18px;
+      min-height: 210px;
+      margin: 14px 0;
+      padding: 16px;
       border-radius: 18px;
-      color: rgba(247, 244, 238, 0.55);
+      color: rgba(247, 244, 238, 0.54);
       background:
-        radial-gradient(circle at 50% 38%, rgba(215, 181, 109, 0.12), transparent 42%),
-        rgba(255, 255, 255, 0.048);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      text-align: center;
+        radial-gradient(circle at 50% 40%, rgba(215, 181, 109, 0.12), transparent 40%),
+        rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.10);
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
+      text-align: center;
     }
 
     .preview-caption {
-      color: rgba(247, 244, 238, 0.86);
+      color: rgba(247, 244, 238, 0.88);
       font-size: 13px;
       white-space: pre-wrap;
-      font-weight: 400;
     }
 
-    .queue-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .post-card {
-      display: grid;
-      gap: 12px;
-      padding: 15px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.045);
-    }
-
-    .post-card-top {
+    .calendar-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 12px;
+      gap: 16px;
+      margin-bottom: 18px;
     }
 
-    .post-card h3 {
-      margin-bottom: 4px;
-      font-size: 15px;
-      letter-spacing: -0.2px;
-      font-weight: 650;
+    .calendar-title-wrap h2 {
+      margin-top: 4px;
     }
 
-    .post-card p {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 400;
+    .calendar-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .post-snippet {
-      padding: 10px 11px;
-      border-radius: 14px;
-      color: rgba(247, 244, 238, 0.82);
-      background: rgba(7, 7, 10, 0.40);
-      border: 1px solid rgba(255, 255, 255, 0.065);
-      font-size: 12px;
-      font-weight: 400;
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .calendar-weekdays span {
+      color: rgba(247, 244, 238, 0.48);
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
     }
 
     .calendar-grid {
       display: grid;
       grid-template-columns: repeat(7, minmax(0, 1fr));
-      gap: 9px;
+      gap: 8px;
     }
 
-    .day-card {
-      min-height: 112px;
-      padding: 11px;
+    .day-card,
+    .calendar-day {
+      min-height: 128px;
+      padding: 10px;
       border-radius: 16px;
-      background: rgba(255, 255, 255, 0.043);
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--line-soft);
     }
 
-    .day-card strong {
-      display: block;
+    .calendar-day {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--text);
+      text-align: left;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .calendar-day:hover,
+    .calendar-day.selected {
+      background: rgba(215, 181, 109, 0.09);
+      border-color: rgba(215, 181, 109, 0.28);
+    }
+
+    .calendar-day.outside-month {
+      opacity: 0.46;
+    }
+
+    .calendar-day.today {
+      border-color: rgba(240, 211, 138, 0.46);
+      background: rgba(215, 181, 109, 0.075);
+    }
+
+    .calendar-day-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .calendar-day-number {
+      display: inline-grid;
+      place-items: center;
+      min-width: 28px;
+      height: 28px;
+      padding: 0 7px;
+      border-radius: 999px;
+      color: rgba(247, 244, 238, 0.88);
       font-size: 12px;
-      font-weight: 650;
+      font-weight: 700;
     }
 
-    .day-card span {
-      display: block;
-      margin-top: 3px;
+    .calendar-day.today .calendar-day-number,
+    .calendar-day.selected .calendar-day-number {
+      color: #07070a;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+    }
+
+    .calendar-count {
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 400;
+      font-size: 10.5px;
+      font-weight: 500;
     }
 
     .day-pill {
       display: block;
-      margin-top: 8px;
       padding: 7px 8px;
       border-radius: 10px;
       color: #f7d991;
-      background: rgba(215, 181, 109, 0.095);
-      border: 1px solid rgba(215, 181, 109, 0.14);
-      font-size: 10px;
-      font-weight: 600;
+      background: rgba(215, 181, 109, 0.10);
+      border: 1px solid rgba(215, 181, 109, 0.16);
+      font-size: 10.5px;
+      font-weight: 500;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
-    .day-pill.open {
-      color: var(--muted-soft);
+    .day-pill.empty {
+      color: rgba(247, 244, 238, 0.42);
       background: rgba(255, 255, 255, 0.035);
-      border-color: rgba(255, 255, 255, 0.06);
-      font-weight: 400;
+      border-color: rgba(255, 255, 255, 0.07);
     }
 
-    .assistant-grid {
+    .calendar-selected-panel {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--line-soft);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .calendar-selected-panel h3 {
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .selected-date-list {
       display: grid;
       gap: 10px;
     }
 
-    .assistant-step {
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 11px;
-      padding: 12px;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.043);
+    .selected-post-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      background: rgba(7, 7, 10, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.07);
     }
 
-    .assistant-step span {
-      width: 32px;
-      height: 32px;
-      display: grid;
-      place-items: center;
-      border-radius: 999px;
-      color: #07070a;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
-      font-size: 12px;
-      font-weight: 750;
-    }
-
-    .assistant-step b {
+    .selected-post-item strong {
       display: block;
-      margin-bottom: 3px;
       font-size: 13px;
       font-weight: 650;
     }
 
-    .assistant-step p {
+    .selected-post-item p {
       color: var(--muted);
       font-size: 12px;
-      font-weight: 400;
+    }
+
+    .content-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .pillar-card,
+    .insight-card {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid var(--line-soft);
+    }
+
+    .pillar-card strong,
+    .insight-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .pillar-card p,
+    .insight-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line-soft);
+      border-radius: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      font-size: 12px;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line-soft);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    td {
+      color: rgba(247, 244, 238, 0.84);
     }
 
     .empty-state {
       padding: 20px;
       border-radius: 18px;
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.043);
+      background: rgba(255, 255, 255, 0.045);
       text-align: center;
       font-size: 13px;
       font-weight: 400;
@@ -848,37 +1011,41 @@
       color: #c8f9d9;
       background: rgba(9, 15, 13, 0.94);
       border: 1px solid rgba(126, 226, 168, 0.24);
+      transform: translateY(18px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.22s ease;
+      transition: opacity 0.24s ease, transform 0.24s ease;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .toast.show {
       opacity: 1;
+      transform: translateY(0);
     }
 
     .hide {
       display: none !important;
     }
 
-    @media (max-width: 1250px) {
+    @media (max-width: 1240px) {
       .stats-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .workspace-grid,
-      .overview-panel {
+      .dashboard-grid,
+      .planner-grid,
+      .two-col-grid {
         grid-template-columns: 1fr;
       }
 
-      .sticky-side {
-        position: static;
+      .calendar-weekdays,
+      .calendar-grid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
       }
 
-      .calendar-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      .content-pillars-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -889,14 +1056,15 @@
 
       .sidebar {
         position: fixed;
-        inset: 0 auto 0 -290px;
+        inset: 0 auto 0 0;
         z-index: 70;
         width: min(84vw, var(--sidebar-width));
-        transition: left 0.24s ease;
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
       }
 
       body.sidebar-open .sidebar {
-        left: 0;
+        transform: translateX(0);
       }
 
       .mobile-menu {
@@ -908,9 +1076,9 @@
       }
 
       .topbar {
-        margin: -22px -22px 22px;
-        padding: 15px 22px;
-        align-items: flex-start;
+        margin-bottom: 22px;
+        padding: 16px;
+        align-items: center;
       }
 
       .stats-grid {
@@ -922,17 +1090,51 @@
       .topbar,
       .panel-header,
       .post-card-top,
-      .form-actions {
+      .form-actions,
+      .calendar-toolbar {
         display: grid;
         justify-content: stretch;
       }
 
+      .topbar {
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 12px;
+      }
+
+      .topbar-title {
+        min-width: 0;
+      }
+
+      .topbar-title h1 {
+        font-size: 24px;
+        letter-spacing: -0.7px;
+      }
+
+      .topbar-title p {
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
       .topbar-actions,
+      .button-row,
       .form-actions,
-      .creator-actions,
       .post-actions,
-      .filter-row {
+      .filter-row,
+      .calendar-controls {
         width: 100%;
+      }
+
+      .topbar-actions {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mobile-menu {
+        width: auto;
+        min-height: 38px;
+        padding: 9px 13px;
       }
 
       .btn,
@@ -942,16 +1144,56 @@
         max-width: none;
       }
 
-      .overview-panel,
-      .panel {
-        padding: 17px;
-        border-radius: 20px;
+      .topbar .btn {
+        width: auto;
+      }
+
+      .topbar-actions .btn {
+        width: 100%;
       }
 
       .stats-grid,
       .form-grid,
-      .calendar-grid {
+      .content-pillars-grid {
         grid-template-columns: 1fr;
+      }
+
+      .calendar-weekdays,
+      .calendar-grid {
+        grid-template-columns: repeat(7, minmax(38px, 1fr));
+        gap: 6px;
+      }
+
+      .calendar-weekdays span {
+        font-size: 10px;
+      }
+
+      .calendar-day {
+        min-height: 92px;
+        padding: 7px;
+      }
+
+      .calendar-day-number {
+        min-width: 24px;
+        height: 24px;
+        font-size: 11px;
+      }
+
+      .calendar-count {
+        display: none;
+      }
+
+      .day-pill {
+        padding: 5px 6px;
+        font-size: 9px;
+      }
+
+      .selected-post-item {
+        display: grid;
+      }
+
+      .panel {
+        padding: 17px;
       }
     }
   </style>
@@ -959,263 +1201,303 @@
 <body>
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
-      <a class="brand" href="#overview" aria-label="Saionra Social Scheduler">
+      <a class="brand" href="#" aria-label="Saionra Social Workspace">
         <span class="brand-mark">S</span>
         <span>
           <strong>Saionra</strong>
-          <span>AI Business OS for content workflows</span>
+          <span>Social Workspace</span>
         </span>
       </a>
 
+      <div class="workspace-card">
+        <small>Active workspace</small>
+        <strong id="sidebarWorkspaceName">Saionra</strong>
+        <p id="sidebarWorkspaceAudience">Small teams, VAs, and service businesses</p>
+      </div>
+
       <div class="sidebar-section">
-        <div class="sidebar-label">Social Module</div>
-        <nav class="nav-list" aria-label="Social Scheduler Navigation">
-          <a class="nav-link active" href="#overview">Overview <small>Live</small></a>
-          <a class="nav-link" href="#create">Create Post</a>
-          <a class="nav-link" href="#creator">Caption Builder</a>
-          <a class="nav-link" href="#queue">Content Queue</a>
-          <a class="nav-link" href="#calendar">Calendar</a>
-          <a class="nav-link" href="#assistant">Posting Steps</a>
+        <div class="sidebar-label">Workspace</div>
+        <nav class="nav-list" aria-label="Saionra Social Navigation">
+          <button class="nav-button active" type="button" data-page="dashboard">Dashboard <small>Live</small></button>
+          <button class="nav-button" type="button" data-page="planner">Planner</button>
+          <button class="nav-button" type="button" data-page="creator">AI Creator</button>
+          <button class="nav-button" type="button" data-page="approvals">Approvals</button>
+          <button class="nav-button" type="button" data-page="calendar">Calendar</button>
+          <button class="nav-button" type="button" data-page="reports">Reports</button>
+          <button class="nav-button" type="button" data-page="settings">Brand Settings</button>
         </nav>
       </div>
 
       <div class="sidebar-section">
-        <div class="sidebar-label">Later Integrations</div>
+        <div class="sidebar-label">Coming Soon</div>
         <div class="nav-list">
-          <span class="nav-link">Meta Auto-Posting <small>API</small></span>
-          <span class="nav-link">Analytics <small>GA4</small></span>
-          <span class="nav-link">Reports <small>CSV</small></span>
-          <span class="nav-link">SmartLink <small>Beta</small></span>
+          <span class="nav-soon">Meta Auto-Posting <small>API</small></span>
+          <span class="nav-soon">Team Login <small>Auth</small></span>
+          <span class="nav-soon">Client Portal <small>Link</small></span>
+          <span class="nav-soon">Smart Reports <small>AI</small></span>
         </div>
-      </div>
-
-      <div class="sidebar-note">
-        <b>Stable first version</b>
-        Plan, write, save, filter, export, and post manually now. Auto-posting can connect later without changing the full interface.
       </div>
     </aside>
 
     <main class="main">
-      <header class="topbar">
-        <button class="btn mobile-menu" id="mobileMenuButton" type="button">Menu</button>
+      <div class="main-inner">
+        <header class="topbar">
+          <button class="btn mobile-menu" id="mobileMenuButton" type="button">Menu</button>
 
-        <div class="topbar-title">
-          <h1>Social Scheduler</h1>
-          <p>Create, plan, approve, and organize posts in one clean Saionra workspace.</p>
-        </div>
-
-        <div class="topbar-actions">
-          <button class="btn" id="exportCsvButton" type="button">Export CSV</button>
-          <button class="btn btn-primary" id="jumpCreateButton" type="button">Create Post</button>
-        </div>
-      </header>
-
-      <div class="content-wrap">
-        <section id="overview" class="overview-panel" aria-label="Overview">
-          <div class="overview-copy">
-            <div class="panel-eyebrow">Dashboard</div>
-            <h2>Plan social content without a messy workflow.</h2>
-            <p>Use this module to draft posts, organize schedules, prepare captions, check the queue, and export content for manual posting or future API publishing.</p>
-            <div class="overview-actions">
-              <span class="chip">Content planning</span>
-              <span class="chip neutral">Manual posting ready</span>
-              <span class="chip green">Future API friendly</span>
-            </div>
+          <div class="topbar-title">
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageSubtitle">Plan, approve, schedule, and report content from one calm Saionra workspace.</p>
           </div>
 
-          <div class="focus-box">
+          <div class="topbar-actions">
+            <button class="btn" id="exportCsvButton" type="button">Export CSV</button>
+            <button class="btn btn-primary" id="newPostButton" type="button">New Post</button>
+          </div>
+        </header>
+
+        <section class="page active" id="page-dashboard" aria-label="Dashboard">
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span>Total Posts <small>All</small></span>
+              <strong id="statTotal">0</strong>
+              <small>Saved in this browser</small>
+            </article>
+            <article class="stat-card">
+              <span>Drafts <small>Plan</small></span>
+              <strong id="statDrafts">0</strong>
+              <small>Still being prepared</small>
+            </article>
+            <article class="stat-card">
+              <span>Needs Review <small>Client</small></span>
+              <strong id="statReview">0</strong>
+              <small>Waiting for approval</small>
+            </article>
+            <article class="stat-card">
+              <span>Approved <small>Ready</small></span>
+              <strong id="statApproved">0</strong>
+              <small>Safe to schedule</small>
+            </article>
+            <article class="stat-card">
+              <span>Posted <small>Done</small></span>
+              <strong id="statPosted">0</strong>
+              <small>Published content</small>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
             <div>
-              <span>Today’s Focus</span>
-              <strong id="todayFocusTitle">No urgent posts</strong>
-              <p id="todayFocusText">Posts scheduled for today will appear here after you save them.</p>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">This Week</div>
+                    <h2>Priority workflow</h2>
+                    <p>Focus only on the posts that need action next. This keeps the workspace simple for clients.</p>
+                  </div>
+                  <button class="btn btn-sm" type="button" data-page-jump="approvals">Open approvals</button>
+                </div>
+                <div class="queue-list" id="priorityList"></div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Content Pillars</div>
+                    <h2>Balanced content plan</h2>
+                    <p>Use pillars so the account does not post random content.</p>
+                  </div>
+                </div>
+                <div class="content-pillars-grid" id="dashboardPillars"></div>
+              </section>
             </div>
-            <button class="btn btn-primary" id="jumpQueueButton" type="button">Review Queue</button>
+
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Next Action</div>
+                    <h2>Manual posting focus</h2>
+                    <p>Ready and scheduled posts due today appear here.</p>
+                  </div>
+                </div>
+                <div class="quick-list" id="todayList"></div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">System</div>
+                    <h2>Workspace health</h2>
+                  </div>
+                </div>
+                <div class="quick-list" id="healthList"></div>
+              </section>
+            </aside>
           </div>
         </section>
 
-        <section class="stats-grid" aria-label="Post Stats">
-          <article class="stat-card">
-            <span>Total Posts</span>
-            <strong id="statTotal">0</strong>
-            <small>Saved in this browser</small>
-          </article>
-
-          <article class="stat-card">
-            <span>Drafts</span>
-            <strong id="statDrafts">0</strong>
-            <small>Needs review</small>
-          </article>
-
-          <article class="stat-card">
-            <span>Scheduled</span>
-            <strong id="statScheduled">0</strong>
-            <small>Planned content</small>
-          </article>
-
-          <article class="stat-card">
-            <span>Ready Today</span>
-            <strong id="statReadyToday">0</strong>
-            <small>Manual posting focus</small>
-          </article>
-
-          <article class="stat-card">
-            <span>Posted</span>
-            <strong id="statPosted">0</strong>
-            <small>Completed content</small>
-          </article>
-        </section>
-
-        <div class="workspace-grid">
-          <div class="stack">
-            <section class="panel" id="create" aria-label="Create Scheduled Post">
-              <div class="panel-header">
-                <div>
-                  <div class="panel-eyebrow">Planner</div>
-                  <h2 id="formTitle">Create Scheduled Post</h2>
-                  <p>Add the platform, schedule, caption, media note, and internal reminders.</p>
-                </div>
-                <div class="chip-row">
-                  <span class="chip neutral" id="editStatusChip">New post</span>
-                </div>
-              </div>
-
-              <form class="form-grid" id="postForm">
-                <div class="field">
-                  <label for="postTitle">Post Title</label>
-                  <input type="text" id="postTitle" name="postTitle" placeholder="Example: Immigration consultation promo" required>
-                </div>
-
-                <div class="field">
-                  <label for="platform">Platform</label>
-                  <select id="platform" name="platform" required>
-                    <option value="Instagram">Instagram</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="LinkedIn">LinkedIn</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="YouTube Shorts">YouTube Shorts</option>
-                    <option value="X / Twitter">X / Twitter</option>
-                    <option value="Pinterest">Pinterest</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="postType">Post Type</label>
-                  <select id="postType" name="postType" required>
-                    <option value="Single Image">Single Image</option>
-                    <option value="Carousel">Carousel</option>
-                    <option value="Short Video / Reel">Short Video / Reel</option>
-                    <option value="Story">Story</option>
-                    <option value="Text Post">Text Post</option>
-                    <option value="Link Post">Link Post</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="status">Status</label>
-                  <select id="status" name="status" required>
-                    <option value="Draft">Draft</option>
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="Ready">Ready</option>
-                    <option value="Posted">Posted</option>
-                  </select>
-                </div>
-
-                <div class="field">
-                  <label for="scheduleDateTime">Schedule Date & Time</label>
-                  <input type="datetime-local" id="scheduleDateTime" name="scheduleDateTime">
-                </div>
-
-                <div class="field">
-                  <label for="mediaUrl">Media URL / File Note</label>
-                  <input type="text" id="mediaUrl" name="mediaUrl" placeholder="Paste image/video link or file note">
-                </div>
-
-                <div class="full-field">
-                  <label for="caption">Caption</label>
-                  <textarea id="caption" name="caption" placeholder="Write or generate your caption here..."></textarea>
-                </div>
-
-                <div class="full-field">
-                  <label for="internalNotes">Internal Notes</label>
-                  <textarea id="internalNotes" name="internalNotes" placeholder="Client notes, CTA, asset reminder, posting checklist..."></textarea>
-                </div>
-
-                <div class="form-actions">
+        <section class="page" id="page-planner" aria-label="Planner">
+          <div class="planner-grid">
+            <div>
+              <section class="panel" id="plannerFormPanel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Planner</div>
+                    <h2 id="formTitle">Create Content Item</h2>
+                    <p>Create ideas, drafts, review items, approved posts, scheduled posts, and posted content.</p>
+                  </div>
                   <div class="chip-row">
-                    <span class="chip" id="scheduleHint">No schedule selected</span>
-                    <span class="chip neutral" id="previewPlatformChip">Instagram</span>
-                  </div>
-
-                  <div class="post-actions">
-                    <button class="btn" id="cancelEditButton" type="button">Clear</button>
-                    <button class="btn btn-primary" id="savePostButton" type="submit">Save Post</button>
+                    <span class="chip neutral" id="editStatusChip">New post</span>
                   </div>
                 </div>
-              </form>
-            </section>
 
-            <section class="panel" id="queue" aria-label="Content Queue">
-              <div class="panel-header">
-                <div>
-                  <div class="panel-eyebrow">Manager</div>
-                  <h2>Content Queue</h2>
-                  <p>Review drafts, scheduled posts, ready posts, and completed posts.</p>
+                <form class="form-grid" id="postForm">
+                  <div class="field">
+                    <label for="postTitle">Post Title</label>
+                    <input type="text" id="postTitle" name="postTitle" placeholder="Example: Immigration consultation promo" required>
+                  </div>
+
+                  <div class="field">
+                    <label for="platform">Platform</label>
+                    <select id="platform" name="platform" required></select>
+                  </div>
+
+                  <div class="field">
+                    <label for="contentPillar">Content Pillar</label>
+                    <select id="contentPillar" name="contentPillar" required></select>
+                  </div>
+
+                  <div class="field">
+                    <label for="postType">Post Type</label>
+                    <select id="postType" name="postType" required>
+                      <option value="Single Image">Single Image</option>
+                      <option value="Carousel">Carousel</option>
+                      <option value="Short Video / Reel">Short Video / Reel</option>
+                      <option value="Story">Story</option>
+                      <option value="Text Post">Text Post</option>
+                      <option value="Link Post">Link Post</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required></select>
+                  </div>
+
+                  <div class="field">
+                    <label for="scheduleDateTime">Schedule Date & Time</label>
+                    <input type="datetime-local" id="scheduleDateTime" name="scheduleDateTime">
+                  </div>
+
+                  <div class="field">
+                    <label for="mediaUrl">Canva / Drive / Media Link</label>
+                    <input type="text" id="mediaUrl" name="mediaUrl" placeholder="Paste Canva, Drive, video, or image note">
+                  </div>
+
+                  <div class="field">
+                    <label for="liveUrl">Live Post URL</label>
+                    <input type="text" id="liveUrl" name="liveUrl" placeholder="Paste after posting">
+                  </div>
+
+                  <div class="full-field">
+                    <label for="caption">Caption</label>
+                    <textarea id="caption" name="caption" placeholder="Write or generate your caption here..."></textarea>
+                  </div>
+
+                  <div class="full-field">
+                    <label for="internalNotes">Internal Notes</label>
+                    <textarea id="internalNotes" name="internalNotes" placeholder="Client notes, CTA, asset reminder, posting checklist..."></textarea>
+                  </div>
+
+                  <div class="form-actions">
+                    <div class="chip-row">
+                      <span class="chip" id="scheduleHint">No schedule selected</span>
+                      <span class="chip neutral" id="previewPlatformChip">Instagram</span>
+                    </div>
+
+                    <div class="post-actions">
+                      <button class="btn" id="cancelEditButton" type="button">Clear</button>
+                      <button class="btn btn-primary" id="savePostButton" type="submit">Save Post</button>
+                    </div>
+                  </div>
+                </form>
+              </section>
+
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Manager</div>
+                    <h2>Content Queue</h2>
+                    <p>Filter, edit, duplicate, approve, schedule, and mark posts as completed.</p>
+                  </div>
                 </div>
-              </div>
 
-              <div class="filter-row">
-                <input type="search" id="searchInput" placeholder="Search title or caption">
-                <select id="filterStatus">
-                  <option value="All">All Statuses</option>
-                  <option value="Draft">Draft</option>
-                  <option value="Scheduled">Scheduled</option>
-                  <option value="Ready">Ready</option>
-                  <option value="Posted">Posted</option>
-                </select>
-                <select id="filterPlatform">
-                  <option value="All">All Platforms</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="Facebook">Facebook</option>
-                  <option value="LinkedIn">LinkedIn</option>
-                  <option value="TikTok">TikTok</option>
-                  <option value="YouTube Shorts">YouTube Shorts</option>
-                  <option value="X / Twitter">X / Twitter</option>
-                  <option value="Pinterest">Pinterest</option>
-                </select>
-              </div>
-
-              <div class="queue-list" id="queueList"></div>
-            </section>
-
-            <section class="panel" id="calendar" aria-label="Content Calendar">
-              <div class="panel-header">
-                <div>
-                  <div class="panel-eyebrow">Calendar</div>
-                  <h2>Next 14 Days</h2>
-                  <p>A simple view of upcoming posting slots and scheduled content.</p>
+                <div class="filter-row">
+                  <input type="search" id="searchInput" placeholder="Search title, caption, or notes">
+                  <select id="filterStatus"></select>
+                  <select id="filterPlatform"></select>
+                  <select id="filterPillar"></select>
                 </div>
-              </div>
 
-              <div class="calendar-grid" id="calendarGrid"></div>
-            </section>
+                <div class="queue-list" id="queueList"></div>
+              </section>
+            </div>
+
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Preview</div>
+                    <h2>Post Preview</h2>
+                    <p>Live preview from the planner form.</p>
+                  </div>
+                </div>
+                <article class="preview-card">
+                  <div class="preview-top">
+                    <div class="avatar-row">
+                      <div class="avatar" id="previewAvatar">S</div>
+                      <div>
+                        <span class="preview-brand" id="previewTitle">Untitled Post</span>
+                        <span class="preview-date" id="previewDate">No date selected</span>
+                      </div>
+                    </div>
+                    <span class="chip neutral" id="previewStatus">Idea</span>
+                  </div>
+                  <div class="media-box" id="previewMedia">Media preview / file note</div>
+                  <div class="preview-caption" id="previewCaption">Your caption preview will appear here.</div>
+                </article>
+              </section>
+
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Posting Checklist</div>
+                    <h2>Manual posting mode</h2>
+                    <p>Use this before the API posting module is connected.</p>
+                  </div>
+                </div>
+                <div class="quick-list">
+                  <div class="quick-item"><strong>1. Confirm approval</strong><p>Only post items marked Approved, Scheduled, or Ready.</p></div>
+                  <div class="quick-item"><strong>2. Open media link</strong><p>Use Canva, Drive, or the file note attached to the post.</p></div>
+                  <div class="quick-item"><strong>3. Copy caption</strong><p>Paste, check line breaks, then publish or schedule manually.</p></div>
+                  <div class="quick-item"><strong>4. Add live URL</strong><p>After posting, paste the live post URL and mark as Posted.</p></div>
+                </div>
+              </section>
+            </aside>
           </div>
+        </section>
 
-          <aside class="stack sticky-side">
-            <section class="panel" id="creator" aria-label="AI Content Creator">
+        <section class="page" id="page-creator" aria-label="AI Creator">
+          <div class="two-col-grid">
+            <section class="panel">
               <div class="panel-header">
                 <div>
                   <div class="panel-eyebrow">AI Creator</div>
-                  <h2>Caption Builder</h2>
-                  <p>Template-based caption generation now. Gemini, OpenAI, or another API can connect later.</p>
+                  <h2>Brand-aware content builder</h2>
+                  <p>Uses the saved brand voice, audience, offer, CTA, and content pillars.</p>
                 </div>
               </div>
 
               <div class="form-grid">
-                <div class="field">
-                  <label for="aiBrand">Business / Brand</label>
-                  <input type="text" id="aiBrand" placeholder="Example: Saionra, law firm, restaurant">
-                </div>
-
                 <div class="field">
                   <label for="aiGoal">Goal</label>
                   <select id="aiGoal">
@@ -1229,8 +1511,13 @@
                 </div>
 
                 <div class="field">
-                  <label for="aiAudience">Target Audience</label>
-                  <input type="text" id="aiAudience" placeholder="Example: business owners, parents, immigrants">
+                  <label for="aiPlatform">Platform</label>
+                  <select id="aiPlatform"></select>
+                </div>
+
+                <div class="field">
+                  <label for="aiPillar">Content Pillar</label>
+                  <select id="aiPillar"></select>
                 </div>
 
                 <div class="field">
@@ -1245,25 +1532,24 @@
                 </div>
 
                 <div class="field">
-                  <label for="aiPlatform">Platform</label>
-                  <select id="aiPlatform">
-                    <option value="Instagram">Instagram</option>
-                    <option value="Facebook">Facebook</option>
-                    <option value="LinkedIn">LinkedIn</option>
-                    <option value="TikTok">TikTok</option>
-                    <option value="YouTube Shorts">YouTube Shorts</option>
-                  </select>
+                  <label for="aiAngle">Specific Angle</label>
+                  <input type="text" id="aiAngle" placeholder="Example: save time on content approvals">
                 </div>
 
                 <div class="field">
-                  <label for="aiOffer">Offer / CTA</label>
-                  <input type="text" id="aiOffer" placeholder="Example: Book a free audit">
+                  <label for="aiLength">Caption Length</label>
+                  <select id="aiLength">
+                    <option value="Short">Short</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="Detailed">Detailed</option>
+                  </select>
                 </div>
 
                 <div class="full-field">
-                  <div class="creator-actions">
+                  <div class="button-row">
                     <button class="btn btn-primary" id="generateCaptionButton" type="button">Generate Caption</button>
-                    <button class="btn" id="useGeneratedButton" type="button">Use in Form</button>
+                    <button class="btn" id="generateIdeasButton" type="button">Generate 7 Ideas</button>
+                    <button class="btn" id="useGeneratedButton" type="button">Use in Planner</button>
                     <button class="btn" id="copyGeneratedButton" type="button">Copy</button>
                   </div>
                 </div>
@@ -1274,69 +1560,209 @@
               </div>
             </section>
 
-            <section class="panel" aria-label="Post Preview">
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Brand Brain</div>
+                    <h2>Current AI context</h2>
+                    <p>This is what the generator uses. Edit it in Brand Settings.</p>
+                  </div>
+                </div>
+                <div class="quick-list" id="brandBrainList"></div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-approvals" aria-label="Approvals">
+          <div class="two-col-grid">
+            <section class="panel">
               <div class="panel-header">
                 <div>
-                  <div class="panel-eyebrow">Preview</div>
-                  <h2>Post Preview</h2>
-                  <p>Live preview based on the form.</p>
+                  <div class="panel-eyebrow">Client Review</div>
+                  <h2>Approval queue</h2>
+                  <p>Keep client review separate from the full content queue so approvals feel easy.</p>
                 </div>
               </div>
-
-              <article class="preview-card">
-                <div class="preview-top">
-                  <div class="avatar-row">
-                    <div class="avatar" id="previewAvatar">S</div>
-                    <div>
-                      <span class="preview-brand" id="previewTitle">Untitled Post</span>
-                      <span class="preview-date" id="previewDate">No date selected</span>
-                    </div>
-                  </div>
-                  <span class="chip" id="previewStatus">Draft</span>
-                </div>
-
-                <div class="media-box" id="previewMedia">Media preview / file note</div>
-                <div class="preview-caption" id="previewCaption">Your caption preview will appear here.</div>
-              </article>
+              <div class="approval-list" id="approvalList"></div>
             </section>
 
-            <section class="panel" id="assistant" aria-label="Manual Posting Assistant">
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Approval Rules</div>
+                    <h2>Recommended status flow</h2>
+                  </div>
+                </div>
+                <div class="quick-list">
+                  <div class="quick-item"><strong>Idea</strong><p>Raw concept, not ready for writing.</p></div>
+                  <div class="quick-item"><strong>Draft</strong><p>Caption and asset note are in progress.</p></div>
+                  <div class="quick-item"><strong>Needs Review</strong><p>Ready for client or manager review.</p></div>
+                  <div class="quick-item"><strong>Approved</strong><p>Safe to schedule or post manually.</p></div>
+                  <div class="quick-item"><strong>Posted</strong><p>Published and ready for metrics later.</p></div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-calendar" aria-label="Calendar">
+          <section class="panel">
+            <div class="calendar-toolbar">
+              <div class="calendar-title-wrap">
+                <div class="panel-eyebrow">Calendar</div>
+                <h2 id="calendarMonthLabel">Calendar</h2>
+                <p>Month view for scheduled, approved, ready, and posted content. Click any date to review the posts for that day.</p>
+              </div>
+
+              <div class="calendar-controls" aria-label="Calendar controls">
+                <button class="btn btn-sm" id="calendarPrevButton" type="button">Previous</button>
+                <button class="btn btn-sm" id="calendarTodayButton" type="button">Today</button>
+                <button class="btn btn-sm" id="calendarNextButton" type="button">Next</button>
+              </div>
+            </div>
+
+            <div class="calendar-weekdays" aria-hidden="true">
+              <span>Sun</span>
+              <span>Mon</span>
+              <span>Tue</span>
+              <span>Wed</span>
+              <span>Thu</span>
+              <span>Fri</span>
+              <span>Sat</span>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid"></div>
+
+            <aside class="calendar-selected-panel" aria-label="Selected date details">
+              <h3 id="selectedDateTitle">Today</h3>
+              <div class="selected-date-list" id="selectedDatePosts"></div>
+            </aside>
+          </section>
+        </section>
+
+        <section class="page" id="page-reports" aria-label="Reports">
+          <div class="two-col-grid">
+            <section class="panel">
               <div class="panel-header">
                 <div>
-                  <div class="panel-eyebrow">Assistant</div>
-                  <h2>Manual Posting Steps</h2>
-                  <p>Use this while auto-posting is not connected yet.</p>
+                  <div class="panel-eyebrow">Reporting</div>
+                  <h2>Manual metrics tracker</h2>
+                  <p>Add results after posting. Later this can connect to Meta, LinkedIn, TikTok, or imported CSV reports.</p>
                 </div>
               </div>
-
-              <div class="assistant-grid">
-                <div class="assistant-step">
-                  <span>1</span>
-                  <div>
-                    <b>Review the ready post.</b>
-                    <p>Confirm caption, media note, CTA, schedule, and platform.</p>
-                  </div>
-                </div>
-
-                <div class="assistant-step">
-                  <span>2</span>
-                  <div>
-                    <b>Copy caption and media note.</b>
-                    <p>Open the platform, upload the asset, and paste the content.</p>
-                  </div>
-                </div>
-
-                <div class="assistant-step">
-                  <span>3</span>
-                  <div>
-                    <b>Mark it as posted.</b>
-                    <p>Update the post status so the queue and report counts stay clean.</p>
-                  </div>
-                </div>
-              </div>
+              <div class="report-list" id="reportList"></div>
             </section>
-          </aside>
-        </div>
+
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Insights</div>
+                    <h2>What to do next</h2>
+                  </div>
+                </div>
+                <div class="quick-list" id="insightList"></div>
+              </section>
+            </aside>
+          </div>
+        </section>
+
+        <section class="page" id="page-settings" aria-label="Brand Settings">
+          <div class="two-col-grid">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <div class="panel-eyebrow">Brand Settings</div>
+                  <h2>Workspace setup</h2>
+                  <p>Set this once so the planner and AI creator stay aligned with the brand.</p>
+                </div>
+              </div>
+
+              <form class="form-grid" id="workspaceForm">
+                <div class="field">
+                  <label for="workspaceName">Brand / Workspace Name</label>
+                  <input type="text" id="workspaceName" placeholder="Saionra">
+                </div>
+
+                <div class="field">
+                  <label for="workspaceOwner">Owner / Client Name</label>
+                  <input type="text" id="workspaceOwner" placeholder="Dante / Client name">
+                </div>
+
+                <div class="field">
+                  <label for="workspaceAudience">Target Audience</label>
+                  <input type="text" id="workspaceAudience" placeholder="Small business owners, VAs, creators">
+                </div>
+
+                <div class="field">
+                  <label for="workspaceOffer">Main Offer</label>
+                  <input type="text" id="workspaceOffer" placeholder="AI content workflow setup">
+                </div>
+
+                <div class="field">
+                  <label for="workspaceCta">Default CTA</label>
+                  <input type="text" id="workspaceCta" placeholder="Book a free audit">
+                </div>
+
+                <div class="field">
+                  <label for="workspaceTone">Default Tone</label>
+                  <select id="workspaceTone">
+                    <option value="Professional and simple">Professional and simple</option>
+                    <option value="Warm and helpful">Warm and helpful</option>
+                    <option value="Premium and confident">Premium and confident</option>
+                    <option value="Direct and sales-focused">Direct and sales-focused</option>
+                    <option value="Educational and clear">Educational and clear</option>
+                  </select>
+                </div>
+
+                <div class="full-field">
+                  <label for="workspaceVoice">Brand Voice Notes</label>
+                  <textarea id="workspaceVoice" placeholder="Example: simple, helpful, premium, clear, no hype, practical next steps..."></textarea>
+                </div>
+
+                <div class="full-field">
+                  <label for="workspacePlatforms">Platforms</label>
+                  <textarea id="workspacePlatforms" placeholder="Instagram, Facebook, LinkedIn, TikTok, YouTube Shorts"></textarea>
+                  <p class="helper-text">Separate with commas. These platforms will appear in the planner and AI creator.</p>
+                </div>
+
+                <div class="full-field">
+                  <label for="workspacePillars">Content Pillars</label>
+                  <textarea id="workspacePillars" placeholder="Educational, Proof / Case Study, Offer / CTA, Behind the Scenes, FAQ, Authority, Problem / Solution"></textarea>
+                  <p class="helper-text">Separate with commas. These help keep the content plan balanced.</p>
+                </div>
+
+                <div class="form-actions">
+                  <div class="chip-row">
+                    <span class="chip">Used by AI Creator</span>
+                    <span class="chip neutral">Saved locally</span>
+                  </div>
+                  <button class="btn btn-primary" type="submit">Save Workspace</button>
+                </div>
+              </form>
+            </section>
+
+            <aside>
+              <section class="panel">
+                <div class="panel-header">
+                  <div>
+                    <div class="panel-eyebrow">Setup Guide</div>
+                    <h2>Client-ready setup</h2>
+                  </div>
+                </div>
+                <div class="quick-list">
+                  <div class="quick-item"><strong>1. Add brand basics</strong><p>Name, audience, offer, and CTA make the AI output more specific.</p></div>
+                  <div class="quick-item"><strong>2. Use 5–7 content pillars</strong><p>This prevents random posting and supports a stronger monthly strategy.</p></div>
+                  <div class="quick-item"><strong>3. Keep approvals clean</strong><p>Use Needs Review and Approved before scheduling or posting.</p></div>
+                  <div class="quick-item"><strong>4. Track simple metrics</strong><p>Start with impressions, engagement, clicks, and leads before API analytics.</p></div>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </section>
       </div>
     </main>
   </div>
@@ -1344,125 +1770,172 @@
   <div class="toast" id="toast" role="status" aria-live="polite">Saved.</div>
 
   <script>
-    const STORAGE_KEY = "saionra_social_posts_v1";
+    const POSTS_KEY = "saionra_social_posts_v2";
+    const POSTS_FALLBACK_KEY = "saionra_social_posts_v1";
+    const WORKSPACE_KEY = "saionra_social_workspace_v2";
+    const METRICS_KEY = "saionra_social_metrics_v2";
+
+    const defaultWorkspace = {
+      name: "Saionra",
+      owner: "Dante",
+      audience: "Small teams, VAs, creators, and service businesses",
+      offer: "AI content workflow setup",
+      cta: "Book a free AI Business Audit",
+      tone: "Professional and simple",
+      voice: "Simple, helpful, premium, clear, practical, not hype-heavy. Focus on easier workflows, content clarity, approvals, reports, and automation.",
+      platforms: ["Instagram", "Facebook", "LinkedIn", "TikTok", "YouTube Shorts"],
+      pillars: ["Educational", "Proof / Case Study", "Offer / CTA", "Behind the Scenes", "FAQ", "Authority", "Problem / Solution"]
+    };
+
+    const statuses = ["Idea", "Draft", "Needs Review", "Changes Requested", "Approved", "Scheduled", "Ready", "Posted", "Reported"];
+
+    const statusConfig = {
+      Idea: { className: "neutral" },
+      Draft: { className: "neutral" },
+      "Needs Review": { className: "purple" },
+      "Changes Requested": { className: "red" },
+      Approved: { className: "green" },
+      Scheduled: { className: "blue" },
+      Ready: { className: "green" },
+      Posted: { className: "green" },
+      Reported: { className: "neutral" }
+    };
 
     const state = {
       posts: [],
+      metrics: {},
+      workspace: { ...defaultWorkspace },
       editingId: null,
+      currentPage: "dashboard",
+      calendarCursor: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+      selectedCalendarDate: "",
       filters: {
         search: "",
         status: "All",
-        platform: "All"
+        platform: "All",
+        pillar: "All"
       }
     };
 
-    const statusConfig = {
-      Draft: { label: "Draft", className: "neutral" },
-      Scheduled: { label: "Scheduled", className: "" },
-      Ready: { label: "Ready", className: "green" },
-      Posted: { label: "Posted", className: "green" }
+    const pageMeta = {
+      dashboard: {
+        title: "Dashboard",
+        subtitle: "Plan, approve, schedule, and report content from one calm Saionra workspace."
+      },
+      planner: {
+        title: "Content Planner",
+        subtitle: "Create posts, organize statuses, manage assets, and prepare content for approval or manual posting."
+      },
+      creator: {
+        title: "AI Creator",
+        subtitle: "Generate brand-aware captions and content ideas based on your saved workspace setup."
+      },
+      approvals: {
+        title: "Approvals",
+        subtitle: "Review content that needs client or manager approval before scheduling."
+      },
+      calendar: {
+        title: "Calendar",
+        subtitle: "Use a real monthly calendar with previous, next, today, and selected-day post review."
+      },
+      reports: {
+        title: "Reports",
+        subtitle: "Track simple post results and prepare cleaner weekly or monthly reports."
+      },
+      settings: {
+        title: "Brand Settings",
+        subtitle: "Set brand voice, platforms, audience, CTA, and content pillars once."
+      }
     };
 
     const selectors = {
+      pageTitle: document.getElementById("pageTitle"),
+      pageSubtitle: document.getElementById("pageSubtitle"),
+      mobileMenuButton: document.getElementById("mobileMenuButton"),
+      newPostButton: document.getElementById("newPostButton"),
+      exportCsvButton: document.getElementById("exportCsvButton"),
+      sidebarWorkspaceName: document.getElementById("sidebarWorkspaceName"),
+      sidebarWorkspaceAudience: document.getElementById("sidebarWorkspaceAudience"),
+
       postForm: document.getElementById("postForm"),
       formTitle: document.getElementById("formTitle"),
       editStatusChip: document.getElementById("editStatusChip"),
       postTitle: document.getElementById("postTitle"),
       platform: document.getElementById("platform"),
+      contentPillar: document.getElementById("contentPillar"),
       postType: document.getElementById("postType"),
       status: document.getElementById("status"),
       scheduleDateTime: document.getElementById("scheduleDateTime"),
       mediaUrl: document.getElementById("mediaUrl"),
+      liveUrl: document.getElementById("liveUrl"),
       caption: document.getElementById("caption"),
       internalNotes: document.getElementById("internalNotes"),
       savePostButton: document.getElementById("savePostButton"),
       cancelEditButton: document.getElementById("cancelEditButton"),
       scheduleHint: document.getElementById("scheduleHint"),
       previewPlatformChip: document.getElementById("previewPlatformChip"),
-      queueList: document.getElementById("queueList"),
-      calendarGrid: document.getElementById("calendarGrid"),
       searchInput: document.getElementById("searchInput"),
       filterStatus: document.getElementById("filterStatus"),
       filterPlatform: document.getElementById("filterPlatform"),
+      filterPillar: document.getElementById("filterPillar"),
+      queueList: document.getElementById("queueList"),
+      priorityList: document.getElementById("priorityList"),
+      todayList: document.getElementById("todayList"),
+      healthList: document.getElementById("healthList"),
+      dashboardPillars: document.getElementById("dashboardPillars"),
+      approvalList: document.getElementById("approvalList"),
+      calendarGrid: document.getElementById("calendarGrid"),
+      calendarMonthLabel: document.getElementById("calendarMonthLabel"),
+      calendarPrevButton: document.getElementById("calendarPrevButton"),
+      calendarNextButton: document.getElementById("calendarNextButton"),
+      calendarTodayButton: document.getElementById("calendarTodayButton"),
+      selectedDateTitle: document.getElementById("selectedDateTitle"),
+      selectedDatePosts: document.getElementById("selectedDatePosts"),
+      reportList: document.getElementById("reportList"),
+      insightList: document.getElementById("insightList"),
+
       statTotal: document.getElementById("statTotal"),
       statDrafts: document.getElementById("statDrafts"),
-      statScheduled: document.getElementById("statScheduled"),
-      statReadyToday: document.getElementById("statReadyToday"),
+      statReview: document.getElementById("statReview"),
+      statApproved: document.getElementById("statApproved"),
       statPosted: document.getElementById("statPosted"),
-      todayFocusTitle: document.getElementById("todayFocusTitle"),
-      todayFocusText: document.getElementById("todayFocusText"),
+
       previewAvatar: document.getElementById("previewAvatar"),
       previewTitle: document.getElementById("previewTitle"),
       previewDate: document.getElementById("previewDate"),
       previewStatus: document.getElementById("previewStatus"),
       previewMedia: document.getElementById("previewMedia"),
       previewCaption: document.getElementById("previewCaption"),
-      generatedContent: document.getElementById("generatedContent"),
-      aiBrand: document.getElementById("aiBrand"),
+
       aiGoal: document.getElementById("aiGoal"),
-      aiAudience: document.getElementById("aiAudience"),
-      aiTone: document.getElementById("aiTone"),
       aiPlatform: document.getElementById("aiPlatform"),
-      aiOffer: document.getElementById("aiOffer"),
+      aiPillar: document.getElementById("aiPillar"),
+      aiTone: document.getElementById("aiTone"),
+      aiAngle: document.getElementById("aiAngle"),
+      aiLength: document.getElementById("aiLength"),
+      generatedContent: document.getElementById("generatedContent"),
       generateCaptionButton: document.getElementById("generateCaptionButton"),
+      generateIdeasButton: document.getElementById("generateIdeasButton"),
       useGeneratedButton: document.getElementById("useGeneratedButton"),
       copyGeneratedButton: document.getElementById("copyGeneratedButton"),
-      exportCsvButton: document.getElementById("exportCsvButton"),
-      jumpCreateButton: document.getElementById("jumpCreateButton"),
-      jumpQueueButton: document.getElementById("jumpQueueButton"),
-      mobileMenuButton: document.getElementById("mobileMenuButton"),
+      brandBrainList: document.getElementById("brandBrainList"),
+
+      workspaceForm: document.getElementById("workspaceForm"),
+      workspaceName: document.getElementById("workspaceName"),
+      workspaceOwner: document.getElementById("workspaceOwner"),
+      workspaceAudience: document.getElementById("workspaceAudience"),
+      workspaceOffer: document.getElementById("workspaceOffer"),
+      workspaceCta: document.getElementById("workspaceCta"),
+      workspaceTone: document.getElementById("workspaceTone"),
+      workspaceVoice: document.getElementById("workspaceVoice"),
+      workspacePlatforms: document.getElementById("workspacePlatforms"),
+      workspacePillars: document.getElementById("workspacePillars"),
+
       toast: document.getElementById("toast")
     };
 
-    function createId() {
-      return "post_" + Date.now() + "_" + Math.random().toString(36).slice(2, 9);
-    }
-
-    function readPosts() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-        return Array.isArray(saved) ? saved : [];
-      } catch (error) {
-        console.warn("Could not read saved posts", error);
-        return [];
-      }
-    }
-
-    function savePosts() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.posts));
-    }
-
-    function showToast(message) {
-      selectors.toast.textContent = message;
-      selectors.toast.classList.add("show");
-      window.clearTimeout(showToast.timer);
-      showToast.timer = window.setTimeout(() => selectors.toast.classList.remove("show"), 2600);
-    }
-
-    function formatDateTime(value) {
-      if (!value) return "No date selected";
-
-      const date = new Date(value);
-      if (Number.isNaN(date.getTime())) return "No date selected";
-
-      return new Intl.DateTimeFormat(undefined, {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-      }).format(date);
-    }
-
-    function isToday(value) {
-      if (!value) return false;
-      const date = new Date(value);
-      const today = new Date();
-      return (
-        date.getFullYear() === today.getFullYear() &&
-        date.getMonth() === today.getMonth() &&
-        date.getDate() === today.getDate()
-      );
+    function createId(prefix = "post") {
+      return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
     }
 
     function escapeHtml(value) {
@@ -1474,45 +1947,193 @@
         .replaceAll("'", "&#039;");
     }
 
-    function truncate(value, max = 160) {
+    function splitList(value) {
+      if (Array.isArray(value)) {
+        return value.map((item) => String(item).trim()).filter(Boolean);
+      }
+      return String(value || "")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function saveJson(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function readJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return fallback;
+        const parsed = JSON.parse(raw);
+        return parsed || fallback;
+      } catch (error) {
+        console.warn("Read failed", key, error);
+        return fallback;
+      }
+    }
+
+    function readPosts() {
+      const v2 = readJson(POSTS_KEY, null);
+      if (Array.isArray(v2)) return v2;
+
+      const v1 = readJson(POSTS_FALLBACK_KEY, []);
+      if (!Array.isArray(v1)) return [];
+
+      return v1.map((post) => ({
+        ...post,
+        id: post.id || createId(),
+        pillar: post.pillar || post.contentPillar || "Educational",
+        status: post.status === "Draft" ? "Draft" : post.status || "Idea",
+        liveUrl: post.liveUrl || "",
+        approvalNote: post.approvalNote || ""
+      }));
+    }
+
+    function readWorkspace() {
+      const saved = readJson(WORKSPACE_KEY, {});
+      return {
+        ...defaultWorkspace,
+        ...saved,
+        platforms: splitList(saved.platforms || defaultWorkspace.platforms),
+        pillars: splitList(saved.pillars || defaultWorkspace.pillars)
+      };
+    }
+
+    function saveAll() {
+      saveJson(POSTS_KEY, state.posts);
+      saveJson(METRICS_KEY, state.metrics);
+      saveJson(WORKSPACE_KEY, state.workspace);
+    }
+
+    function showToast(message) {
+      selectors.toast.textContent = message;
+      selectors.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => selectors.toast.classList.remove("show"), 2600);
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "No date selected";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "No date selected";
+      return new Intl.DateTimeFormat(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      }).format(date);
+    }
+
+    function formatShortDate(value) {
+      if (!value) return "No date";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "No date";
+      return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" }).format(date);
+    }
+
+    function isToday(value) {
+      if (!value) return false;
+      const date = new Date(value);
+      const today = new Date();
+      return date.getFullYear() === today.getFullYear() &&
+        date.getMonth() === today.getMonth() &&
+        date.getDate() === today.getDate();
+    }
+
+    function isUpcoming(value, days = 7) {
+      if (!value) return false;
+      const date = new Date(value);
+      const now = new Date();
+      const end = new Date();
+      end.setDate(now.getDate() + days);
+      return date >= now && date <= end;
+    }
+
+    function getDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function parseDateKey(dateKey) {
+      const [year, month, day] = String(dateKey || "").split("-").map(Number);
+      if (!year || !month || !day) return new Date();
+      return new Date(year, month - 1, day);
+    }
+
+    function getPostDateKey(post) {
+      return post.scheduleDateTime ? post.scheduleDateTime.slice(0, 10) : "";
+    }
+
+    function formatMonthLabel(date) {
+      return new Intl.DateTimeFormat(undefined, {
+        month: "long",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function formatFullDate(date) {
+      return new Intl.DateTimeFormat(undefined, {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      }).format(date);
+    }
+
+    function truncate(value, max = 170) {
       const text = String(value || "").trim();
       if (text.length <= max) return text;
       return text.slice(0, max).trim() + "...";
     }
 
+    function getStatusChip(status) {
+      const config = statusConfig[status] || statusConfig.Idea;
+      return `<span class="chip ${config.className}">${escapeHtml(status || "Idea")}</span>`;
+    }
+
     function getPostFromForm() {
+      const existing = state.posts.find((post) => post.id === state.editingId);
       return {
         id: state.editingId || createId(),
         title: selectors.postTitle.value.trim(),
         platform: selectors.platform.value,
+        pillar: selectors.contentPillar.value,
         type: selectors.postType.value,
         status: selectors.status.value,
         scheduleDateTime: selectors.scheduleDateTime.value,
         mediaUrl: selectors.mediaUrl.value.trim(),
+        liveUrl: selectors.liveUrl.value.trim(),
         caption: selectors.caption.value.trim(),
         internalNotes: selectors.internalNotes.value.trim(),
+        approvalNote: existing?.approvalNote || "",
         updatedAt: new Date().toISOString(),
-        createdAt: state.editingId
-          ? state.posts.find((post) => post.id === state.editingId)?.createdAt || new Date().toISOString()
-          : new Date().toISOString()
+        createdAt: existing?.createdAt || new Date().toISOString()
       };
     }
 
     function validatePost(post) {
       if (!post.title) return "Please add a post title.";
       if (!post.platform) return "Please choose a platform.";
+      if (!post.pillar) return "Please choose a content pillar.";
       if (!post.status) return "Please choose a status.";
-      if (!post.caption && !post.mediaUrl) return "Add a caption or media note before saving.";
+      if (!["Idea", "Draft"].includes(post.status) && !post.caption && !post.mediaUrl) {
+        return "Add a caption or media note before moving this past Draft.";
+      }
       return "";
     }
 
     function resetForm() {
       state.editingId = null;
       selectors.postForm.reset();
-      selectors.platform.value = "Instagram";
+      selectors.platform.value = state.workspace.platforms[0] || "Instagram";
+      selectors.contentPillar.value = state.workspace.pillars[0] || "Educational";
       selectors.postType.value = "Single Image";
-      selectors.status.value = "Draft";
-      selectors.formTitle.textContent = "Create Scheduled Post";
+      selectors.status.value = "Idea";
+      selectors.formTitle.textContent = "Create Content Item";
       selectors.editStatusChip.textContent = "New post";
       selectors.editStatusChip.className = "chip neutral";
       selectors.savePostButton.textContent = "Save Post";
@@ -1522,41 +2143,42 @@
     function setFormFromPost(post) {
       state.editingId = post.id;
       selectors.postTitle.value = post.title || "";
-      selectors.platform.value = post.platform || "Instagram";
+      selectors.platform.value = post.platform || state.workspace.platforms[0] || "Instagram";
+      selectors.contentPillar.value = post.pillar || state.workspace.pillars[0] || "Educational";
       selectors.postType.value = post.type || "Single Image";
-      selectors.status.value = post.status || "Draft";
+      selectors.status.value = post.status || "Idea";
       selectors.scheduleDateTime.value = post.scheduleDateTime || "";
       selectors.mediaUrl.value = post.mediaUrl || "";
+      selectors.liveUrl.value = post.liveUrl || "";
       selectors.caption.value = post.caption || "";
       selectors.internalNotes.value = post.internalNotes || "";
-      selectors.formTitle.textContent = "Edit Scheduled Post";
+      selectors.formTitle.textContent = "Edit Content Item";
       selectors.editStatusChip.textContent = "Editing";
       selectors.editStatusChip.className = "chip";
       selectors.savePostButton.textContent = "Update Post";
+      setPage("planner");
       updateLivePreview();
-      document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
       selectors.postTitle.focus();
     }
 
     function upsertPost(post) {
       const index = state.posts.findIndex((item) => item.id === post.id);
-
       if (index >= 0) {
         state.posts[index] = post;
       } else {
         state.posts.unshift(post);
       }
-
-      savePosts();
+      saveAll();
       renderAll();
     }
 
-    function updatePostStatus(id, status) {
+    function updatePostStatus(id, status, note = "") {
       const post = state.posts.find((item) => item.id === id);
       if (!post) return;
       post.status = status;
       post.updatedAt = new Date().toISOString();
-      savePosts();
+      if (note) post.approvalNote = note;
+      saveAll();
       renderAll();
       showToast(`Marked as ${status}.`);
     }
@@ -1564,18 +2186,17 @@
     function duplicatePost(id) {
       const post = state.posts.find((item) => item.id === id);
       if (!post) return;
-
       const copy = {
         ...post,
         id: createId(),
         title: post.title + " Copy",
         status: "Draft",
+        liveUrl: "",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       };
-
       state.posts.unshift(copy);
-      savePosts();
+      saveAll();
       renderAll();
       showToast("Post duplicated as a draft.");
     }
@@ -1583,29 +2204,25 @@
     function deletePost(id) {
       const post = state.posts.find((item) => item.id === id);
       if (!post) return;
-
       const confirmed = window.confirm(`Delete "${post.title}"?`);
       if (!confirmed) return;
-
       state.posts = state.posts.filter((item) => item.id !== id);
-      savePosts();
+      delete state.metrics[id];
+      saveAll();
       renderAll();
+      if (state.editingId === id) resetForm();
       showToast("Post deleted.");
-
-      if (state.editingId === id) {
-        resetForm();
-      }
     }
 
     function getFilteredPosts() {
       const search = state.filters.search.toLowerCase().trim();
-
       return state.posts
         .filter((post) => state.filters.status === "All" || post.status === state.filters.status)
         .filter((post) => state.filters.platform === "All" || post.platform === state.filters.platform)
+        .filter((post) => state.filters.pillar === "All" || post.pillar === state.filters.pillar)
         .filter((post) => {
           if (!search) return true;
-          return [post.title, post.caption, post.mediaUrl, post.internalNotes].join(" ").toLowerCase().includes(search);
+          return [post.title, post.caption, post.mediaUrl, post.internalNotes, post.pillar].join(" ").toLowerCase().includes(search);
         })
         .sort((a, b) => {
           const aTime = a.scheduleDateTime ? new Date(a.scheduleDateTime).getTime() : Number.MAX_SAFE_INTEGER;
@@ -1614,110 +2231,343 @@
         });
     }
 
+    function renderOptions() {
+      const platformOptions = state.workspace.platforms.map((platform) => `<option value="${escapeHtml(platform)}">${escapeHtml(platform)}</option>`).join("");
+      const pillarOptions = state.workspace.pillars.map((pillar) => `<option value="${escapeHtml(pillar)}">${escapeHtml(pillar)}</option>`).join("");
+      const statusOptions = statuses.map((status) => `<option value="${escapeHtml(status)}">${escapeHtml(status)}</option>`).join("");
+
+      selectors.platform.innerHTML = platformOptions;
+      selectors.aiPlatform.innerHTML = platformOptions;
+      selectors.contentPillar.innerHTML = pillarOptions;
+      selectors.aiPillar.innerHTML = pillarOptions;
+      selectors.status.innerHTML = statusOptions;
+
+      selectors.filterStatus.innerHTML = `<option value="All">All Statuses</option>${statusOptions}`;
+      selectors.filterPlatform.innerHTML = `<option value="All">All Platforms</option>${platformOptions}`;
+      selectors.filterPillar.innerHTML = `<option value="All">All Pillars</option>${pillarOptions}`;
+
+      selectors.aiTone.value = state.workspace.tone || "Professional and simple";
+    }
+
+    function renderWorkspace() {
+      selectors.sidebarWorkspaceName.textContent = state.workspace.name;
+      selectors.sidebarWorkspaceAudience.textContent = state.workspace.audience;
+
+      selectors.workspaceName.value = state.workspace.name;
+      selectors.workspaceOwner.value = state.workspace.owner;
+      selectors.workspaceAudience.value = state.workspace.audience;
+      selectors.workspaceOffer.value = state.workspace.offer;
+      selectors.workspaceCta.value = state.workspace.cta;
+      selectors.workspaceTone.value = state.workspace.tone;
+      selectors.workspaceVoice.value = state.workspace.voice;
+      selectors.workspacePlatforms.value = state.workspace.platforms.join(", ");
+      selectors.workspacePillars.value = state.workspace.pillars.join(", ");
+
+      selectors.brandBrainList.innerHTML = `
+        <div class="quick-item"><strong>Brand</strong><p>${escapeHtml(state.workspace.name)}</p></div>
+        <div class="quick-item"><strong>Audience</strong><p>${escapeHtml(state.workspace.audience)}</p></div>
+        <div class="quick-item"><strong>Offer</strong><p>${escapeHtml(state.workspace.offer)}</p></div>
+        <div class="quick-item"><strong>Default CTA</strong><p>${escapeHtml(state.workspace.cta)}</p></div>
+        <div class="quick-item"><strong>Voice</strong><p>${escapeHtml(state.workspace.voice)}</p></div>
+      `;
+    }
+
     function renderStats() {
-      const total = state.posts.length;
-      const drafts = state.posts.filter((post) => post.status === "Draft").length;
-      const scheduled = state.posts.filter((post) => post.status === "Scheduled").length;
-      const posted = state.posts.filter((post) => post.status === "Posted").length;
-      const readyToday = state.posts.filter((post) => ["Scheduled", "Ready"].includes(post.status) && isToday(post.scheduleDateTime)).length;
+      selectors.statTotal.textContent = state.posts.length;
+      selectors.statDrafts.textContent = state.posts.filter((post) => ["Idea", "Draft", "Changes Requested"].includes(post.status)).length;
+      selectors.statReview.textContent = state.posts.filter((post) => post.status === "Needs Review").length;
+      selectors.statApproved.textContent = state.posts.filter((post) => ["Approved", "Scheduled", "Ready"].includes(post.status)).length;
+      selectors.statPosted.textContent = state.posts.filter((post) => ["Posted", "Reported"].includes(post.status)).length;
+    }
 
-      selectors.statTotal.textContent = total;
-      selectors.statDrafts.textContent = drafts;
-      selectors.statScheduled.textContent = scheduled;
-      selectors.statReadyToday.textContent = readyToday;
-      selectors.statPosted.textContent = posted;
+    function renderDashboard() {
+      const priorityPosts = state.posts
+        .filter((post) => ["Needs Review", "Changes Requested", "Approved", "Scheduled", "Ready"].includes(post.status))
+        .sort((a, b) => {
+          const weight = { "Changes Requested": 1, "Needs Review": 2, Approved: 3, Ready: 4, Scheduled: 5 };
+          return (weight[a.status] || 9) - (weight[b.status] || 9);
+        })
+        .slice(0, 5);
 
-      if (readyToday > 0) {
-        selectors.todayFocusTitle.textContent = `${readyToday} ready for today`;
-        selectors.todayFocusText.textContent = "Review today’s scheduled or ready posts before publishing them manually.";
-      } else if (scheduled > 0) {
-        selectors.todayFocusTitle.textContent = `${scheduled} scheduled post${scheduled === 1 ? "" : "s"}`;
-        selectors.todayFocusText.textContent = "Your upcoming content is organized. Check the calendar for posting dates.";
-      } else {
-        selectors.todayFocusTitle.textContent = "No urgent posts";
-        selectors.todayFocusText.textContent = "Posts scheduled for today will appear here after you save them.";
-      }
+      selectors.priorityList.innerHTML = priorityPosts.length
+        ? priorityPosts.map(renderSmallPostCard).join("")
+        : `<div class="empty-state">No urgent content yet. Create a post or move a draft to Needs Review.</div>`;
+
+      const todayPosts = state.posts.filter((post) => ["Scheduled", "Ready"].includes(post.status) && isToday(post.scheduleDateTime));
+      selectors.todayList.innerHTML = todayPosts.length
+        ? todayPosts.map((post) => `
+          <div class="quick-item">
+            <strong>${escapeHtml(post.title)}</strong>
+            <p>${escapeHtml(post.platform)} • ${escapeHtml(formatDateTime(post.scheduleDateTime))}</p>
+            <div class="button-row">
+              <button class="btn btn-sm" type="button" data-post-action="edit" data-post-id="${escapeHtml(post.id)}">Open</button>
+              <button class="btn btn-sm" type="button" data-post-action="copy" data-post-id="${escapeHtml(post.id)}">Copy Caption</button>
+              <button class="btn btn-sm" type="button" data-post-action="posted" data-post-id="${escapeHtml(post.id)}">Mark Posted</button>
+            </div>
+          </div>
+        `).join("")
+        : `<div class="empty-state">No ready posts due today.</div>`;
+
+      const approvedNoSchedule = state.posts.filter((post) => post.status === "Approved" && !post.scheduleDateTime).length;
+      const missingAssets = state.posts.filter((post) => ["Needs Review", "Approved", "Scheduled", "Ready"].includes(post.status) && !post.mediaUrl).length;
+      const unreported = state.posts.filter((post) => post.status === "Posted" && !state.metrics[post.id]).length;
+      selectors.healthList.innerHTML = `
+        <div class="quick-item"><strong>${approvedNoSchedule} approved posts need a schedule</strong><p>Add date and time before posting.</p></div>
+        <div class="quick-item"><strong>${missingAssets} posts may need media links</strong><p>Add Canva, Drive, image, or video notes.</p></div>
+        <div class="quick-item"><strong>${unreported} posted items need metrics</strong><p>Add simple results in Reports.</p></div>
+      `;
+
+      const counts = state.workspace.pillars.map((pillar) => ({
+        pillar,
+        count: state.posts.filter((post) => post.pillar === pillar).length
+      }));
+
+      selectors.dashboardPillars.innerHTML = counts.map((item) => `
+        <div class="pillar-card">
+          <strong>${escapeHtml(item.pillar)}</strong>
+          <p>${item.count} saved item${item.count === 1 ? "" : "s"}</p>
+        </div>
+      `).join("");
+    }
+
+    function renderSmallPostCard(post) {
+      return `
+        <article class="post-card" data-post-id="${escapeHtml(post.id)}">
+          <div class="post-card-top">
+            <div>
+              <h3>${escapeHtml(post.title)}</h3>
+              <p>${escapeHtml(post.platform)} • ${escapeHtml(post.pillar)} • ${escapeHtml(formatDateTime(post.scheduleDateTime))}</p>
+            </div>
+            <div class="chip-row">${getStatusChip(post.status)}</div>
+          </div>
+          <div class="post-snippet">${escapeHtml(truncate(post.caption || post.mediaUrl || "No caption or media note yet.", 170))}</div>
+          <div class="post-actions">
+            <button class="btn btn-sm" data-post-action="edit" data-post-id="${escapeHtml(post.id)}" type="button">Edit</button>
+            <button class="btn btn-sm" data-post-action="review" data-post-id="${escapeHtml(post.id)}" type="button">Needs Review</button>
+            <button class="btn btn-sm" data-post-action="approved" data-post-id="${escapeHtml(post.id)}" type="button">Approve</button>
+            <button class="btn btn-sm" data-post-action="posted" data-post-id="${escapeHtml(post.id)}" type="button">Posted</button>
+          </div>
+        </article>
+      `;
     }
 
     function renderQueue() {
       const posts = getFilteredPosts();
-
       if (!posts.length) {
-        selectors.queueList.innerHTML = `
-          <div class="empty-state">
-            No posts found. Create your first post or change the filters.
-          </div>
-        `;
+        selectors.queueList.innerHTML = `<div class="empty-state">No posts found. Create a post or adjust the filters.</div>`;
         return;
       }
 
       selectors.queueList.innerHTML = posts.map((post) => {
-        const statusClass = statusConfig[post.status]?.className || "neutral";
-        const statusChip = `<span class="chip ${statusClass}">${escapeHtml(post.status)}</span>`;
         const schedule = formatDateTime(post.scheduleDateTime);
         const snippet = truncate(post.caption || post.mediaUrl || "No caption or media note yet.", 190);
-
         return `
           <article class="post-card" data-post-id="${escapeHtml(post.id)}">
             <div class="post-card-top">
               <div>
                 <h3>${escapeHtml(post.title)}</h3>
-                <p>${escapeHtml(post.platform)} • ${escapeHtml(post.type)} • ${escapeHtml(schedule)}</p>
+                <p>${escapeHtml(post.platform)} • ${escapeHtml(post.pillar)} • ${escapeHtml(post.type)} • ${escapeHtml(schedule)}</p>
               </div>
-              <div class="chip-row">${statusChip}</div>
+              <div class="chip-row">${getStatusChip(post.status)}</div>
             </div>
-
             <div class="post-snippet">${escapeHtml(snippet)}</div>
-
             <div class="post-actions">
-              <button class="btn btn-sm" data-action="edit" type="button">Edit</button>
-              <button class="btn btn-sm" data-action="duplicate" type="button">Duplicate</button>
-              <button class="btn btn-sm" data-action="ready" type="button">Mark Ready</button>
-              <button class="btn btn-sm" data-action="posted" type="button">Mark Posted</button>
-              <button class="btn btn-sm btn-danger" data-action="delete" type="button">Delete</button>
+              <button class="btn btn-sm" data-post-action="edit" data-post-id="${escapeHtml(post.id)}" type="button">Edit</button>
+              <button class="btn btn-sm" data-post-action="duplicate" data-post-id="${escapeHtml(post.id)}" type="button">Duplicate</button>
+              <button class="btn btn-sm" data-post-action="review" data-post-id="${escapeHtml(post.id)}" type="button">Needs Review</button>
+              <button class="btn btn-sm" data-post-action="approved" data-post-id="${escapeHtml(post.id)}" type="button">Approve</button>
+              <button class="btn btn-sm" data-post-action="scheduled" data-post-id="${escapeHtml(post.id)}" type="button">Scheduled</button>
+              <button class="btn btn-sm" data-post-action="posted" data-post-id="${escapeHtml(post.id)}" type="button">Posted</button>
+              <button class="btn btn-sm btn-danger" data-post-action="delete" data-post-id="${escapeHtml(post.id)}" type="button">Delete</button>
             </div>
           </article>
         `;
       }).join("");
     }
 
+    function renderApprovals() {
+      const approvalPosts = state.posts.filter((post) => ["Needs Review", "Changes Requested", "Approved"].includes(post.status));
+      if (!approvalPosts.length) {
+        selectors.approvalList.innerHTML = `<div class="empty-state">No approval items yet. Move a post to Needs Review when it is ready for client review.</div>`;
+        return;
+      }
+
+      selectors.approvalList.innerHTML = approvalPosts.map((post) => `
+        <article class="post-card" data-post-id="${escapeHtml(post.id)}">
+          <div class="post-card-top">
+            <div>
+              <h3>${escapeHtml(post.title)}</h3>
+              <p>${escapeHtml(post.platform)} • ${escapeHtml(post.pillar)} • ${escapeHtml(formatDateTime(post.scheduleDateTime))}</p>
+            </div>
+            <div class="chip-row">${getStatusChip(post.status)}</div>
+          </div>
+          <div class="post-snippet">${escapeHtml(post.caption || "No caption yet.")}</div>
+          ${post.approvalNote ? `<div class="note-box"><strong>Review note:</strong> ${escapeHtml(post.approvalNote)}</div>` : ""}
+          <div class="post-actions">
+            <button class="btn btn-sm" data-post-action="edit" data-post-id="${escapeHtml(post.id)}" type="button">Edit</button>
+            <button class="btn btn-sm" data-post-action="approved" data-post-id="${escapeHtml(post.id)}" type="button">Approve</button>
+            <button class="btn btn-sm btn-danger" data-post-action="changes" data-post-id="${escapeHtml(post.id)}" type="button">Request Changes</button>
+            <button class="btn btn-sm" data-post-action="scheduled" data-post-id="${escapeHtml(post.id)}" type="button">Mark Scheduled</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
     function renderCalendar() {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+      const cursor = state.calendarCursor instanceof Date && !Number.isNaN(state.calendarCursor.getTime())
+        ? state.calendarCursor
+        : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
-      const dayCards = Array.from({ length: 14 }, (_, index) => {
-        const date = new Date(today);
-        date.setDate(today.getDate() + index);
+      const monthStart = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+      const gridStart = new Date(monthStart);
+      gridStart.setDate(monthStart.getDate() - monthStart.getDay());
 
-        const dateKey = date.toISOString().slice(0, 10);
-        const postsForDay = state.posts.filter((post) => post.scheduleDateTime && post.scheduleDateTime.slice(0, 10) === dateKey);
-        const dayName = new Intl.DateTimeFormat(undefined, { weekday: "short" }).format(date);
-        const dayDate = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" }).format(date);
-        const pills = postsForDay.slice(0, 3).map((post) => `<span class="day-pill">${escapeHtml(post.platform)} • ${escapeHtml(post.title)}</span>`).join("");
-        const more = postsForDay.length > 3 ? `<span class="day-pill">+${postsForDay.length - 3} more</span>` : "";
+      const todayKey = getDateKey(new Date());
+      if (!state.selectedCalendarDate) {
+        state.selectedCalendarDate = todayKey;
+      }
+
+      selectors.calendarMonthLabel.textContent = formatMonthLabel(monthStart);
+
+      const dayCards = Array.from({ length: 42 }, (_, index) => {
+        const date = new Date(gridStart);
+        date.setDate(gridStart.getDate() + index);
+
+        const key = getDateKey(date);
+        const posts = state.posts.filter((post) => getPostDateKey(post) === key);
+        const isCurrentMonth = date.getMonth() === monthStart.getMonth();
+        const isTodayDate = key === todayKey;
+        const isSelected = key === state.selectedCalendarDate;
+        const classes = ["calendar-day"];
+
+        if (!isCurrentMonth) classes.push("outside-month");
+        if (isTodayDate) classes.push("today");
+        if (isSelected) classes.push("selected");
+
+        const pills = posts.slice(0, 3).map((post) => `
+          <span class="day-pill">${escapeHtml(post.platform)} • ${escapeHtml(post.title)}</span>
+        `).join("");
+        const more = posts.length > 3 ? `<span class="day-pill">+${posts.length - 3} more</span>` : "";
+        const empty = !posts.length ? `<span class="day-pill empty">Open slot</span>` : "";
+        const countLabel = posts.length === 1 ? "1 post" : `${posts.length} posts`;
 
         return `
-          <article class="day-card">
-            <strong>${escapeHtml(dayName)}</strong>
-            <span>${escapeHtml(dayDate)}</span>
-            ${pills || `<span class="day-pill open">Open slot</span>`}
+          <button class="${classes.join(" ")}" type="button" data-calendar-date="${escapeHtml(key)}" aria-label="${escapeHtml(formatFullDate(date))}, ${escapeHtml(countLabel)}">
+            <span class="calendar-day-top">
+              <span class="calendar-day-number">${date.getDate()}</span>
+              <span class="calendar-count">${posts.length ? escapeHtml(countLabel) : ""}</span>
+            </span>
+            ${pills}
             ${more}
-          </article>
+            ${empty}
+          </button>
         `;
       });
 
       selectors.calendarGrid.innerHTML = dayCards.join("");
+      renderSelectedCalendarDate();
+    }
+
+    function renderSelectedCalendarDate() {
+      const selectedKey = state.selectedCalendarDate || getDateKey(new Date());
+      const selectedDate = parseDateKey(selectedKey);
+      const posts = state.posts
+        .filter((post) => getPostDateKey(post) === selectedKey)
+        .sort((a, b) => String(a.scheduleDateTime || "").localeCompare(String(b.scheduleDateTime || "")));
+
+      selectors.selectedDateTitle.textContent = formatFullDate(selectedDate);
+
+      if (!posts.length) {
+        selectors.selectedDatePosts.innerHTML = `<div class="empty-state">No content scheduled for this date yet.</div>`;
+        return;
+      }
+
+      selectors.selectedDatePosts.innerHTML = posts.map((post) => `
+        <article class="selected-post-item">
+          <div>
+            <strong>${escapeHtml(post.title)}</strong>
+            <p>${escapeHtml(post.platform)} • ${escapeHtml(post.pillar || "No pillar")} • ${escapeHtml(formatDateTime(post.scheduleDateTime))}</p>
+          </div>
+          <div class="chip-row">${getStatusChip(post.status)}</div>
+        </article>
+      `).join("");
+    }
+
+    function renderReports() {
+      const posted = state.posts.filter((post) => ["Posted", "Reported"].includes(post.status));
+      if (!posted.length) {
+        selectors.reportList.innerHTML = `<div class="empty-state">No posted content yet. Mark posts as Posted, then add simple metrics here.</div>`;
+      } else {
+        selectors.reportList.innerHTML = posted.map((post) => {
+          const metric = state.metrics[post.id] || { impressions: "", engagement: "", clicks: "", leads: "", note: "" };
+          return `
+            <article class="post-card" data-post-id="${escapeHtml(post.id)}">
+              <div class="post-card-top">
+                <div>
+                  <h3>${escapeHtml(post.title)}</h3>
+                  <p>${escapeHtml(post.platform)} • ${escapeHtml(post.pillar)} • ${escapeHtml(formatShortDate(post.scheduleDateTime))}</p>
+                </div>
+                <div class="chip-row">${getStatusChip(post.status)}</div>
+              </div>
+              <div class="form-grid">
+                <div class="field"><label>Impressions</label><input type="number" min="0" value="${escapeHtml(metric.impressions)}" data-metric="impressions" data-post-id="${escapeHtml(post.id)}"></div>
+                <div class="field"><label>Engagement</label><input type="number" min="0" value="${escapeHtml(metric.engagement)}" data-metric="engagement" data-post-id="${escapeHtml(post.id)}"></div>
+                <div class="field"><label>Clicks</label><input type="number" min="0" value="${escapeHtml(metric.clicks)}" data-metric="clicks" data-post-id="${escapeHtml(post.id)}"></div>
+                <div class="field"><label>Leads</label><input type="number" min="0" value="${escapeHtml(metric.leads)}" data-metric="leads" data-post-id="${escapeHtml(post.id)}"></div>
+                <div class="full-field"><label>Result Note</label><textarea data-metric="note" data-post-id="${escapeHtml(post.id)}" placeholder="What happened? What should we do next?">${escapeHtml(metric.note)}</textarea></div>
+              </div>
+              <div class="post-actions">
+                <button class="btn btn-sm" data-post-action="reported" data-post-id="${escapeHtml(post.id)}" type="button">Mark Reported</button>
+                <button class="btn btn-sm" data-post-action="copy-report" data-post-id="${escapeHtml(post.id)}" type="button">Copy Summary</button>
+              </div>
+            </article>
+          `;
+        }).join("");
+      }
+
+      renderInsights();
+    }
+
+    function renderInsights() {
+      const metricEntries = Object.entries(state.metrics)
+        .map(([postId, metric]) => ({ post: state.posts.find((item) => item.id === postId), metric }))
+        .filter((item) => item.post);
+
+      if (!metricEntries.length) {
+        selectors.insightList.innerHTML = `
+          <div class="quick-item"><strong>No metrics yet</strong><p>Add results for posted content to generate simple findings.</p></div>
+          <div class="quick-item"><strong>Start small</strong><p>Track impressions, engagement, clicks, leads, and one note per post.</p></div>
+        `;
+        return;
+      }
+
+      const bestEngagement = metricEntries
+        .slice()
+        .sort((a, b) => Number(b.metric.engagement || 0) - Number(a.metric.engagement || 0))[0];
+      const bestClicks = metricEntries
+        .slice()
+        .sort((a, b) => Number(b.metric.clicks || 0) - Number(a.metric.clicks || 0))[0];
+      const bestLeads = metricEntries
+        .slice()
+        .sort((a, b) => Number(b.metric.leads || 0) - Number(a.metric.leads || 0))[0];
+
+      selectors.insightList.innerHTML = `
+        <div class="quick-item"><strong>Best engagement</strong><p>${escapeHtml(bestEngagement?.post?.title || "No data")} — ${Number(bestEngagement?.metric?.engagement || 0)} engagement actions.</p></div>
+        <div class="quick-item"><strong>Best traffic</strong><p>${escapeHtml(bestClicks?.post?.title || "No data")} — ${Number(bestClicks?.metric?.clicks || 0)} clicks.</p></div>
+        <div class="quick-item"><strong>Best lead content</strong><p>${escapeHtml(bestLeads?.post?.title || "No data")} — ${Number(bestLeads?.metric?.leads || 0)} leads.</p></div>
+        <div class="quick-item"><strong>Next recommendation</strong><p>Reuse the strongest pillar and create one follow-up post with a clearer CTA.</p></div>
+      `;
     }
 
     function updateLivePreview() {
       const title = selectors.postTitle.value.trim() || "Untitled Post";
-      const platform = selectors.platform.value || "Instagram";
-      const status = selectors.status.value || "Draft";
+      const platform = selectors.platform.value || state.workspace.platforms[0] || "Instagram";
+      const status = selectors.status.value || "Idea";
       const caption = selectors.caption.value.trim() || "Your caption preview will appear here.";
       const media = selectors.mediaUrl.value.trim() || "Media preview / file note";
       const schedule = formatDateTime(selectors.scheduleDateTime.value);
 
-      selectors.previewAvatar.textContent = platform.charAt(0).toUpperCase();
+      selectors.previewAvatar.textContent = (state.workspace.name || platform).charAt(0).toUpperCase();
       selectors.previewTitle.textContent = title;
       selectors.previewDate.textContent = `${platform} • ${schedule}`;
       selectors.previewStatus.textContent = status;
@@ -1728,41 +2578,67 @@
       selectors.previewPlatformChip.textContent = platform;
     }
 
-    function renderAll() {
-      renderStats();
-      renderQueue();
-      renderCalendar();
-    }
-
     function generateCaption() {
-      const brand = selectors.aiBrand.value.trim() || "your business";
+      const brand = state.workspace.name || "your business";
+      const audience = state.workspace.audience || "your ideal clients";
+      const offer = state.workspace.offer || "your offer";
+      const cta = state.workspace.cta || "message us to get started";
       const goal = selectors.aiGoal.value;
-      const audience = selectors.aiAudience.value.trim() || "your ideal clients";
-      const tone = selectors.aiTone.value;
       const platform = selectors.aiPlatform.value;
-      const offer = selectors.aiOffer.value.trim() || "message us to get started";
+      const pillar = selectors.aiPillar.value;
+      const tone = selectors.aiTone.value;
+      const angle = selectors.aiAngle.value.trim() || "make the next step easier";
+      const length = selectors.aiLength.value;
 
-      const hookMap = {
-        "Get leads": `If ${audience} are interested but not taking action yet, the problem may not be the offer. It may be the way the next step is presented.`,
+      const hooks = {
+        "Get leads": `If ${audience} are interested but not taking action yet, the next step may need to feel clearer and easier.`,
         "Drive traffic": `${audience} do not need more noise. They need one clear reason to click and learn more.`,
         "Increase engagement": `Quick question for ${audience}: what part of this process feels the most time-consuming right now?`,
-        "Promote offer": `${brand} is built for ${audience} who want a clearer, easier way to move forward.`,
-        "Educate audience": `Most ${audience} do not struggle because they are lazy. They struggle because the process is not simple enough yet.`,
+        "Promote offer": `${brand} is built for ${audience} who want a simpler way to move forward.`,
+        "Educate audience": `Most ${audience} do not struggle because they lack effort. They struggle because the process is not simple enough yet.`,
         "Announce update": `New update from ${brand}: this is designed to make the next step easier for ${audience}.`
       };
 
-      const platformNote = {
-        Instagram: "Keep the first line strong, then use simple spacing and a clear CTA.",
-        Facebook: "Make the copy warm, helpful, and easy to reply to.",
-        LinkedIn: "Make the message clear, useful, and business-focused.",
-        TikTok: "Use this as the caption under a direct hook-style short video.",
-        "YouTube Shorts": "Keep it short and connect the caption to the video hook."
+      const bodyByLength = {
+        Short: `${brand} helps with ${offer}, especially when the goal is to ${angle}.`,
+        Medium: `${brand} helps ${audience} simplify ${angle} without adding more confusion, manual work, or scattered tools. The goal is to make content, tasks, approvals, and reporting easier to manage.`,
+        Detailed: `${brand} helps ${audience} simplify ${angle} without adding more confusion, manual work, or scattered tools. Instead of guessing what to post, where the assets are, who approved the content, and what happened after posting, the workflow becomes easier to track from idea to report.`
       };
 
-      const caption = `${hookMap[goal]}\n\n${brand} helps ${audience} simplify the next step without adding more confusion, tools, or manual work.\n\nBest angle: ${tone.toLowerCase()}.\n\nCTA: ${offer}.\n\nPosting note for ${platform}: ${platformNote[platform] || "Keep the copy clear and focused."}\n\n#Saionra #BusinessAutomation #ContentWorkflow #SocialMediaManagement`;
+      const platformNote = {
+        Instagram: "Use a strong first line, clean spacing, and a clear CTA.",
+        Facebook: "Make it helpful, human, and easy to reply to.",
+        LinkedIn: "Keep the message practical, business-focused, and clear.",
+        TikTok: "Use this caption under a direct hook-style short video.",
+        "YouTube Shorts": "Keep the caption short and connected to the video hook."
+      };
+
+      const caption = `${hooks[goal] || hooks["Get leads"]}\n\n${bodyByLength[length]}\n\nContent pillar: ${pillar}.\nTone: ${tone}.\n\nCTA: ${cta}.\n\nPosting note for ${platform}: ${platformNote[platform] || "Keep the copy clear and focused."}\n\n#Saionra #ContentWorkflow #BusinessAutomation #SocialMediaManagement`;
 
       selectors.generatedContent.textContent = caption;
       showToast("Caption generated.");
+    }
+
+    function generateIdeas() {
+      const brand = state.workspace.name;
+      const audience = state.workspace.audience;
+      const offer = state.workspace.offer;
+      const platform = selectors.aiPlatform.value;
+      const ideas = state.workspace.pillars.slice(0, 7).map((pillar, index) => {
+        const angles = {
+          "Educational": "Teach one simple mistake to avoid",
+          "Proof / Case Study": "Show a before-and-after workflow improvement",
+          "Offer / CTA": "Invite people to take the next step",
+          "Behind the Scenes": "Show how the system is prepared",
+          "FAQ": "Answer a common buyer question",
+          "Authority": "Explain the principle behind better execution",
+          "Problem / Solution": "Name a pain point and show the simpler fix"
+        };
+        return `${index + 1}. ${pillar}: ${angles[pillar] || `Create a helpful post about ${offer}`} for ${audience}. Platform: ${platform}.`;
+      }).join("\n");
+
+      selectors.generatedContent.textContent = `${brand} content ideas:\n\n${ideas}`;
+      showToast("Ideas generated.");
     }
 
     async function copyText(text) {
@@ -1770,34 +2646,40 @@
         showToast("Generate content first.");
         return;
       }
-
       try {
         await navigator.clipboard.writeText(text);
         showToast("Copied to clipboard.");
       } catch (error) {
-        showToast("Copy failed. You can select the text manually.");
+        showToast("Copy failed. Select the text manually.");
       }
     }
 
-    function useGeneratedInPostForm() {
+    function useGeneratedInPlanner() {
       const generated = selectors.generatedContent.textContent.trim();
-
       if (!generated || generated === "Generated content will appear here.") {
         showToast("Generate content first.");
         return;
       }
 
+      setPage("planner");
       selectors.caption.value = generated;
-
-      if (!selectors.postTitle.value.trim()) {
-        const brand = selectors.aiBrand.value.trim() || "Generated";
-        selectors.postTitle.value = `${brand} ${selectors.aiGoal.value}`;
-      }
-
       selectors.platform.value = selectors.aiPlatform.value;
+      selectors.contentPillar.value = selectors.aiPillar.value;
+      selectors.status.value = "Draft";
+      if (!selectors.postTitle.value.trim()) {
+        selectors.postTitle.value = `${selectors.aiPillar.value} - ${selectors.aiGoal.value}`;
+      }
       updateLivePreview();
-      document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
-      showToast("Generated caption added to the form.");
+      selectors.postTitle.focus();
+      showToast("Generated content added to planner.");
+    }
+
+    function copyReportSummary(postId) {
+      const post = state.posts.find((item) => item.id === postId);
+      const metric = state.metrics[postId] || {};
+      if (!post) return;
+      const summary = `${post.title}\nPlatform: ${post.platform}\nPillar: ${post.pillar}\nImpressions: ${metric.impressions || 0}\nEngagement: ${metric.engagement || 0}\nClicks: ${metric.clicks || 0}\nLeads: ${metric.leads || 0}\nNote: ${metric.note || "No note added."}`;
+      copyText(summary);
     }
 
     function exportCsv() {
@@ -1809,28 +2691,47 @@
       const headers = [
         "Title",
         "Platform",
+        "Content Pillar",
         "Post Type",
         "Status",
         "Schedule Date & Time",
         "Media URL / File Note",
+        "Live Post URL",
         "Caption",
         "Internal Notes",
+        "Approval Note",
+        "Impressions",
+        "Engagement",
+        "Clicks",
+        "Leads",
+        "Result Note",
         "Created At",
         "Updated At"
       ];
 
-      const rows = state.posts.map((post) => [
-        post.title,
-        post.platform,
-        post.type,
-        post.status,
-        post.scheduleDateTime,
-        post.mediaUrl,
-        post.caption,
-        post.internalNotes,
-        post.createdAt,
-        post.updatedAt
-      ]);
+      const rows = state.posts.map((post) => {
+        const metric = state.metrics[post.id] || {};
+        return [
+          post.title,
+          post.platform,
+          post.pillar,
+          post.type,
+          post.status,
+          post.scheduleDateTime,
+          post.mediaUrl,
+          post.liveUrl,
+          post.caption,
+          post.internalNotes,
+          post.approvalNote,
+          metric.impressions,
+          metric.engagement,
+          metric.clicks,
+          metric.leads,
+          metric.note,
+          post.createdAt,
+          post.updatedAt
+        ];
+      });
 
       const csv = [headers, ...rows]
         .map((row) => row.map((cell) => `"${String(cell || "").replaceAll('"', '""')}"`).join(","))
@@ -1840,7 +2741,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `saionra-social-posts-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.download = `saionra-social-workspace-${new Date().toISOString().slice(0, 10)}.csv`;
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -1848,17 +2749,98 @@
       showToast("CSV exported.");
     }
 
+    function saveWorkspaceFromForm() {
+      const platforms = splitList(selectors.workspacePlatforms.value);
+      const pillars = splitList(selectors.workspacePillars.value);
+      state.workspace = {
+        name: selectors.workspaceName.value.trim() || defaultWorkspace.name,
+        owner: selectors.workspaceOwner.value.trim() || defaultWorkspace.owner,
+        audience: selectors.workspaceAudience.value.trim() || defaultWorkspace.audience,
+        offer: selectors.workspaceOffer.value.trim() || defaultWorkspace.offer,
+        cta: selectors.workspaceCta.value.trim() || defaultWorkspace.cta,
+        tone: selectors.workspaceTone.value || defaultWorkspace.tone,
+        voice: selectors.workspaceVoice.value.trim() || defaultWorkspace.voice,
+        platforms: platforms.length ? platforms : defaultWorkspace.platforms,
+        pillars: pillars.length ? pillars : defaultWorkspace.pillars
+      };
+
+      saveAll();
+      renderOptions();
+      renderWorkspace();
+      renderAll();
+      resetForm();
+      showToast("Workspace saved.");
+    }
+
+    function setPage(page) {
+      state.currentPage = page;
+      document.querySelectorAll(".page").forEach((section) => {
+        section.classList.toggle("active", section.id === `page-${page}`);
+      });
+      document.querySelectorAll(".nav-button[data-page]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.page === page);
+      });
+      selectors.pageTitle.textContent = pageMeta[page]?.title || "Saionra";
+      selectors.pageSubtitle.textContent = pageMeta[page]?.subtitle || "";
+      document.body.classList.remove("sidebar-open");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function handlePostAction(action, id) {
+      const post = state.posts.find((item) => item.id === id);
+      if (!post) return;
+
+      if (action === "edit") setFormFromPost(post);
+      if (action === "duplicate") duplicatePost(id);
+      if (action === "review") updatePostStatus(id, "Needs Review");
+      if (action === "approved") updatePostStatus(id, "Approved");
+      if (action === "scheduled") updatePostStatus(id, "Scheduled");
+      if (action === "posted") updatePostStatus(id, "Posted");
+      if (action === "reported") updatePostStatus(id, "Reported");
+      if (action === "delete") deletePost(id);
+      if (action === "copy") copyText(post.caption || "");
+      if (action === "copy-report") copyReportSummary(id);
+      if (action === "changes") {
+        const note = window.prompt("What changes are needed?", post.approvalNote || "");
+        if (note !== null) updatePostStatus(id, "Changes Requested", note.trim());
+      }
+    }
+
     function bindEvents() {
+      document.querySelectorAll(".nav-button[data-page]").forEach((button) => {
+        button.addEventListener("click", () => setPage(button.dataset.page));
+      });
+
+      document.querySelectorAll("[data-page-jump]").forEach((button) => {
+        button.addEventListener("click", () => setPage(button.dataset.pageJump));
+      });
+
+      document.body.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-post-action]");
+        if (!button) return;
+        handlePostAction(button.dataset.postAction, button.dataset.postId);
+      });
+
+      selectors.mobileMenuButton.addEventListener("click", () => {
+        document.body.classList.toggle("sidebar-open");
+      });
+
+      selectors.newPostButton.addEventListener("click", () => {
+        resetForm();
+        setPage("planner");
+        selectors.postTitle.focus();
+      });
+
+      selectors.exportCsvButton.addEventListener("click", exportCsv);
+
       selectors.postForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const post = getPostFromForm();
         const error = validatePost(post);
-
         if (error) {
           showToast(error);
           return;
         }
-
         upsertPost(post);
         showToast(state.editingId ? "Post updated." : "Post saved.");
         resetForm();
@@ -1869,6 +2851,7 @@
       [
         selectors.postTitle,
         selectors.platform,
+        selectors.contentPillar,
         selectors.postType,
         selectors.status,
         selectors.scheduleDateTime,
@@ -1883,75 +2866,87 @@
         state.filters.search = event.target.value;
         renderQueue();
       });
-
       selectors.filterStatus.addEventListener("change", (event) => {
         state.filters.status = event.target.value;
         renderQueue();
       });
-
       selectors.filterPlatform.addEventListener("change", (event) => {
         state.filters.platform = event.target.value;
         renderQueue();
       });
-
-      selectors.queueList.addEventListener("click", (event) => {
-        const button = event.target.closest("button[data-action]");
-        const card = event.target.closest("[data-post-id]");
-        if (!button || !card) return;
-
-        const id = card.dataset.postId;
-        const action = button.dataset.action;
-        const post = state.posts.find((item) => item.id === id);
-
-        if (action === "edit" && post) setFormFromPost(post);
-        if (action === "duplicate") duplicatePost(id);
-        if (action === "ready") updatePostStatus(id, "Ready");
-        if (action === "posted") updatePostStatus(id, "Posted");
-        if (action === "delete") deletePost(id);
+      selectors.filterPillar.addEventListener("change", (event) => {
+        state.filters.pillar = event.target.value;
+        renderQueue();
       });
 
       selectors.generateCaptionButton.addEventListener("click", generateCaption);
-      selectors.useGeneratedButton.addEventListener("click", useGeneratedInPostForm);
+      selectors.generateIdeasButton.addEventListener("click", generateIdeas);
+      selectors.useGeneratedButton.addEventListener("click", useGeneratedInPlanner);
       selectors.copyGeneratedButton.addEventListener("click", () => copyText(selectors.generatedContent.textContent.trim()));
-      selectors.exportCsvButton.addEventListener("click", exportCsv);
 
-      selectors.jumpCreateButton.addEventListener("click", () => {
-        document.getElementById("create").scrollIntoView({ behavior: "smooth", block: "start" });
-        selectors.postTitle.focus();
+      selectors.calendarPrevButton.addEventListener("click", () => {
+        state.calendarCursor = new Date(state.calendarCursor.getFullYear(), state.calendarCursor.getMonth() - 1, 1);
+        state.selectedCalendarDate = getDateKey(new Date(state.calendarCursor.getFullYear(), state.calendarCursor.getMonth(), 1));
+        renderCalendar();
       });
 
-      selectors.jumpQueueButton.addEventListener("click", () => {
-        document.getElementById("queue").scrollIntoView({ behavior: "smooth", block: "start" });
+      selectors.calendarNextButton.addEventListener("click", () => {
+        state.calendarCursor = new Date(state.calendarCursor.getFullYear(), state.calendarCursor.getMonth() + 1, 1);
+        state.selectedCalendarDate = getDateKey(new Date(state.calendarCursor.getFullYear(), state.calendarCursor.getMonth(), 1));
+        renderCalendar();
       });
 
-      selectors.mobileMenuButton.addEventListener("click", () => {
-        document.body.classList.toggle("sidebar-open");
+      selectors.calendarTodayButton.addEventListener("click", () => {
+        const today = new Date();
+        state.calendarCursor = new Date(today.getFullYear(), today.getMonth(), 1);
+        state.selectedCalendarDate = getDateKey(today);
+        renderCalendar();
       });
 
-      document.querySelectorAll(".nav-link[href]").forEach((link) => {
-        link.addEventListener("click", () => {
-          document.body.classList.remove("sidebar-open");
-        });
+      selectors.calendarGrid.addEventListener("click", (event) => {
+        const day = event.target.closest("[data-calendar-date]");
+        if (!day) return;
+        state.selectedCalendarDate = day.dataset.calendarDate;
+        const selected = parseDateKey(state.selectedCalendarDate);
+        state.calendarCursor = new Date(selected.getFullYear(), selected.getMonth(), 1);
+        renderCalendar();
       });
 
-      const observedSections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll(".nav-link[href]");
-      const navObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          navLinks.forEach((link) => {
-            link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
-          });
-        });
-      }, { threshold: 0.32, rootMargin: "-10% 0px -55% 0px" });
+      selectors.workspaceForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        saveWorkspaceFromForm();
+      });
 
-      observedSections.forEach((section) => navObserver.observe(section));
+      selectors.reportList.addEventListener("input", (event) => {
+        const field = event.target.closest("[data-metric]");
+        if (!field) return;
+        const postId = field.dataset.postId;
+        const metricKey = field.dataset.metric;
+        state.metrics[postId] = state.metrics[postId] || {};
+        state.metrics[postId][metricKey] = field.value;
+        saveAll();
+        renderInsights();
+      });
+    }
+
+    function renderAll() {
+      renderStats();
+      renderDashboard();
+      renderQueue();
+      renderApprovals();
+      renderCalendar();
+      renderReports();
+      updateLivePreview();
     }
 
     function init() {
       state.posts = readPosts();
+      state.metrics = readJson(METRICS_KEY, {});
+      state.workspace = readWorkspace();
+      renderOptions();
+      renderWorkspace();
       bindEvents();
-      updateLivePreview();
+      resetForm();
       renderAll();
     }
 
