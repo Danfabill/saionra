@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Saionra Social Scheduler</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #111827;
+      --soft: #f3f4f6;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --radius: 18px;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .brand {
+      margin-bottom: 34px;
+    }
+
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #ffffff;
+      color: #0f172a;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .brand h1 {
+      font-size: 24px;
+      line-height: 1.1;
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .brand p {
+      color: #cbd5e1;
+      font-size: 13px;
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
+
+    .nav-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #94a3b8;
+      letter-spacing: 0.08em;
+      margin: 22px 0 10px;
+    }
+
+    .nav-item {
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .main {
+      padding: 26px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: -0.04em;
+    }
+
+    .topbar p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 11px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      background: var(--soft);
+      color: var(--text);
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    }
+
+    .btn.primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn.success {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    .btn.danger {
+      background: var(--danger);
+      color: #ffffff;
+    }
+
+    .btn.outline {
+      background: #ffffff;
+      border: 1px solid var(--border);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .stat-card strong {
+      font-size: 28px;
+      letter-spacing: -0.04em;
+    }
+
+    .panel-grid {
+      grid-template-columns: 1.05fr 1fr;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .card-desc {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 12px;
+      color: #374151;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 12px 13px;
+      font-size: 14px;
+      outline: none;
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #94a3b8;
+      box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.18);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .ai-output {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      min-height: 120px;
+      color: #1f2937;
+      font-size: 14px;
+      white-space: pre-wrap;
+      line-height: 1.55;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+      align-items: center;
+    }
+
+    .toolbar input,
+    .toolbar select {
+      max-width: 240px;
+    }
+
+    .posts {
+      display: grid;
+      gap: 14px;
+    }
+
+    .post-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .post-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .post-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .post-title h4 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      background: #eef2ff;
+      color: #3730a3;
+      white-space: nowrap;
+    }
+
+    .badge.draft {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .badge.approved {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .badge.scheduled {
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .badge.ready {
+      background: #fff7ed;
+      color: #c2410c;
+    }
+
+    .badge.posted {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge.failed {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .caption-box {
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 12px;
+      color: #374151;
+      font-size: 14px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .post-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .small-btn {
+      border: 1px solid var(--border);
+      background: #ffffff;
+      border-radius: 11px;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .small-btn:hover {
+      background: #f9fafb;
+    }
+
+    .calendar-wrap {
+      margin-top: 20px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .calendar-header h3 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .day-name {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--muted);
+      text-align: center;
+      padding-bottom: 4px;
+    }
+
+    .day {
+      min-height: 105px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .day.muted {
+      opacity: 0.45;
+      background: #f9fafb;
+    }
+
+    .day-number {
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .day-post {
+      border-radius: 10px;
+      background: #f3f4f6;
+      padding: 7px;
+      font-size: 11px;
+      line-height: 1.25;
+      color: #111827;
+      cursor: pointer;
+    }
+
+    .assistant-card {
+      background: #111827;
+      color: #ffffff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 18px;
+    }
+
+    .assistant-card h3 {
+      margin: 0 0 8px;
+      color: #ffffff;
+    }
+
+    .assistant-card p {
+      margin: 0 0 14px;
+      color: #d1d5db;
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .check-item {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 11px;
+      font-size: 13px;
+      color: #f9fafb;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      border: 1px dashed #cbd5e1;
+      border-radius: 18px;
+      color: var(--muted);
+      background: #ffffff;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      background: #111827;
+      color: #ffffff;
+      padding: 13px 16px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 999;
+      font-size: 14px;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    @media (max-width: 1100px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .main {
+        padding: 18px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .day-name {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">S</div>
+        <h1>Saionra</h1>
+        <p>AI Business OS for content, scheduling, and business workflows.</p>
+      </div>
+
+      <div class="nav-title">Social Module</div>
+      <div class="nav-item active">Dashboard</div>
+      <div class="nav-item">Content Calendar</div>
+      <div class="nav-item">AI Creator</div>
+      <div class="nav-item">Draft Manager</div>
+      <div class="nav-item">Posting Assistant</div>
+
+      <div class="nav-title">Coming Soon</div>
+      <div class="nav-item">Meta Auto-Posting</div>
+      <div class="nav-item">Analytics</div>
+      <div class="nav-item">Reports</div>
+      <div class="nav-item">SmartLink</div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h2>Social Scheduler</h2>
+          <p>Create, plan, approve, and schedule content from one simple dashboard.</p>
+        </div>
+
+        <div class="top-actions">
+          <button class="btn outline" onclick="exportCSV()">Export CSV</button>
+          <button class="btn primary" onclick="scrollToForm()">Create Post</button>
+        </div>
+      </div>
+
+      <section class="grid stats">
+        <div class="stat-card">
+          <span>Total Posts</span>
+          <strong id="totalPosts">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Drafts</span>
+          <strong id="draftPosts">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Scheduled</span>
+          <strong id="scheduledPosts">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Ready Today</span>
+          <strong id="readyPosts">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Posted</span>
+          <strong id="postedPosts">0</strong>
+        </div>
+      </section>
+
+      <section class="grid panel-grid">
+        <div class="card" id="postFormCard">
+          <h3>Create Scheduled Post</h3>
+          <p class="card-desc">Add content, choose platform, set date and time, then save it to your planner.</p>
+
+          <form id="postForm">
+            <input type="hidden" id="editingId" />
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="title">Post Title</label>
+                <input id="title" type="text" placeholder="Example: Immigration consultation promo" required />
+              </div>
+
+              <div class="field">
+                <label for="platform">Platform</label>
+                <select id="platform" required>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="YouTube Shorts">YouTube Shorts</option>
+                  <option value="Threads">Threads</option>
+                  <option value="Pinterest">Pinterest</option>
+                  <option value="X">X</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="postType">Post Type</label>
+                <select id="postType">
+                  <option value="Single Image">Single Image</option>
+                  <option value="Carousel">Carousel</option>
+                  <option value="Reel / Short Video">Reel / Short Video</option>
+                  <option value="Story">Story</option>
+                  <option value="Text Post">Text Post</option>
+                  <option value="Link Post">Link Post</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="status">Status</label>
+                <select id="status">
+                  <option value="Draft">Draft</option>
+                  <option value="Approved">Approved</option>
+                  <option value="Scheduled">Scheduled</option>
+                  <option value="Ready">Ready</option>
+                  <option value="Posted">Posted</option>
+                  <option value="Failed">Failed</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="scheduledAt">Schedule Date & Time</label>
+                <input id="scheduledAt" type="datetime-local" required />
+              </div>
+
+              <div class="field">
+                <label for="mediaUrl">Media URL / File Note</label>
+                <input id="mediaUrl" type="text" placeholder="Paste image/video link or file note" />
+              </div>
+
+              <div class="field full">
+                <label for="caption">Caption</label>
+                <textarea id="caption" placeholder="Write or generate your caption here..." required></textarea>
+              </div>
+
+              <div class="field full">
+                <label for="notes">Internal Notes</label>
+                <textarea id="notes" placeholder="Client notes, content angle, CTA, asset reminder..."></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn primary" type="submit">Save Post</button>
+              <button class="btn outline" type="button" onclick="resetForm()">Reset</button>
+              <button class="btn success" type="button" onclick="markDuePostsReady()">Check Due Posts</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3>AI Content Creator</h3>
+          <p class="card-desc">Free first version: smart prompt/template generator. Later we can connect Gemini API or another AI API.</p>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="aiBusiness">Business / Brand</label>
+              <input id="aiBusiness" type="text" placeholder="Example: Saionra, law firm, restaurant" />
+            </div>
+
+            <div class="field">
+              <label for="aiGoal">Goal</label>
+              <select id="aiGoal">
+                <option value="Get leads">Get leads</option>
+                <option value="Build trust">Build trust</option>
+                <option value="Promote offer">Promote offer</option>
+                <option value="Educate audience">Educate audience</option>
+                <option value="Increase engagement">Increase engagement</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="aiAudience">Target Audience</label>
+              <input id="aiAudience" type="text" placeholder="Example: business owners, parents, immigrants" />
+            </div>
+
+            <div class="field">
+              <label for="aiTone">Tone</label>
+              <select id="aiTone">
+                <option value="Professional and simple">Professional and simple</option>
+                <option value="Friendly and clear">Friendly and clear</option>
+                <option value="Direct and confident">Direct and confident</option>
+                <option value="Warm and helpful">Warm and helpful</option>
+                <option value="Premium and persuasive">Premium and persuasive</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" onclick="generateAIContent()">Generate Caption</button>
+            <button class="btn outline" onclick="useGeneratedCaption()">Use in Post Form</button>
+          </div>
+
+          <div class="ai-output" id="aiOutput">Generated content will appear here.</div>
+
+          <div class="assistant-card">
+            <h3>Manual Posting Assistant</h3>
+            <p>For platforms that are not connected yet, Saionra can still prepare everything and guide you step by step.</p>
+
+            <div class="checklist">
+              <div class="check-item">1. Open the scheduled post.</div>
+              <div class="check-item">2. Copy the caption.</div>
+              <div class="check-item">3. Download or open the media file.</div>
+              <div class="check-item">4. Publish manually on the selected platform.</div>
+              <div class="check-item">5. Mark the post as Posted.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card calendar-wrap">
+        <div class="calendar-header">
+          <h3 id="calendarTitle">Calendar</h3>
+          <div class="top-actions">
+            <button class="btn outline" onclick="changeMonth(-1)">Previous</button>
+            <button class="btn outline" onclick="goCurrentMonth()">Today</button>
+            <button class="btn outline" onclick="changeMonth(1)">Next</button>
+          </div>
+        </div>
+
+        <div class="calendar-grid" id="calendar"></div>
+      </section>
+
+      <section class="card" style="margin-top: 20px;">
+        <h3>Draft Manager</h3>
+        <p class="card-desc">Filter, edit, approve, schedule, copy, duplicate, or mark posts as published.</p>
+
+        <div class="toolbar">
+          <input id="searchInput" type="text" placeholder="Search posts..." oninput="renderPosts()" />
+
+          <select id="platformFilter" onchange="renderPosts()">
+            <option value="All">All Platforms</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Facebook">Facebook</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="TikTok">TikTok</option>
+            <option value="YouTube Shorts">YouTube Shorts</option>
+            <option value="Threads">Threads</option>
+            <option value="Pinterest">Pinterest</option>
+            <option value="X">X</option>
+          </select>
+
+          <select id="statusFilter" onchange="renderPosts()">
+            <option value="All">All Status</option>
+            <option value="Draft">Draft</option>
+            <option value="Approved">Approved</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Ready">Ready</option>
+            <option value="Posted">Posted</option>
+            <option value="Failed">Failed</option>
+          </select>
+
+          <button class="btn outline" onclick="seedDemoPosts()">Add Demo Posts</button>
+          <button class="btn danger" onclick="clearAllPosts()">Clear All</button>
+        </div>
+
+        <div class="posts" id="postsList"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = "saionra_social_scheduler_posts_v1";
+
+    let posts = loadPosts();
+    let calendarDate = new Date();
+
+    const form = document.getElementById("postForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const editingId = document.getElementById("editingId").value;
+
+      const postData = {
+        id: editingId || crypto.randomUUID(),
+        title: document.getElementById("title").value.trim(),
+        platform: document.getElementById("platform").value,
+        postType: document.getElementById("postType").value,
+        status: document.getElementById("status").value,
+        scheduledAt: document.getElementById("scheduledAt").value,
+        mediaUrl: document.getElementById("mediaUrl").value.trim(),
+        caption: document.getElementById("caption").value.trim(),
+        notes: document.getElementById("notes").value.trim(),
+        createdAt: editingId
+          ? posts.find(post => post.id === editingId)?.createdAt || new Date().toISOString()
+          : new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      if (!postData.title || !postData.caption || !postData.scheduledAt) {
+        showToast("Please complete the title, caption, and schedule time.");
+        return;
+      }
+
+      if (editingId) {
+        posts = posts.map(post => post.id === editingId ? postData : post);
+        showToast("Post updated.");
+      } else {
+        posts.unshift(postData);
+        showToast("Post saved.");
+      }
+
+      savePosts();
+      resetForm();
+      renderAll();
+    });
+
+    function loadPosts() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function savePosts() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    }
+
+    function renderAll() {
+      updateStats();
+      renderCalendar();
+      renderPosts();
+    }
+
+    function updateStats() {
+      const total = posts.length;
+      const drafts = posts.filter(post => post.status === "Draft").length;
+      const scheduled = posts.filter(post => post.status === "Scheduled").length;
+      const ready = posts.filter(post => post.status === "Ready").length;
+      const posted = posts.filter(post => post.status === "Posted").length;
+
+      document.getElementById("totalPosts").textContent = total;
+      document.getElementById("draftPosts").textContent = drafts;
+      document.getElementById("scheduledPosts").textContent = scheduled;
+      document.getElementById("readyPosts").textContent = ready;
+      document.getElementById("postedPosts").textContent = posted;
+    }
+
+    function renderPosts() {
+      const list = document.getElementById("postsList");
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const platform = document.getElementById("platformFilter").value;
+      const status = document.getElementById("statusFilter").value;
+
+      let filtered = [...posts];
+
+      if (search) {
+        filtered = filtered.filter(post =>
+          post.title.toLowerCase().includes(search) ||
+          post.caption.toLowerCase().includes(search) ||
+          post.platform.toLowerCase().includes(search) ||
+          post.postType.toLowerCase().includes(search)
+        );
+      }
+
+      if (platform !== "All") {
+        filtered = filtered.filter(post => post.platform === platform);
+      }
+
+      if (status !== "All") {
+        filtered = filtered.filter(post => post.status === status);
+      }
+
+      filtered.sort((a, b) => new Date(a.scheduledAt) - new Date(b.scheduledAt));
+
+      if (!filtered.length) {
+        list.innerHTML = `
+          <div class="empty-state">
+            No posts yet. Create your first scheduled post above.
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = filtered.map(post => {
+        return `
+          <article class="post-card">
+            <div class="post-top">
+              <div>
+                <div class="post-title">
+                  <h4>${escapeHTML(post.title)}</h4>
+                  <span class="badge">${escapeHTML(post.platform)}</span>
+                  <span class="badge ${statusClass(post.status)}">${escapeHTML(post.status)}</span>
+                </div>
+
+                <div class="post-meta">
+                  <span>${escapeHTML(post.postType)}</span>
+                  <span>•</span>
+                  <span>${formatDateTime(post.scheduledAt)}</span>
+                  ${post.mediaUrl ? `<span>• Media added</span>` : ""}
+                </div>
+              </div>
+            </div>
+
+            <div class="caption-box">${escapeHTML(post.caption)}</div>
+
+            ${post.notes ? `<div class="caption-box"><strong>Notes:</strong><br>${escapeHTML(post.notes)}</div>` : ""}
+
+            <div class="post-actions">
+              <button class="small-btn" onclick="editPost('${post.id}')">Edit</button>
+              <button class="small-btn" onclick="copyCaption('${post.id}')">Copy Caption</button>
+              <button class="small-btn" onclick="setStatus('${post.id}', 'Approved')">Approve</button>
+              <button class="small-btn" onclick="setStatus('${post.id}', 'Scheduled')">Schedule</button>
+              <button class="small-btn" onclick="setStatus('${post.id}', 'Ready')">Ready</button>
+              <button class="small-btn" onclick="setStatus('${post.id}', 'Posted')">Posted</button>
+              <button class="small-btn" onclick="setStatus('${post.id}', 'Failed')">Failed</button>
+              <button class="small-btn" onclick="duplicatePost('${post.id}')">Duplicate</button>
+              <button class="small-btn" onclick="openPlatform('${post.platform}')">Open Platform</button>
+              <button class="small-btn" onclick="deletePost('${post.id}')">Delete</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderCalendar() {
+      const calendar = document.getElementById("calendar");
+      const title = document.getElementById("calendarTitle");
+
+      const year = calendarDate.getFullYear();
+      const month = calendarDate.getMonth();
+
+      const monthName = calendarDate.toLocaleString("en-US", {
+        month: "long",
+        year: "numeric"
+      });
+
+      title.textContent = monthName;
+
+      const firstDay = new Date(year, month, 1);
+      const startDay = firstDay.getDay();
+
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const previousDays = new Date(year, month, 0).getDate();
+
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      let html = dayNames.map(day => `<div class="day-name">${day}</div>`).join("");
+
+      for (let i = startDay - 1; i >= 0; i--) {
+        html += `
+          <div class="day muted">
+            <div class="day-number">${previousDays - i}</div>
+          </div>
+        `;
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateKey = toDateKey(new Date(year, month, day));
+
+        const dayPosts = posts.filter(post => {
+          if (!post.scheduledAt) return false;
+          return toDateKey(new Date(post.scheduledAt)) === dateKey;
+        });
+
+        html += `
+          <div class="day">
+            <div class="day-number">${day}</div>
+            ${dayPosts.slice(0, 3).map(post => `
+              <div class="day-post" onclick="editPost('${post.id}')">
+                <strong>${escapeHTML(post.platform)}</strong><br>
+                ${escapeHTML(shortText(post.title, 28))}
+              </div>
+            `).join("")}
+            ${dayPosts.length > 3 ? `<div class="day-post">+${dayPosts.length - 3} more</div>` : ""}
+          </div>
+        `;
+      }
+
+      const totalCells = startDay + daysInMonth;
+      const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+
+      for (let i = 1; i <= remaining; i++) {
+        html += `
+          <div class="day muted">
+            <div class="day-number">${i}</div>
+          </div>
+        `;
+      }
+
+      calendar.innerHTML = html;
+    }
+
+    function generateAIContent() {
+      const business = document.getElementById("aiBusiness").value.trim() || "your business";
+      const goal = document.getElementById("aiGoal").value;
+      const audience = document.getElementById("aiAudience").value.trim() || "your target audience";
+      const tone = document.getElementById("aiTone").value;
+      const platform = document.getElementById("platform").value;
+      const postType = document.getElementById("postType").value;
+
+      const hooks = {
+        "Get leads": "Still losing potential clients because your offer is not clear enough?",
+        "Build trust": "Trust is built before the client ever sends a message.",
+        "Promote offer": "Here is a simple way to get more value from this offer.",
+        "Educate audience": "Most people miss this simple point, but it can change the result.",
+        "Increase engagement": "Let’s be honest, this is something many people deal with."
+      };
+
+      const ctas = {
+        "Get leads": "Send us a message today to get started.",
+        "Build trust": "Follow for more simple and helpful tips.",
+        "Promote offer": "Message us now to learn more.",
+        "Educate audience": "Save this post so you can come back to it later.",
+        "Increase engagement": "Comment your thoughts below."
+      };
+
+      const output = `${hooks[goal]}
+
+For ${business}, content should not only look good. It should help ${audience} understand the problem, trust the solution, and take the next step.
+
+Post idea for ${platform}:
+${postType} focused on ${goal.toLowerCase()}.
+
+Caption:
+If you are part of ${audience}, the biggest mistake is waiting until the problem becomes urgent.
+
+A clear system, clear message, and clear next step can make the process easier.
+
+That is what ${business} is built to support: simple, organized, and action-focused work that helps people move forward with confidence.
+
+${ctas[goal]}
+
+Tone: ${tone}
+
+Suggested hashtags:
+#SocialMediaMarketing #ContentStrategy #BusinessGrowth #DigitalMarketing #Saionra`;
+
+      document.getElementById("aiOutput").textContent = output;
+      showToast("Caption generated.");
+    }
+
+    function useGeneratedCaption() {
+      const output = document.getElementById("aiOutput").textContent;
+
+      if (!output || output === "Generated content will appear here.") {
+        showToast("Generate content first.");
+        return;
+      }
+
+      document.getElementById("caption").value = output;
+
+      if (!document.getElementById("title").value) {
+        document.getElementById("title").value = "AI Generated Social Post";
+      }
+
+      showToast("Generated caption added to post form.");
+    }
+
+    function editPost(id) {
+      const post = posts.find(item => item.id === id);
+
+      if (!post) return;
+
+      document.getElementById("editingId").value = post.id;
+      document.getElementById("title").value = post.title;
+      document.getElementById("platform").value = post.platform;
+      document.getElementById("postType").value = post.postType;
+      document.getElementById("status").value = post.status;
+      document.getElementById("scheduledAt").value = post.scheduledAt;
+      document.getElementById("mediaUrl").value = post.mediaUrl || "";
+      document.getElementById("caption").value = post.caption;
+      document.getElementById("notes").value = post.notes || "";
+
+      scrollToForm();
+      showToast("Post loaded for editing.");
+    }
+
+    function resetForm() {
+      form.reset();
+      document.getElementById("editingId").value = "";
+      document.getElementById("status").value = "Draft";
+    }
+
+    function deletePost(id) {
+      const confirmed = confirm("Delete this post?");
+
+      if (!confirmed) return;
+
+      posts = posts.filter(post => post.id !== id);
+      savePosts();
+      renderAll();
+      showToast("Post deleted.");
+    }
+
+    function duplicatePost(id) {
+      const post = posts.find(item => item.id === id);
+
+      if (!post) return;
+
+      const copy = {
+        ...post,
+        id: crypto.randomUUID(),
+        title: post.title + " Copy",
+        status: "Draft",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+
+      posts.unshift(copy);
+      savePosts();
+      renderAll();
+      showToast("Post duplicated.");
+    }
+
+    function setStatus(id, status) {
+      posts = posts.map(post => {
+        if (post.id !== id) return post;
+
+        return {
+          ...post,
+          status,
+          updatedAt: new Date().toISOString()
+        };
+      });
+
+      savePosts();
+      renderAll();
+      showToast(`Status changed to ${status}.`);
+    }
+
+    function copyCaption(id) {
+      const post = posts.find(item => item.id === id);
+
+      if (!post) return;
+
+      navigator.clipboard.writeText(post.caption)
+        .then(() => showToast("Caption copied."))
+        .catch(() => showToast("Copy failed. Please copy manually."));
+    }
+
+    function openPlatform(platform) {
+      const links = {
+        "Instagram": "https://www.instagram.com/",
+        "Facebook": "https://www.facebook.com/",
+        "LinkedIn": "https://www.linkedin.com/",
+        "TikTok": "https://www.tiktok.com/",
+        "YouTube Shorts": "https://www.youtube.com/",
+        "Threads": "https://www.threads.net/",
+        "Pinterest": "https://www.pinterest.com/",
+        "X": "https://x.com/"
+      };
+
+      window.open(links[platform] || "https://www.google.com/", "_blank");
+    }
+
+    function markDuePostsReady() {
+      const now = new Date();
+
+      let changed = 0;
+
+      posts = posts.map(post => {
+        const scheduledDate = new Date(post.scheduledAt);
+
+        if (
+          post.status === "Scheduled" &&
+          scheduledDate <= now
+        ) {
+          changed++;
+
+          return {
+            ...post,
+            status: "Ready",
+            updatedAt: new Date().toISOString()
+          };
+        }
+
+        return post;
+      });
+
+      savePosts();
+      renderAll();
+
+      if (changed) {
+        showToast(`${changed} due post(s) marked as Ready.`);
+      } else {
+        showToast("No due scheduled posts right now.");
+      }
+    }
+
+    function exportCSV() {
+      if (!posts.length) {
+        showToast("No posts to export.");
+        return;
+      }
+
+      const headers = [
+        "Title",
+        "Platform",
+        "Post Type",
+        "Status",
+        "Scheduled At",
+        "Media URL",
+        "Caption",
+        "Notes",
+        "Created At",
+        "Updated At"
+      ];
+
+      const rows = posts.map(post => [
+        post.title,
+        post.platform,
+        post.postType,
+        post.status,
+        post.scheduledAt,
+        post.mediaUrl,
+        post.caption,
+        post.notes,
+        post.createdAt,
+        post.updatedAt
+      ]);
+
+      const csv = [
+        headers,
+        ...rows
+      ].map(row => row.map(cell => `"${String(cell || "").replace(/"/g, '""')}"`).join(",")).join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "saionra-social-posts.csv";
+      link.click();
+
+      URL.revokeObjectURL(url);
+      showToast("CSV exported.");
+    }
+
+    function seedDemoPosts() {
+      const now = new Date();
+
+      const demo = [
+        {
+          title: "AI content workflow promo",
+          platform: "LinkedIn",
+          postType: "Text Post",
+          status: "Draft",
+          scheduledAt: addDaysInputValue(now, 1, 9, 0),
+          mediaUrl: "",
+          caption: "A strong content system does not start with random posting. It starts with a clear offer, clear audience, clear calendar, and a simple way to track what is working.\n\nThat is what Saionra is being built for.",
+          notes: "Use for Saionra portfolio positioning."
+        },
+        {
+          title: "Instagram carousel idea",
+          platform: "Instagram",
+          postType: "Carousel",
+          status: "Scheduled",
+          scheduledAt: addDaysInputValue(now, 2, 18, 30),
+          mediaUrl: "Canva carousel draft",
+          caption: "5 reasons your content is not converting yet:\n\n1. The offer is not clear\n2. The CTA is weak\n3. The content has no direction\n4. There is no follow-up system\n5. The results are not being tracked\n\nFix the system, not only the caption.",
+          notes: "Carousel: 6 slides."
+        },
+        {
+          title: "Facebook trust post",
+          platform: "Facebook",
+          postType: "Single Image",
+          status: "Approved",
+          scheduledAt: addDaysInputValue(now, 3, 12, 0),
+          mediaUrl: "",
+          caption: "People do not hire only because a service exists. They hire when the message is clear, the process looks organized, and the next step feels easy.",
+          notes: "Good for service business audience."
+        }
+      ].map(item => ({
+        ...item,
+        id: crypto.randomUUID(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      }));
+
+      posts = [...demo, ...posts];
+      savePosts();
+      renderAll();
+      showToast("Demo posts added.");
+    }
+
+    function clearAllPosts() {
+      const confirmed = confirm("Clear all posts? This cannot be undone.");
+
+      if (!confirmed) return;
+
+      posts = [];
+      savePosts();
+      renderAll();
+      showToast("All posts cleared.");
+    }
+
+    function changeMonth(direction) {
+      calendarDate = new Date(
+        calendarDate.getFullYear(),
+        calendarDate.getMonth() + direction,
+        1
+      );
+
+      renderCalendar();
+    }
+
+    function goCurrentMonth() {
+      calendarDate = new Date();
+      renderCalendar();
+    }
+
+    function scrollToForm() {
+      document.getElementById("postFormCard").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function statusClass(status) {
+      return String(status || "").toLowerCase();
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "No schedule";
+
+      const date = new Date(value);
+
+      return date.toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    function toDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function shortText(text, max) {
+      if (!text) return "";
+
+      return text.length > max
+        ? text.slice(0, max) + "..."
+        : text;
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function addDaysInputValue(baseDate, days, hours, minutes) {
+      const date = new Date(baseDate);
+
+      date.setDate(date.getDate() + days);
+      date.setHours(hours);
+      date.setMinutes(minutes);
+      date.setSeconds(0);
+      date.setMilliseconds(0);
+
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hour = String(date.getHours()).padStart(2, "0");
+      const minute = String(date.getMinutes()).padStart(2, "0");
+
+      return `${year}-${month}-${day}T${hour}:${minute}`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    renderAll();
+  </script>
+</body>
+</html>
